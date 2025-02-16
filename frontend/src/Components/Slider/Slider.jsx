@@ -19,8 +19,11 @@ const Slider = () => {
                 </div>
                 <h1 className="slider-name">Kagurabachi</h1>
                 <p className="slider-description">Chihiro, con trai của một thợ rèn huyền thoại, sống yên bình cho đến khi bi kịch ập đến, cướp đi tất cả. Cầm thanh kiếm cuối cùng của cha, cậu lao vào hành trình báo thù, đối mặt với những kẻ thù tàn ác và bí ẩn đằng sau thanh kiếm huyền thoại.</p>
-                <div className="slider-btn">
-                    <h1 className='slider-read'>Đọc ngay</h1>
+                <div className="btn-wrap">
+                    <div className="temp"></div>
+                    <div className="slider-btn">
+                        <h1 className='slider-read'>Đọc ngay</h1>
+                    </div>
                 </div>
             </div>
         </div>

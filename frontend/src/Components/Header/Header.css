@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 100px;
+    height: 80px;
     color: #ffffff;
     font-weight: 700;
     font-size: 16px;
@@ -69,8 +69,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background: #C42F44;
     margin: 0px 10px;
@@ -79,8 +79,8 @@
 
 .search-icon {
     color: #f3f3f3;
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
 }
 
 .header-lightmode {
