@@ -1,0 +1,59 @@
+.slider {
+
+}
+
+.slider-container {
+    position: relative;
+}
+
+.slider-img {
+    height: 400px;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+.slider-wrap {
+    background: rgba(255, 255, 255, 0.8);    
+    position: absolute;
+    top: 50px;
+    left: 15%;
+    height: 300px;
+    width: 442px;
+}
+
+.slider-title {
+
+}
+
+.title-text {
+
+}
+
+.wrap-dot {
+
+}
+
+.dot {
+
+}
+
+.active {
+
+}
+
+.slider-name {
+
+}
+
+.slider-description {
+
+}
+
+.slider-btn {
+
+}
+
+.slider-read {
+
+}
