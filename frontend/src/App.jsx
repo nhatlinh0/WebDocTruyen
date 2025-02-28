@@ -1,25 +1,28 @@
-import { BrowserRouter, Routes, Route} from "react-router-dom"
-import Header from "./Components/Header/Header"
-import Home from './Pages/Home/Home'
-import Footer from "./Components/Footer/Footer"
-import Comic from "./Pages/Comic/Comic"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Header from "./Components/Header/Header";
+import Home from "./Pages/Home/Home";
+import Footer from "./Components/Footer/Footer";
+import Comic from "./Pages/Comic/Comic";
+import Reading from "./Pages/Reading/Reading";
 
 function App() {
   return (
-    <div className='w-full mx-auto bg-[#231B27]'>
+    <div className="w-full mx-auto bg-[#231B27]">
       <BrowserRouter>
-        <Header/> 
+        <Header />
         <Routes>
-          <Route path="/" element={<Home/>}/>
-          <Route path="/comic" element={<Comic/>}>
-            <Route path=":comicId" element={<Comic/>}></Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/comic" element={<Comic />}>
+            <Route path=":comicId" element={<Comic />}></Route>
+          </Route>
+          <Route path="/reading" element={<Reading />}>
+            <Route path=":comicSlug" element={<Reading />}></Route>
           </Route>
         </Routes>
-        <Footer/>
+        <Footer />
       </BrowserRouter>
-
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

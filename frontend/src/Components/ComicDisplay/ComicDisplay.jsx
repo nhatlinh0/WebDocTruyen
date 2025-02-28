@@ -14,7 +14,7 @@ const ComicDisplay = ({ comic }) => {
         <img
           src={comic.img}
           alt=""
-          className="absolute top-1/2 left-20 -translate-y-1/2 w-57 h-70"
+          className="absolute top-1/2 left-20 -translate-y-1/2 w-57 h-70 object-cover"
         />
       </div>
 

@@ -5,6 +5,7 @@ import ComicDisplay from "../../Components/ComicDisplay/ComicDisplay";
 import ChapterList from "../../Components/ChapterList/ChapterList";
 import Session from "../../Components/Session/Session";
 import ComicItem from "../../Components/ComicItem/ComicItem";
+import Comment from "../../Components/Comment/Comment";
 
 const Comic = () => {
   const { allComics } = useContext(ComicContext);
@@ -14,7 +15,8 @@ const Comic = () => {
   return (
     <div className="mt-10">
       <ComicDisplay comic={comic} />
-      <ChapterList comicId={comic.id} />
+      <ChapterList comicId={comic.id} comicSlug={comic.slug} />
+      <Comment />
       <Session title="Truyện liên quan">
         {allComics.map((item, i) => (
           <ComicItem
