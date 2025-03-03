@@ -4,6 +4,8 @@ import Home from "./Pages/Home/Home";
 import Footer from "./Components/Footer/Footer";
 import Comic from "./Pages/Comic/Comic";
 import Reading from "./Pages/Reading/Reading";
+import CategoryComic from "./Pages/CategoryComic/CategoryComic";
+import CategoryList from "./Pages/CategoryList/CategoryList";
 
 function App() {
   return (
@@ -16,8 +18,12 @@ function App() {
             <Route path=":comicId" element={<Comic />}></Route>
           </Route>
           <Route path="/reading" element={<Reading />}>
-            <Route path=":comicSlug" element={<Reading />}></Route>
+            <Route path=":comicSlug" element={<Reading />}>
+              <Route path=":chapterId" element={<Reading />}></Route>
+            </Route>
           </Route>
+          <Route path="/category" element={<CategoryComic />} />
+          <Route path="/allcategory" element={<CategoryList />} />
         </Routes>
         <Footer />
       </BrowserRouter>

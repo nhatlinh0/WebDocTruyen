@@ -1,6 +1,7 @@
 import React from "react";
 import sao from "../../Assets/sao-slider.jpg";
 import { MdOutlineStar } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const ComicDisplay = ({ comic }) => {
   return (
@@ -24,15 +25,11 @@ const ComicDisplay = ({ comic }) => {
             Trạng thái: <span className="text-[#FBFB6A]">{comic.status}</span>
           </p>
           <div className="flex justify-center items-center gap-2">
-            <div className="px-6 py-1 rounded-xl font-bold cursor-pointer bg-[#4B474E]">
-              Action
-            </div>
-            <div className="px-6 py-1 rounded-xl font-bold cursor-pointer bg-[#4B474E]">
-              Fantasy
-            </div>
-            <div className="px-6 py-1 rounded-xl font-bold cursor-pointer bg-[#4B474E]">
-              Romance
-            </div>
+            {comic.category.map((item) => (
+              <div className="px-6 py-1 rounded-xl font-bold cursor-pointer bg-[#4B474E]">
+                {item}
+              </div>
+            ))}
           </div>
         </div>
 
@@ -45,25 +42,22 @@ const ComicDisplay = ({ comic }) => {
               <MdOutlineStar className="text-xl text-[#FFFF0C]" />
             </div>
             <div className="flex items-center gap-2 my-4">
-              <div className="rounded-xl w-45 py-4 bg-[#C72F44] text-center uppercase text-base font-bold cursor-pointer">
-                Đọc ngay
-              </div>
+              <Link to={`/reading/${comic.slug}/1`}>
+                <div
+                  className="rounded-xl w-45 py-4 bg-[#C72F44] text-center uppercase text-base font-bold cursor-pointer"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  Đọc ngay
+                </div>
+              </Link>
               <div className="rounded-xl w-45 py-4 text-[#C72F44] border-2 border-[#C72F44] bg-white text-center uppercase text-base font-bold cursor-pointer">
                 Lưu truyện
               </div>
             </div>
           </div>
-          <div className="bg-[#231B27] rounded-xl p-3 flex-1">
+          <div className="bg-[#231B27] rounded-xl p-4 mb-4 flex-1">
             <p className="font-bold py-2">Nội dung</p>
-            <p className="text-sm">
-              Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều
-              khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò
-              chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng
-              hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art
-              Online - game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính
-              thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái
-              bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi.{" "}
-            </p>
+            <p className="text-sm">{comic.desc}</p>
           </div>
         </div>
       </div>
