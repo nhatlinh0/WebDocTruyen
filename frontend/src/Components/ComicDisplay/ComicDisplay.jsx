@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import sao from "../../Assets/sao-slider.jpg";
 import { MdOutlineStar } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { ComicContext } from "../../Context/ComicContext";
 
 const ComicDisplay = ({ comic }) => {
+  const { allCategory } = useContext(ComicContext);
+  const category = allCategory.filter((item) => {
+    return comic.category.includes(item.name);
+  });
+
   return (
     <div className=" rounded-3xl bg-[#151018] mx-25">
       <div className="relative h-88 w-full">
@@ -25,10 +31,15 @@ const ComicDisplay = ({ comic }) => {
             Trạng thái: <span className="text-[#FBFB6A]">{comic.status}</span>
           </p>
           <div className="flex justify-center items-center gap-2">
-            {comic.category.map((item) => (
-              <div className="px-6 py-1 rounded-xl font-bold cursor-pointer bg-[#4B474E]">
-                {item}
-              </div>
+            {category.map((item) => (
+              <Link to={`/category/${item.id}`}>
+                <div
+                  className="px-6 py-1 rounded-xl font-bold cursor-pointer bg-[#4B474E]"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  {item.name}
+                </div>
+              </Link>
             ))}
           </div>
         </div>

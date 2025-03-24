@@ -1,32 +1,55 @@
-import React from "react";
-// import './Header.css'
+import React, { useContext } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoSearchOutline } from "react-icons/io5";
-import { MdOutlineLightMode } from "react-icons/md";
-import userIcon from "../../Assets/icons8-user-100.png";
+import { MdOutlineLogin } from "react-icons/md";
+import { FaRegMoon } from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa";
+import { FaRegBookmark } from "react-icons/fa";
+import { FaRegClock } from "react-icons/fa";
+import { IoSettingsOutline } from "react-icons/io5";
+import userIcon from "../../Assets/avatar-icon.jpg";
 import { Link } from "react-router-dom";
+import { ComicContext } from "../../Context/ComicContext";
 
 const Header = () => {
+  const { allCategory } = useContext(ComicContext);
+
   return (
-    <div className="flex justify-between items-center h-20 text-white text-base font-bold bg-gradient-to-b from-[#2B1552] to [#23B1B27]">
+    <div className="flex justify-between items-center h-16 text-white text-base font-bold bg-gradient-to-b from-[#2B1552] to [#23B1B27]">
       <Link to={"/"}>
-        <h1 className="uppercase text-[32px] text-[#C42F44] w-40 text-center cursor-pointer select-none hover:text-[#ff4d6d] duration-300">
+        <h1 className="uppercase text-[32px] text-[#C42F44] ml-20 cursor-pointer select-none hover:text-[#ff4d6d] duration-300">
           READ3
         </h1>
       </Link>
-      <p className="cursor-pointer text-xl hover:text-[#ffcc00] duration-300">
-        Mới nhất
-      </p>
-      <p className="cursor-pointer text-xl hover:text-[#ffcc00] duration-300">
-        Phổ biến
-      </p>
-      <div className="h-[30px] bg-transparent flex justify-between items-center cursor-pointer hover:text-[#ffcc00]">
-        <p className="text-xl">Thể loại</p>
+
+      <Link to={"/newest"}>
+        <p className="cursor-pointer hover:text-[#ff4d6d] duration-300">
+          Mới nhất
+        </p>
+      </Link>
+      <Link to={"/popular"}>
+        <p className="cursor-pointer hover:text-[#ff4d6d] duration-300">
+          Phổ biến
+        </p>
+      </Link>
+
+      <div className="h-[30px] relative group bg-transparent flex justify-between items-center cursor-pointer hover:text-[#ff4d6d]">
+        <p className="">Thể loại</p>
         <IoIosArrowDown className="m-2.5" />
+
+        <div className="absolute left-1/2 -translate-x-1/2 top-[48px] z-10 w-[500px] bg-[#231B27] border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+          <ul className="grid grid-cols-3 p-6">
+            {allCategory.map((item) => (
+              <Link to={`/category/${item.id}`}>
+                <li className="px-4 py-2 hover:bg-gray-200">{item.name}</li>
+              </Link>
+            ))}
+          </ul>
+        </div>
       </div>
-      <div className="flex justify-between items-center w-xl bg-[#d9d9d9] rounded-4xl border-4 border-[rgba(196,47,68,0.4)] h-12.5 hover:border-[#C42F44] duration-300">
+      <div className="flex justify-between items-center max-w-xl bg-[#d9d9d9] rounded-xl border-2 border-[rgba(196,47,68,0.4)] h-10 hover:border-[#C42F44] duration-300">
         <input
-          className="h-7.5 w-85 ml-5 bg-transparent border-transparent outline-none text-base placeholder-red-300 text-rose-600"
+          className="h-7.5 w-85 ml-5 bg-transparent border-transparent outline-none text-sm placeholder-red-300 text-rose-600"
           type="text"
           placeholder="Bạn muốn tìm truyện gì?"
         />
@@ -34,12 +57,56 @@ const Header = () => {
           <IoSearchOutline className="w-5 h-5 text-[#f3f3f3]" />
         </div>
       </div>
-      <MdOutlineLightMode className="w-10 h-10 cursor-pointer hover:text-yellow-400 duration-300" />
-      <img
-        src={userIcon}
-        alt=""
-        className="w-16 h-16 m-5 cursor-pointer hover:scale-110 transition duration-300"
-      />
+      <FaRegMoon className="w-5 h-5 cursor-pointer hover:text-[#ff4d6d] duration-300" />
+      <div className="group relative flex items-center justify-center mr-20 space-x-2">
+        <img
+          src={userIcon}
+          alt=""
+          className="w-11 h-11 rounded-[50%] cursor-pointer hover:scale-110 transition duration-300"
+        />
+        <p className="w-30 text-center truncate">Nguyen Linh</p>
+
+        <div className="absolute top-[55px] z-50 w-64 bg-[#231B27] border border-[#C42F44] rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+          <div className="p-4 border-b border-[#3a2a43]">
+            <div className="flex items-center space-x-3">
+              <img
+                src={userIcon}
+                alt="User profile"
+                className="w-12 h-12 rounded-full border-2 border-[#C42F44]"
+              />
+              <div>
+                <p className="font-medium text-white">Nguyen Linh</p>
+              </div>
+            </div>
+          </div>
+
+          <ul className="p-2 font-normal text-white">
+            <Link to={"/profile"}>
+              <li className="px-4 py-3 flex items-center space-x-2 hover:bg-[#2B1552] hover:text-[#ff4d6d] rounded-md transition-colors duration-200 cursor-pointer">
+                <FaRegUser />
+                <span>Thông tin hồ sơ</span>
+              </li>
+            </Link>
+
+            <li className="px-4 py-3 flex items-center space-x-2 hover:bg-[#2B1552] hover:text-[#ff4d6d] rounded-md transition-colors duration-200 cursor-pointer">
+              <FaRegBookmark />
+              <span>Truyện đã lưu</span>
+            </li>
+
+            <li className="px-4 py-3 flex items-center space-x-2 hover:bg-[#2B1552] hover:text-[#ff4d6d] rounded-md transition-colors duration-200 cursor-pointer">
+              <FaRegClock />
+              <span>Lịch sử đọc</span>
+            </li>
+          </ul>
+
+          <div className="p-2 border-t border-[#3a2a43]">
+            <button className="w-full flex items-center justify-center space-x-2 px-4 py-2.5 bg-[#2B1552] hover:bg-[#231B27] text-white rounded-md border border-[#C42F44] transition-colors duration-200 cursor-pointer">
+              <MdOutlineLogin className="w-5 h-5 text-[#c42f44]" />
+              <span>Đăng xuất</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

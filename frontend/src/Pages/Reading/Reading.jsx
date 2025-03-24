@@ -70,7 +70,9 @@ const Reading = () => {
       </div>
 
       <div className="mx-55 my-20">
-        <p className="text-2xl leading-20 select-none">{chapter.content}</p>
+        <p className="text-2xl leading-20 select-none whitespace-pre-wrap">
+          {chapter.content}
+        </p>
       </div>
 
       <div className="flex justify-center items-center gap-20">

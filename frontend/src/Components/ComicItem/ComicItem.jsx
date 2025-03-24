@@ -14,13 +14,13 @@ const ComicItem = (props) => {
           alt=""
           className="object-cover object-top w-[285px] h-[350px] duration-300 group-hover:brightness-75 "
         />
-        <p className="text-2xl font-bold text-white duration-300 group-hover:text-[#C42F44] ">
+        <p className="text-xl font-bold text-white duration-300 group-hover:text-[#C42F44] ">
           {props.name}
         </p>
-        <p className="text-white text-lg font-light">Chương {props.chapter}</p>
+        <p className="text-white font-light">Chương {props.chapter}</p>
         <div className="flex items-center">
           <MdStarRate className="text-yellow-300 mr-2" />
-          <p className="text-white text-xl font-bold">{props.rate}/5</p>
+          <p className="text-white font-bold">{props.rate}/5</p>
         </div>
       </div>
     </Link>

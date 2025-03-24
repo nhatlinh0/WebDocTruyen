@@ -6,6 +6,9 @@ import Comic from "./Pages/Comic/Comic";
 import Reading from "./Pages/Reading/Reading";
 import CategoryComic from "./Pages/CategoryComic/CategoryComic";
 import CategoryList from "./Pages/CategoryList/CategoryList";
+import NewestComic from "./Pages/NewestComic/NewestComic";
+import PopularComic from "./Pages/PopularComic/PopularComic";
+import User from "./Pages/User/User";
 
 function App() {
   return (
@@ -22,8 +25,13 @@ function App() {
               <Route path=":chapterId" element={<Reading />}></Route>
             </Route>
           </Route>
-          <Route path="/category" element={<CategoryComic />} />
+          <Route path="/category" element={<CategoryComic />}>
+            <Route path=":id" element={<CategoryComic />}></Route>
+          </Route>
           <Route path="/allcategory" element={<CategoryList />} />
+          <Route path="/newest" element={<NewestComic />} />
+          <Route path="/popular" element={<PopularComic />} />
+          <Route path="/profile" element={<User />} />
         </Routes>
         <Footer />
       </BrowserRouter>
