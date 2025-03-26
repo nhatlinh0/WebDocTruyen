@@ -6,15 +6,15 @@ import { useParams } from "react-router-dom";
 const CategoryComic = () => {
   const { allComics, allCategory } = useContext(ComicContext);
   const { id } = useParams();
-  const categoryName = allCategory.find((item) => item.id == id).name;
+  const category = allCategory.find((item) => item.id == id);
   const totalComics = allComics.filter((item) => {
-    return item.category.includes(categoryName);
+    return item.category.includes(category.id);
   });
 
   return (
     <div className="text-white">
-      <h1 className="text-3xl font-bold ml-27 my-12">
-        Thể loại: Truyện {categoryName}
+      <h1 className="text-xl font-bold ml-27 my-12">
+        Thể loại: Truyện {category.name}
       </h1>
       <p className=" text-xl mx-30 my-10">{totalComics.length} kết quả</p>
       <div className="grid grid-cols-4 justify-items-center gap-y-10 mx-30 mb-60">

@@ -20,7 +20,7 @@ const Slider = () => {
               <div className="h-2.5 w-2.5 rounded-full border-1 border-[#c42f44] m-1 cursor-pointer"></div>
             </div>
           </div>
-          <h1 className="text-3xl font-bold my-5">Kagurabachi</h1>
+          <h1 className="text-3xl font-bold my-5">Sword Art Online</h1>
           <p className="text-xs font-bold h-25">
             Chihiro, con trai của một thợ rèn huyền thoại, sống yên bình cho đến
             khi bi kịch ập đến, cướp đi tất cả. Cầm thanh kiếm cuối cùng của

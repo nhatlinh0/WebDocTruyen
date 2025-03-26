@@ -6,7 +6,7 @@ const CategoryList = () => {
   const { allCategory } = useContext(ComicContext);
   return (
     <div className="text-white">
-      <h1 className="text-3xl font-bold ml-27 my-12">Tất cả thể loại</h1>
+      <h1 className="text-xl font-bold ml-27 my-12">Tất cả thể loại</h1>
 
       <div className="grid grid-cols-4 justify-items-center gap-y-10 mx-30 mb-60">
         {allCategory.map((item, i) => {

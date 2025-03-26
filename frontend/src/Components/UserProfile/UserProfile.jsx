@@ -1,5 +1,4 @@
 import React from "react";
-import { CiEdit } from "react-icons/ci";
 import usercover from "../../Assets/user-cover.jpg";
 import avatar from "../../Assets/avatar-icon.jpg";
 const UserProfile = () => {
@@ -21,8 +20,7 @@ const UserProfile = () => {
           <p className="text-lg">(hello)</p>
         </div>
         <div className="text-[#C72F44] text-lg py-6">
-          <span className="cursor-pointer">Sửa hồ sơ</span>
-          <CiEdit className="cursor-pointer inline-block w-6 h-6 ml-1" />
+          <span className="cursor-pointer"></span>
         </div>
       </div>
     </div>

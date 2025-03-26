@@ -12,13 +12,21 @@ const Comic = () => {
   const { comicId } = useParams();
   const comic = allComics.find((item) => item.id === Number(comicId));
 
+  const relatedComics = allComics
+    .filter((item) => {
+      if (!item || !comic) return false;
+      if (item.id === comic.id) return false;
+      return item.category.some((cat) => comic.category.includes(cat));
+    })
+    .slice(0, 8);
+
   return (
     <div className="mt-10">
       <ComicDisplay comic={comic} />
       <ChapterList comicId={comic.id} comicSlug={comic.slug} />
       <Comment />
       <Session title="Truyện liên quan">
-        {allComics.map((item, i) => (
+        {relatedComics.map((item, i) => (
           <ComicItem
             key={i}
             id={item.id}

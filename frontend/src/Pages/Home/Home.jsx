@@ -7,6 +7,7 @@ import Introduce from "../../Components/Introduce/Introduce";
 import OtherItem from "../../Components/OtherItem/OtherItem";
 import { useContext } from "react";
 import { ComicContext } from "../../Context/ComicContext";
+import WebCard from "../../Components/WebCard/WebCard";
 
 const Home = () => {
   const { truyenDeXuat, allCategory, truyenMoi } = useContext(ComicContext);
@@ -14,7 +15,7 @@ const Home = () => {
   return (
     <div>
       <Slider />
-      <Session title="Truyện đề xuất" more>
+      <Session title="Truyện đề xuất" more type="popular">
         {truyenDeXuat.map((item, i) => {
           return (
             <ComicItem
@@ -28,7 +29,7 @@ const Home = () => {
           );
         })}
       </Session>
-      <Session title="Truyện mới cập nhật" more>
+      <Session title="Truyện mới cập nhật" more type="newest">
         {truyenMoi.map((item, i) => {
           return (
             <ComicItem
@@ -58,7 +59,11 @@ const Home = () => {
           <OtherItem />
         </Link>
       </Session>
+      <h1 className="text-white text-center font-bold text-3xl mb-10 mt-50">
+        Bước vào thế giới của những câu chuyện không giới hạn ngay tại đây!
+      </h1>
       <Introduce />
+      <WebCard />
     </div>
   );
 };

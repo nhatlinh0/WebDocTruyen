@@ -1,13 +1,15 @@
 import React from "react";
 import UserProfile from "../../Components/UserProfile/UserProfile";
-import Footer from "../../Components/Footer/Footer";
-import { CiEdit } from "react-icons/ci";
 import MenuUser from "../../Components/MenuUser/MenuUser";
+import { useLocation } from "react-router-dom";
+
 const User = () => {
+  const location = useLocation();
+  const selectedMenu = location.state?.menu || "saved";
   return (
     <div>
       <UserProfile />
-      <MenuUser />
+      <MenuUser initialMenu={selectedMenu} />
     </div>
   );
 };

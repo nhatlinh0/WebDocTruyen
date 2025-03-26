@@ -9,6 +9,7 @@ import CategoryList from "./Pages/CategoryList/CategoryList";
 import NewestComic from "./Pages/NewestComic/NewestComic";
 import PopularComic from "./Pages/PopularComic/PopularComic";
 import User from "./Pages/User/User";
+import SearchResults from "./Pages/SearchResults/SearchResults";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/newest" element={<NewestComic />} />
           <Route path="/popular" element={<PopularComic />} />
           <Route path="/profile" element={<User />} />
+          <Route path="/search" element={<SearchResults />} />
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -3,10 +3,10 @@ import { ComicContext } from "../../Context/ComicContext";
 import ComicItem from "../ComicItem/ComicItem";
 
 import Setting from "../Setting/Setting";
+import { useLocation } from "react-router-dom";
 
-const MenuUser = () => {
-  const [menu, setMenu] = useState("saved");
-
+const MenuUser = ({ initialMenu }) => {
+  const [menu, setMenu] = useState(initialMenu);
   const { allComics } = useContext(ComicContext);
   const getMenuItemClasses = (menuName) => {
     return {
@@ -70,38 +70,44 @@ const MenuUser = () => {
       {/* MAIN */}
 
       {menu == "saved" && (
-        <div className="flex gap-20 justify-between mx-2 mt-14 ">
-          <div className="grid grid-cols-3 gap-y-8">
-            {allComics.map((item, i) => (
-              <ComicItem
-                key={i}
-                id={item.id}
-                img={item.img}
-                name={item.name}
-                chapter={item.chapter}
-                rate={item.rate}
-              />
-            ))}
+        <div>
+          <h3 className="text-xl text-white mt-20 ml-5">Truyện đã lưu</h3>
+          <div className="flex gap-20 justify-between mx-2 mt-8 ">
+            <div className="grid grid-cols-3 gap-y-8">
+              {allComics.map((item, i) => (
+                <ComicItem
+                  key={i}
+                  id={item.id}
+                  img={item.img}
+                  name={item.name}
+                  chapter={item.chapter}
+                  rate={item.rate}
+                />
+              ))}
+            </div>
+            <div className="min-w-100 bg-amber-50"></div>
           </div>
-          <div className="min-w-100 bg-amber-50"></div>
         </div>
       )}
 
       {menu == "history" && (
-        <div className="flex gap-20 justify-between mx-2 mt-14 ">
-          <div className="grid grid-cols-3 gap-y-8">
-            {allComics.map((item, i) => (
-              <ComicItem
-                key={i}
-                id={item.id}
-                img={item.img}
-                name={item.name}
-                chapter={item.chapter}
-                rate={item.rate}
-              />
-            ))}
+        <div>
+          <h3 className="text-xl text-white  mt-20 ml-5">Lịch sử đọc truyện</h3>
+          <div className="flex gap-20 justify-between mx-2 mt-8 ">
+            <div className="grid grid-cols-3 gap-y-8">
+              {allComics.map((item, i) => (
+                <ComicItem
+                  key={i}
+                  id={item.id}
+                  img={item.img}
+                  name={item.name}
+                  chapter={item.chapter}
+                  rate={item.rate}
+                />
+              ))}
+            </div>
+            <div className="min-w-100 bg-amber-50"></div>
           </div>
-          <div className="min-w-100 bg-amber-50"></div>
         </div>
       )}
 

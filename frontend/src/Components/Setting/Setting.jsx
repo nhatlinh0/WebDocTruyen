@@ -5,9 +5,11 @@ import usercover from "../../Assets/user-cover.jpg";
 const Setting = () => {
   return (
     <div className="mt-14">
-      <h2 className="text-white text-2xl font-bold mb-8">Cài đặt tài khoản</h2>
+      <h2 className="text-white text-xl ring-2 p-2  ring-[#41276b] mb-12 text-center shadow-[#41276b] shadow-xl">
+        Cài đặt tài khoản
+      </h2>
 
-      <div className="bg-[#2B1552] rounded-lg p-6 max-w-3xl">
+      <div className="bg-[#2B1552] rounded-lg p-6 max-w-5xl mx-auto">
         <h3 className="text-white text-xl mb-6 border-b border-[#41276b] pb-3">
           Thông tin cá nhân
         </h3>
@@ -128,13 +130,13 @@ const Setting = () => {
               Ảnh bìa
             </label>
             <div className="space-y-4">
-              <div className="relative w-full h-40 rounded-lg overflow-hidden border border-[#41276b]">
+              <div className="relative w-full h-75 rounded-lg overflow-hidden border border-[#41276b]">
                 <img
                   src={usercover}
                   alt="Cover"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute inset-0 bg-black/70 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
                   <p className="text-white text-sm">Ảnh bìa hiện tại</p>
                 </div>
               </div>
@@ -176,6 +178,94 @@ const Setting = () => {
             </button>
           </div>
         </form>
+      </div>
+
+      {/* password */}
+
+      <div className="bg-[#2B1552] rounded-lg p-6 max-w-5xl mt-20 mx-auto">
+        <div className="pt-8 mt-6 border-t border-[#41276b]">
+          <h3 className="text-white text-xl mb-6">Đổi mật khẩu</h3>
+
+          <div className="space-y-6">
+            {/* Tên đăng nhập (readonly) */}
+            <div className="space-y-2">
+              <label
+                htmlFor="password-username"
+                className="block text-gray-300 text-sm font-medium"
+              >
+                Tên đăng nhập
+              </label>
+              <input
+                type="text"
+                id="password-username"
+                className="w-full px-4 py-3 bg-[#1d1820] text-gray-400 rounded-md border border-[#41276b] cursor-not-allowed"
+                value="adminlinh123"
+                readOnly
+              />
+            </div>
+
+            {/* Mật khẩu hiện tại */}
+            <div className="space-y-2">
+              <label
+                htmlFor="current-password"
+                className="block text-gray-300 text-sm font-medium"
+              >
+                Mật khẩu hiện tại
+              </label>
+              <input
+                type="password"
+                id="current-password"
+                className="w-full px-4 py-3 bg-[#231B27] text-white rounded-md border border-[#41276b] focus:border-[#C42F44] focus:outline-none focus:ring-1 focus:ring-[#C42F44] transition-colors"
+                placeholder="Nhập mật khẩu hiện tại"
+              />
+            </div>
+
+            {/* Mật khẩu mới */}
+            <div className="space-y-2">
+              <label
+                htmlFor="new-password"
+                className="block text-gray-300 text-sm font-medium"
+              >
+                Mật khẩu mới
+              </label>
+              <input
+                type="password"
+                id="new-password"
+                className="w-full px-4 py-3 bg-[#231B27] text-white rounded-md border border-[#41276b] focus:border-[#C42F44] focus:outline-none focus:ring-1 focus:ring-[#C42F44] transition-colors"
+                placeholder="Nhập mật khẩu mới"
+              />
+              <p className="text-xs text-gray-400">
+                Mật khẩu phải có ít nhất 8 ký tự
+              </p>
+            </div>
+
+            {/* Xác nhận mật khẩu mới */}
+            <div className="space-y-2">
+              <label
+                htmlFor="confirm-password"
+                className="block text-gray-300 text-sm font-medium"
+              >
+                Xác nhận mật khẩu mới
+              </label>
+              <input
+                type="password"
+                id="confirm-password"
+                className="w-full px-4 py-3 bg-[#231B27] text-white rounded-md border border-[#41276b] focus:border-[#C42F44] focus:outline-none focus:ring-1 focus:ring-[#C42F44] transition-colors"
+                placeholder="Nhập lại mật khẩu mới"
+              />
+            </div>
+
+            {/* Nút Đổi mật khẩu */}
+            <div className="pt-2">
+              <button
+                type="button"
+                className="px-5 py-2.5 bg-[#C42F44] text-white font-medium rounded-md hover:bg-[#d13a51] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C42F44] focus:ring-opacity-50"
+              >
+                Đổi mật khẩu
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
