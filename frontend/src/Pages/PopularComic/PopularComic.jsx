@@ -4,9 +4,11 @@ import ComicItem from "../../Components/ComicItem/ComicItem";
 
 const PopularComic = () => {
   const { allComics } = useContext(ComicContext);
-  const popularComics = allComics.sort((a, b) => {
-    return b.rate - a.rate;
-  });
+  const popularComics = allComics
+    .sort((a, b) => {
+      return b.rate - a.rate;
+    })
+    .slice(0, 16);
   return (
     <div className="text-white">
       <h1 className="text-3xl font-bold ml-27 my-12">Truyện Phổ biến</h1>
@@ -16,7 +18,8 @@ const PopularComic = () => {
           <ComicItem
             key={i}
             id={item.id}
-            img={item.img}
+            img={"https://newphim.online/" + item.img}
+            // img={item.img}
             name={item.name}
             chapter={item.chapter_number}
             rate={item.rate}

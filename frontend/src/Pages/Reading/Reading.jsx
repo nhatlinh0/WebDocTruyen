@@ -1,38 +1,87 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useMemo } from "react";
 import { CiZoomOut } from "react-icons/ci";
 import { CiZoomIn } from "react-icons/ci";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { ComicContext } from "../../Context/ComicContext";
 
 const Reading = () => {
   const navigate = useNavigate();
-  const { comicSlug, chapterId } = useParams();
-  const { allChapters, allComics } = useContext(ComicContext);
-  const comic = allComics.find((item) => item.slug == comicSlug);
-  const chapters = allChapters.filter((item) => item.comic_id == comic.id);
+  const location = useLocation();
+  const ids = location.state?.chapterId;
 
-  const [chapter, setChapter] = useState(null);
+  // const { comicSlug, chapterId } = useParams();
+  const { comicSlug } = useParams();
+  const { allComics } = useContext(ComicContext);
+
+  const [comic, setComic] = useState();
+  const [chapters, setChapters] = useState([]);
+  const [chapter, setChapter] = useState([]);
+  const [index, setIndex] = useState(0);
   const [toggleMenu, setToggleMenu] = useState(false);
   const [fontSize, setFontSize] = useState(24);
 
   useEffect(() => {
-    const foundChapter = chapters.find((item) => item.id == chapterId);
-    setChapter(foundChapter);
-  }, [chapterId]);
+    const foundComic = allComics.find((item) => item.slug == comicSlug);
+    setComic(foundComic);
+  }, [comicSlug, allComics]);
+
+  // const chapters = allChapters.filter((item) => item.comic_id == comic.id);
+
+  useEffect(() => {
+    if (comic?.id) {
+      fetch(`https://newphim.online/api/truyen-chu/${comic.id}/chaps`)
+        .then((res) => res.json())
+        .then((data) => {
+          setChapters(data);
+          if (data && data.length > 0) {
+            if (ids) {
+              var newIndex = data.findIndex((item) => item.id == ids);
+              setChapter(data[newIndex]);
+              setIndex(newIndex);
+            } else {
+              setChapter(data[index]);
+            }
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching chapters:", error);
+        });
+    }
+  }, [comic?.id]);
+
+  // useEffect(() => {
+  //   const foundChapter = chapters.find((item) => item.id == chapterId);
+  //   setChapter(foundChapter);
+  // }, [chapterId]);
 
   const increaseNumber = () => {
-    const nextChapter = parseInt(chapterId) + 1;
-    window.scrollTo(0, 0);
-    navigate(`/reading/${comicSlug}/${nextChapter}`);
+    // const nextChapter = parseInt(chapterId) + 1;
+    // navigate(`/reading/${comicSlug}/${nextChapter}`);
+    if (index + 1 < chapters.length) {
+      setIndex((prevIndex) => {
+        const newIndex = prevIndex + 1;
+        setChapter(chapters[newIndex]);
+        return newIndex;
+      });
+      window.scrollTo(0, 0);
+    }
   };
 
   const decreaseNumber = () => {
-    const prevChapter = Math.max(1, parseInt(chapterId) - 1);
-    window.scrollTo(0, 0);
-    navigate(`/reading/${comicSlug}/${prevChapter}`);
+    // const prevChapter = Math.max(1, parseInt(chapterId) - 1);
+    // window.scrollTo(0, 0);
+    // navigate(`/reading/${comicSlug}/${prevChapter}`);
+    if (index > 0) {
+      setIndex((prevIndex) => {
+        const newIndex = prevIndex - 1;
+        setChapter(chapters[newIndex]);
+        return newIndex;
+      });
+      window.scrollTo(0, 0);
+    }
   };
 
   const increaseFontSize = () => {
@@ -48,13 +97,26 @@ const Reading = () => {
   };
   if (!chapter)
     return (
-      <p className="text-center text-white text-3xl h-80 pt-20">Loading...</p>
+      <div className="bg-[#151018] rounded-3xl h-175 mx-25 flex justify-center items-center">
+        <div className="text-center text-white">
+          <div className="w-10 h-10 border-4 border-t-[#C72F44] border-[#332B37] rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-xl">Đang tải...</p>
+        </div>
+      </div>
+    );
+  if (!comic)
+    return (
+      <div className="bg-[#151018] rounded-3xl h-175 mx-25 flex justify-center items-center">
+        <div className="text-center text-white">
+          <div className="w-10 h-10 border-4 border-t-[#C72F44] border-[#332B37] rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-xl">Đang tải ...</p>
+        </div>
+      </div>
     );
 
-  console.log(fontSize);
   return (
     <div className="text-white bg-[#231B27]">
-      <h1 class="text-3xl font-bold my-7 ml-20 bg-gradient-to-r from-red-600 to-fuchsia-500 inline-block text-transparent bg-clip-text">
+      <h1 class="text-2xl font-bold my-7 ml-20 bg-gradient-to-r from-red-600 to-fuchsia-500 inline-block text-transparent bg-clip-text">
         {comic.name}
       </h1>
       <div className="flex bg-[#151018] p-2">
@@ -83,9 +145,7 @@ const Reading = () => {
             <MdOutlineKeyboardArrowLeft className="text-2xl" />
           </div>
           <div className="flex justify-between items-center bg-[#332B37] h-full w-1/2 rounded-xl p-4 relative">
-            <p>
-              Chương {chapter.id}: {chapter.title}
-            </p>
+            <p>{chapter.title}</p>
             <div
               className="pl-2 border-l-2 cursor-pointer"
               onClick={() =>
@@ -96,17 +156,18 @@ const Reading = () => {
             </div>
             {toggleMenu && (
               <div className="absolute w-full max-h-100 overflow-y-scroll bg-[#332b37] left-1/2 -translate-x-1/2 top-15">
-                {chapters.map((item, index) => (
+                {chapters.map((item, i) => (
                   <p
-                    key={index}
+                    key={i}
                     className="p-3 cursor-pointer text-sm hover:bg-[#231B27] transition-colors"
                     onClick={() => {
                       setToggleMenu(false);
+                      setChapter(item);
+                      setIndex(i);
                       window.scrollTo(0, 0);
-                      navigate(`/reading/${comicSlug}/${item.id}`);
                     }}
                   >
-                    Chương {item.id}: {item.title}
+                    {item.title}
                   </p>
                 ))}
               </div>
@@ -133,9 +194,9 @@ const Reading = () => {
         <div className="flex justify-between items-center mt-16 mb-10">
           <button
             onClick={decreaseNumber}
-            disabled={chapter.id <= 1}
+            disabled={index <= 0}
             className={`flex items-center gap-2 px-8 py-4 rounded-xl font-medium text-lg transition-all duration-300 ${
-              chapter.id <= 1
+              index <= 0
                 ? "bg-gray-700 text-gray-400"
                 : "bg-gradient-to-r from-[#8A2387] to-[#C72F44] text-white hover:shadow-[0_8px_30px_rgb(199,47,68,0.3)] hover:-translate-y-1"
             } shadow-lg`}
@@ -146,15 +207,15 @@ const Reading = () => {
 
           <div className="text-white text-lg">
             <span className="px-4 py-2 bg-[#332B37] rounded-lg">
-              Chương {chapter.id}/{chapters.length}
+              Chương {index + 1}/{chapters.length}
             </span>
           </div>
 
           <button
             onClick={increaseNumber}
-            disabled={chapter.id >= chapters.length}
+            disabled={index >= chapters.length - 1}
             className={`flex items-center gap-2 px-8 py-4 rounded-xl font-medium text-lg transition-all duration-300 ${
-              chapter.id >= chapters.length
+              index >= chapters.length - 1
                 ? "bg-gray-700 text-gray-400"
                 : "bg-gradient-to-r from-[#C72F44] to-[#F12711] text-white hover:shadow-[0_8px_30px_rgb(199,47,68,0.3)] hover:-translate-y-1"
             } shadow-lg`}

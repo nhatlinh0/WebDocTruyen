@@ -23,11 +23,11 @@ function App() {
           </Route>
           <Route path="/reading" element={<Reading />}>
             <Route path=":comicSlug" element={<Reading />}>
-              <Route path=":chapterId" element={<Reading />}></Route>
+              {/* <Route path=":chapterId" element={<Reading />}></Route> */}
             </Route>
           </Route>
-          <Route path="/category" element={<CategoryComic />}>
-            <Route path=":id" element={<CategoryComic />}></Route>
+          <Route path="/categories" element={<CategoryComic />}>
+            <Route path=":categoryId" element={<CategoryComic />}></Route>
           </Route>
           <Route path="/allcategory" element={<CategoryList />} />
           <Route path="/newest" element={<NewestComic />} />

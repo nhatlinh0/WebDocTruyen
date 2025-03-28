@@ -52,7 +52,7 @@ const SearchResults = () => {
                 <ComicItem
                   key={index}
                   id={comic.id}
-                  img={comic.img}
+                  img={"https://newphim.online/" + comic.img}
                   name={comic.name}
                   chapter={comic.chapter}
                   rate={comic.rate}

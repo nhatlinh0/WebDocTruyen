@@ -7,7 +7,7 @@ import { ComicContext } from "../../Context/ComicContext";
 const ComicDisplay = ({ comic }) => {
   const { allCategory } = useContext(ComicContext);
   const category = allCategory.filter((item) => {
-    return comic.category.includes(item.name);
+    return comic.category == item.id;
   });
 
   return (
@@ -19,7 +19,7 @@ const ComicDisplay = ({ comic }) => {
           className="absolute inset-0 object-cover w-full h-88 rounded-tl-3xl rounded-tr-3xl brightness-30"
         />
         <img
-          src={comic.img}
+          src={`https://newphim.online/${comic.img}`}
           alt=""
           className="absolute top-1/2 left-20 -translate-y-1/2 w-57 h-70 object-cover"
         />
@@ -31,7 +31,7 @@ const ComicDisplay = ({ comic }) => {
             Trạng thái: <span className="text-[#FBFB6A]">{comic.status}</span>
           </p>
           <div className="flex justify-center items-center gap-2">
-            {category.map((item) => (
+            {/* {category.map((item) => (
               <Link to={`/category/${item.id}`}>
                 <div
                   className="px-6 py-1 rounded-xl font-bold cursor-pointer bg-[#4B474E]"
@@ -40,7 +40,16 @@ const ComicDisplay = ({ comic }) => {
                   {item.name}
                 </div>
               </Link>
-            ))}
+            ))} */}
+
+            <Link to={`/categories/${comic.category}`}>
+              <div
+                className="px-6 py-1 rounded-xl font-bold cursor-pointer bg-[#4B474E]"
+                onClick={() => window.scrollTo(0, 0)}
+              >
+                {category[0]?.name}
+              </div>
+            </Link>
           </div>
         </div>
 
@@ -68,7 +77,7 @@ const ComicDisplay = ({ comic }) => {
           </div>
           <div className="bg-[#231B27] rounded-xl p-4 mb-4 flex-1">
             <p className="font-bold py-2">Nội dung</p>
-            <p className="text-sm">{comic.desc}</p>
+            <p className="text-sm">{comic.description}</p>
           </div>
         </div>
       </div>

@@ -79,7 +79,7 @@ const Header = () => {
         <div className="absolute left-1/2 -translate-x-1/2 top-[48px] z-10 w-[500px] bg-[#231B27] border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
           <ul className="grid grid-cols-3 p-6">
             {allCategory.map((item) => (
-              <Link to={`/category/${item.id}`}>
+              <Link to={`/categories/${item.id}`} key={item.id}>
                 <li className="px-4 py-2 hover:bg-gray-200">{item.name}</li>
               </Link>
             ))}
@@ -109,7 +109,7 @@ const Header = () => {
 
         {/* Dropdown search results */}
         {showResults && searchResults.length > 0 && (
-          <div className="absolute left-0 right-0 top-[55px] z-50 bg-[#231B27] border border-[#C42F44] rounded-md shadow-xl">
+          <div className="absolute left-0 right-0 top-[53px] z-50 bg-[#231B27] border border-[#C42F44] rounded-md shadow-xl">
             <ul className="py-2">
               {searchResults.map((comic, index) => (
                 <li
@@ -122,7 +122,7 @@ const Header = () => {
                     onClick={() => setShowResults(false)}
                   >
                     <img
-                      src={comic.img}
+                      src={"https://newphim.online/" + comic.img}
                       alt={comic.name}
                       className="w-10 h-14 object-cover rounded"
                     />

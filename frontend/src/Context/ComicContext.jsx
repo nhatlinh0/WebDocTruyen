@@ -14,7 +14,10 @@ import tokyoghoul from "../Assets/tokyoghoul-cover.png";
 import kaguya from "../Assets/kaguya-cover.webp";
 import nodame from "../Assets/nodame-cover.webp";
 import horror from "../Assets/horror-cover.jpg";
-import { createContext } from "react";
+import image1 from "../Assets/sao-slider.jpg";
+import image2 from "../Assets/kagurabachi-slider.jpg";
+import image3 from "../Assets/sao-slider.jpg";
+import { createContext, useEffect, useState } from "react";
 
 export const ComicContext = createContext(null);
 
@@ -27,7 +30,7 @@ const ComicContextProvider = (props) => {
       author: "Kawahara Reki",
       desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
       status: "Đang hoạt động",
-      chapter: 369,
+      chapter_number: 369,
       rate: 4.5,
     },
     {
@@ -37,7 +40,7 @@ const ComicContextProvider = (props) => {
       author: "Kawahara Reki",
       desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
       status: "Đang hoạt động",
-      chapter: 273,
+      chapter_number: 273,
       rate: 4.5,
     },
     {
@@ -47,7 +50,7 @@ const ComicContextProvider = (props) => {
       author: "Kawahara Reki",
       desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
       status: "Đang hoạt động",
-      chapter: 346,
+      chapter_number: 346,
       rate: 4.5,
     },
     {
@@ -57,95 +60,105 @@ const ComicContextProvider = (props) => {
       author: "Kawahara Reki",
       desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
       status: "Đang hoạt động",
-      chapter: 271,
+      chapter_number: 271,
       rate: 4.5,
     },
   ];
 
-  const truyenMoi = [
-    {
-      id: 5,
-      img: bleach,
-      name: "Bleach",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter: 686,
-      rate: 4.5,
-    },
-    {
-      id: 6,
-      img: bokunohero,
-      name: "Boku no Hero Academia",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter: 431,
-      rate: 4.5,
-    },
-    {
-      id: 7,
-      img: haikyuu,
-      name: "Haikyuu!!",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter: 402,
-      rate: 4.5,
-    },
-    {
-      id: 8,
-      img: sao,
-      name: "Sword Art Online",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter: 11,
-      rate: 4.5,
-    },
-    {
-      id: 9,
-      img: kagurabachi,
-      name: "Kagurabachi",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter: 22,
-      rate: 4.5,
-    },
-    {
-      id: 10,
-      img: rezero,
-      name: "Re:Zero",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter: 32,
-      rate: 4.5,
-    },
-    {
-      id: 11,
-      img: kmy,
-      name: "Kimetsu no Yaiba",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter: 205,
-      rate: 4.5,
-    },
-    {
-      id: 12,
-      img: yakusoku,
-      name: "Yakusoku no Neverland",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter: 8,
-      rate: 4.5,
-    },
-  ];
+  // const truyenMoi = [
+  //   {
+  //     id: 5,
+  //     img: bleach,
+  //     name: "Bleach",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 686,
+  //     rate: 4.5,
+  //   },
+  //   {
+  //     id: 6,
+  //     img: bokunohero,
+  //     name: "Boku no Hero Academia",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 431,
+  //     rate: 4.5,
+  //   },
+  //   {
+  //     id: 7,
+  //     img: haikyuu,
+  //     name: "Haikyuu!!",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 402,
+  //     rate: 4.5,
+  //   },
+  //   {
+  //     id: 8,
+  //     img: sao,
+  //     name: "Sword Art Online",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 11,
+  //     rate: 4.5,
+  //   },
+  //   {
+  //     id: 9,
+  //     img: kagurabachi,
+  //     name: "Kagurabachi",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 22,
+  //     rate: 4.5,
+  //   },
+  //   {
+  //     id: 10,
+  //     img: rezero,
+  //     name: "Re:Zero",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 32,
+  //     rate: 4.5,
+  //   },
+  //   {
+  //     id: 11,
+  //     img: kmy,
+  //     name: "Kimetsu no Yaiba",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 205,
+  //     rate: 4.5,
+  //   },
+  //   {
+  //     id: 12,
+  //     img: yakusoku,
+  //     name: "Yakusoku no Neverland",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 8,
+  //     rate: 4.5,
+  //   },
+  // ];
 
-  const allComics = [
+  const [truyenMoi, setTruyenMoi] = useState([]);
+
+  useEffect(() => {
+    fetch(`https://newphim.online/api/truyen-chu-moi-nhat`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => setTruyenMoi(data));
+  }, []);
+
+  const allComicsLocal = [
     {
       id: 1,
       img: blackclover,
@@ -303,6 +316,40 @@ const ComicContextProvider = (props) => {
       create_at: "12-5-2025",
     },
   ];
+
+  const [allComics, setAllComics] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAllComics = async () => {
+      try {
+        setIsLoading(true);
+
+        const totalPages = 4;
+
+        const fetchPromises = Array.from({ length: totalPages }, (_, i) =>
+          fetch(`https://newphim.online/api/truyen-chu?page=${i + 1}`).then(
+            (res) => {
+              if (!res.ok)
+                throw new Error(`Không thể lấy dữ liệu trang ${i + 1}`);
+              return res.json();
+            }
+          )
+        );
+
+        const results = await Promise.all(fetchPromises);
+
+        const combinedData = results.flat();
+        setAllComics(combinedData);
+      } catch (error) {
+        console.error("Lỗi khi lấy dữ liệu:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchAllComics();
+  }, []);
 
   const allChapters = [
     {
@@ -666,120 +713,160 @@ Bất cứ giá nào! `,
     },
   ];
 
-  const allCategory = [
+  // const allCategory = [
+  //   {
+  //     id: 1,
+  //     img: kmy,
+  //     name: "Shounen",
+  //     desc: "Hành động, phiêu lưu dành cho nam trẻ tuổi",
+  //   },
+  //   {
+  //     id: 2,
+  //     img: tokyoghoul,
+  //     name: "Seinen",
+  //     desc: "Dành cho nam trưởng thành, thường có nội dung sâu sắc hoặc bạo lực",
+  //   },
+  //   {
+  //     id: 3,
+  //     img: kaguya,
+  //     name: "Shoujo",
+  //     desc: "Tình cảm, lãng mạn dành cho nữ trẻ tuổi",
+  //   },
+  //   {
+  //     id: 4,
+  //     img: nodame,
+  //     name: "Jonsei",
+  //     desc: "Dành cho nữ trưởng thành, tập trung vào tâm lý, tình cảm người lớn",
+  //   },
+  //   {
+  //     id: 5,
+  //     img: rezero,
+  //     name: "Isekai",
+  //     desc: "Xuyên không, thế giới khác",
+  //   },
+  //   {
+  //     id: 6,
+  //     img: horror,
+  //     name: "Horror",
+  //     desc: "Kinh dị, tâm lý",
+  //   },
+  //   {
+  //     id: 7,
+  //     img: haikyuu,
+  //     name: "Sports",
+  //     desc: "Thể thao, thi đấu",
+  //   },
+  //   {
+  //     id: 8,
+  //     img: rezero,
+  //     name: "Fantasy",
+  //     desc: "Thế giới phép thuật, sinh vật huyền bí, và những cuộc phiêu lưu kỳ ảo",
+  //   },
+  //   {
+  //     id: 9,
+  //     img: rezero,
+  //     name: "Science Fiction",
+  //     desc: "Khoa học viễn tưởng, công nghệ tương lai, du hành vũ trụ",
+  //   },
+  //   {
+  //     id: 10,
+  //     img: rezero,
+  //     name: "Romance",
+  //     desc: "Tình yêu, cảm xúc, câu chuyện lãng mạn",
+  //   },
+  //   {
+  //     id: 11,
+  //     img: rezero,
+  //     name: "Slice of Life",
+  //     desc: "Đời thường, phản ánh cuộc sống hàng ngày của nhân vật",
+  //   },
+  //   {
+  //     id: 12,
+  //     img: rezero,
+  //     name: "Comedy",
+  //     desc: "Hài hước, gây cười bằng tình huống hoặc lời thoại dí dỏm",
+  //   },
+  //   {
+  //     id: 13,
+  //     img: rezero,
+  //     name: "Supernatural",
+  //     desc: "Siêu nhiên, ma quái, các thế lực thần bí",
+  //   },
+  //   {
+  //     id: 14,
+  //     img: rezero,
+  //     name: "Reverse Harem",
+  //     desc: "Nhân vật nữ chính được nhiều nam nhân theo đuổi",
+  //   },
+  //   {
+  //     id: 15,
+  //     img: rezero,
+  //     name: "Mecha",
+  //     desc: "Người máy khổng lồ, công nghệ chiến đấu tiên tiến",
+  //   },
+  //   {
+  //     id: 16,
+  //     img: rezero,
+  //     name: "Military",
+  //     desc: "Quân đội, chiến tranh, chiến lược quân sự",
+  //   },
+  //   {
+  //     id: 17,
+  //     img: rezero,
+  //     name: "Historical",
+  //     desc: "Lấy bối cảnh lịch sử, các nhân vật có thật hoặc hư cấu",
+  //   },
+  //   {
+  //     id: 18,
+  //     img: rezero,
+  //     name: "Game",
+  //     desc: "Thế giới trò chơi, nhân vật có thể bị kẹt trong game",
+  //   },
+  //   {
+  //     id: 19,
+  //     img: rezero,
+  //     name: "Harem",
+  //     desc: "Nhân vật chính được nhiều người yêu thích hoặc theo đuổi",
+  //   },
+  // ];
+
+  const [allCategory, setallCategory] = useState([]);
+
+  useEffect(() => {
+    fetch(`https://newphim.online/api/categories`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => setallCategory(data));
+  }, []);
+
+  const sliderComic = [
     {
       id: 1,
-      img: kmy,
-      name: "Shounen",
-      desc: "Hành động, phiêu lưu dành cho nam trẻ tuổi",
+      image: image1,
+      title: "Đao kiếm thần vực",
+      category: "Nổi bật",
+      description:
+        "Chihiro, con trai của một thợ rèn huyền thoại, sống yên bình cho đến khi bi kịch ập đến, cướp đi tất cả. Cầm thanh kiếm cuối cùng của cha, cậu lao vào hành trình báo thù, đối mặt với những kẻ thù tàn ác và bí ẩn đằng sau thanh kiếm huyền thoại.",
+      comicId: 1,
     },
     {
       id: 2,
-      img: tokyoghoul,
-      name: "Seinen",
-      desc: "Dành cho nam trưởng thành, thường có nội dung sâu sắc hoặc bạo lực",
+      image: image2,
+      title: "Thợ săn hắc ám",
+      category: "Nổi bật",
+      description:
+        "Trong một thế giới nơi bóng tối ngự trị, Abel - thợ săn quái vật trẻ tuổi với khả năng nhìn thấu bóng đêm, chiến đấu chống lại các sinh vật hắc ám đe dọa loài người. Khi anh phát hiện ra một âm mưu đe dọa cả thế giới, Abel phải đối mặt với quá khứ bí ẩn của chính mình.",
+      comicId: 2,
     },
     {
       id: 3,
-      img: kaguya,
-      name: "Shoujo",
-      desc: "Tình cảm, lãng mạn dành cho nữ trẻ tuổi",
-    },
-    {
-      id: 4,
-      img: nodame,
-      name: "Jonsei",
-      desc: "Dành cho nữ trưởng thành, tập trung vào tâm lý, tình cảm người lớn",
-    },
-    {
-      id: 5,
-      img: rezero,
-      name: "Isekai",
-      desc: "Xuyên không, thế giới khác",
-    },
-    {
-      id: 6,
-      img: horror,
-      name: "Horror",
-      desc: "Kinh dị, tâm lý",
-    },
-    {
-      id: 7,
-      img: haikyuu,
-      name: "Sports",
-      desc: "Thể thao, thi đấu",
-    },
-    {
-      id: 8,
-      img: rezero,
-      name: "Fantasy",
-      desc: "Thế giới phép thuật, sinh vật huyền bí, và những cuộc phiêu lưu kỳ ảo",
-    },
-    {
-      id: 9,
-      img: rezero,
-      name: "Science Fiction",
-      desc: "Khoa học viễn tưởng, công nghệ tương lai, du hành vũ trụ",
-    },
-    {
-      id: 10,
-      img: rezero,
-      name: "Romance",
-      desc: "Tình yêu, cảm xúc, câu chuyện lãng mạn",
-    },
-    {
-      id: 11,
-      img: rezero,
-      name: "Slice of Life",
-      desc: "Đời thường, phản ánh cuộc sống hàng ngày của nhân vật",
-    },
-    {
-      id: 12,
-      img: rezero,
-      name: "Comedy",
-      desc: "Hài hước, gây cười bằng tình huống hoặc lời thoại dí dỏm",
-    },
-    {
-      id: 13,
-      img: rezero,
-      name: "Supernatural",
-      desc: "Siêu nhiên, ma quái, các thế lực thần bí",
-    },
-    {
-      id: 14,
-      img: rezero,
-      name: "Reverse Harem",
-      desc: "Nhân vật nữ chính được nhiều nam nhân theo đuổi",
-    },
-    {
-      id: 15,
-      img: rezero,
-      name: "Mecha",
-      desc: "Người máy khổng lồ, công nghệ chiến đấu tiên tiến",
-    },
-    {
-      id: 16,
-      img: rezero,
-      name: "Military",
-      desc: "Quân đội, chiến tranh, chiến lược quân sự",
-    },
-    {
-      id: 17,
-      img: rezero,
-      name: "Historical",
-      desc: "Lấy bối cảnh lịch sử, các nhân vật có thật hoặc hư cấu",
-    },
-    {
-      id: 18,
-      img: rezero,
-      name: "Game",
-      desc: "Thế giới trò chơi, nhân vật có thể bị kẹt trong game",
-    },
-    {
-      id: 19,
-      img: rezero,
-      name: "Harem",
-      desc: "Nhân vật chính được nhiều người yêu thích hoặc theo đuổi",
+      image: image3,
+      title: "Linh hồn chiến binh",
+      category: "Nổi bật",
+      description:
+        "Sau khi hy sinh trong trận chiến cuối cùng, linh hồn của chiến binh Haruki bị mắc kẹt giữa cõi âm và dương. Để tìm đường trở về, anh phải giúp những người còn sống vượt qua nguy hiểm và học cách sử dụng sức mạnh mới của mình trong một thế giới đầy rẫy những kẻ thù vô hình.",
+      comicId: 3,
     },
   ];
 
@@ -790,6 +877,7 @@ Bất cứ giá nào! `,
     allChapters,
     allUsers,
     allCategory,
+    sliderComic,
   };
 
   return (

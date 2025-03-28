@@ -10,32 +10,34 @@ import { ComicContext } from "../../Context/ComicContext";
 import WebCard from "../../Components/WebCard/WebCard";
 
 const Home = () => {
-  const { truyenDeXuat, allCategory, truyenMoi } = useContext(ComicContext);
-
+  const { truyenDeXuat, allCategory, truyenMoi, allComics } =
+    useContext(ComicContext);
   return (
     <div>
       <Slider />
       <Session title="Truyện đề xuất" more type="popular">
-        {truyenDeXuat.map((item, i) => {
+        {allComics.map((item, i) => {
           return (
             <ComicItem
               key={i}
               id={item.id}
-              img={item.img}
+              img={"https://newphim.online/" + item.img}
+              // img={item.img}
               name={item.name}
-              chapter={item.chapter}
+              chapter={item.chapter_number}
               rate={item.rate}
             />
           );
         })}
       </Session>
       <Session title="Truyện mới cập nhật" more type="newest">
-        {truyenMoi.map((item, i) => {
+        {truyenMoi.slice(0, 8).map((item, i) => {
           return (
             <ComicItem
               key={i}
               id={item.id}
-              img={item.img}
+              // img={item.img}
+              img={"https://newphim.online/" + item.img}
               name={item.name}
               chapter={item.chapter}
               rate={item.rate}
@@ -49,7 +51,7 @@ const Home = () => {
             <CategoryItem
               key={i}
               id={item.id}
-              img={item.img}
+              img={"https://newphim.online/" + item.img}
               name={item.name}
               desc={item.desc}
             />
