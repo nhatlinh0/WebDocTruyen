@@ -14,6 +14,9 @@ import tokyoghoul from "../Assets/tokyoghoul-cover.png";
 import kaguya from "../Assets/kaguya-cover.webp";
 import nodame from "../Assets/nodame-cover.webp";
 import horror from "../Assets/horror-cover.jpg";
+
+import userIcon from "../Assets/avatar-icon.jpg";
+import usercover from "../Assets/user-cover.jpg";
 import image1 from "../Assets/sao-slider.jpg";
 import image2 from "../Assets/kagurabachi-slider.jpg";
 import image3 from "../Assets/sao-slider.jpg";
@@ -22,48 +25,48 @@ import { createContext, useEffect, useState } from "react";
 export const ComicContext = createContext(null);
 
 const ComicContextProvider = (props) => {
-  const truyenDeXuat = [
-    {
-      id: 1,
-      img: blackclover,
-      name: "Black Clover",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter_number: 369,
-      rate: 4.5,
-    },
-    {
-      id: 2,
-      img: jujutsu,
-      name: "Jujutsu Kaisen",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter_number: 273,
-      rate: 4.5,
-    },
-    {
-      id: 3,
-      img: nanatsu,
-      name: "Nanatsu no Taizan",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter_number: 346,
-      rate: 4.5,
-    },
-    {
-      id: 4,
-      img: bluelock,
-      name: "Blue Lock",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter_number: 271,
-      rate: 4.5,
-    },
-  ];
+  // const truyenDeXuat = [
+  //   {
+  //     id: 1,
+  //     img: blackclover,
+  //     name: "Black Clover",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 369,
+  //     rate: 4.5,
+  //   },
+  //   {
+  //     id: 2,
+  //     img: jujutsu,
+  //     name: "Jujutsu Kaisen",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 273,
+  //     rate: 4.5,
+  //   },
+  //   {
+  //     id: 3,
+  //     img: nanatsu,
+  //     name: "Nanatsu no Taizan",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 346,
+  //     rate: 4.5,
+  //   },
+  //   {
+  //     id: 4,
+  //     img: bluelock,
+  //     name: "Blue Lock",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 271,
+  //     rate: 4.5,
+  //   },
+  // ];
 
   // const truyenMoi = [
   //   {
@@ -155,167 +158,169 @@ const ComicContextProvider = (props) => {
       .then((res) => {
         return res.json();
       })
-      .then((data) => setTruyenMoi(data));
+      .then((data) => {
+        setTruyenMoi(data);
+      });
   }, []);
 
-  const allComicsLocal = [
-    {
-      id: 1,
-      img: blackclover,
-      name: "Black Clover",
-      slug: "black-clover",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter_number: 369,
-      category: [1, 2, 3],
-      rate: 4.5,
-      create_at: "12-5-2015",
-    },
-    {
-      id: 2,
-      img: jujutsu,
-      name: "Jujutsu Kaisen",
-      slug: "jujutsu-kaisen",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter_number: 273,
-      category: [1, 2, 3],
-      rate: 4.1,
-      create_at: "12-5-2016",
-    },
-    {
-      id: 3,
-      img: nanatsu,
-      name: "Nanatsu no Taizan",
-      slug: "nanatsu-no-taizan",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter_number: 346,
-      category: [4, 5, 6],
-      rate: 4.6,
-      create_at: "12-5-2017",
-    },
-    {
-      id: 4,
-      img: bluelock,
-      name: "Blue Lock",
-      slug: "blue-lock",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter_number: 271,
-      category: [7, 8, 9],
-      rate: 4.2,
-      create_at: "12-5-2018",
-    },
-    {
-      id: 5,
-      img: bleach,
-      name: "Bleach",
-      slug: "bleach",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter_number: 686,
-      category: [7, 8, 9],
-      rate: 4.8,
-      create_at: "12-5-2019",
-    },
-    {
-      id: 6,
-      img: bokunohero,
-      name: "Boku no Hero Academia",
-      slug: "boku-no-hero-academia",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter_number: 431,
-      category: [10, 11, 12],
-      rate: 4.0,
-      create_at: "12-5-2020",
-    },
-    {
-      id: 7,
-      img: haikyuu,
-      name: "Haikyuu!!",
-      slug: "haikyuu",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter_number: 402,
-      category: [10, 11, 12],
-      rate: 4.3,
-      create_at: "12-5-2020",
-    },
-    {
-      id: 8,
-      img: sao,
-      name: "Sword Art Online",
-      slug: "sword-art-online",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter_number: 11,
-      category: [13, 14, 15],
-      rate: 4.4,
-      create_at: "12-5-2021",
-    },
-    {
-      id: 9,
-      img: kagurabachi,
-      name: "Kagurabachi",
-      slug: "kagurabachi",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter_number: 22,
-      category: [13, 14, 15],
-      rate: 4.5,
-      create_at: "12-5-2022",
-    },
-    {
-      id: 10,
-      img: rezero,
-      name: "Re:Zero",
-      slug: "rezero",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter_number: 32,
-      category: [16, 17, 18],
-      rate: 4.7,
-      create_at: "12-5-2023",
-    },
-    {
-      id: 11,
-      img: kmy,
-      name: "Kimetsu no Yaiba",
-      slug: "kimetsu-no-yaiba",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter_number: 205,
-      category: [5, 10, 12],
-      rate: 4.1,
-      create_at: "12-5-2024",
-    },
-    {
-      id: 12,
-      img: yakusoku,
-      name: "Yakusoku no Neverland",
-      slug: "yakusoku-no-neverland",
-      author: "Kawahara Reki",
-      desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
-      status: "Đang hoạt động",
-      chapter_number: 8,
-      category: [1, 18, 19],
-      rate: 4.6,
-      create_at: "12-5-2025",
-    },
-  ];
+  // const allComicsLocal = [
+  //   {
+  //     id: 1,
+  //     img: blackclover,
+  //     name: "Black Clover",
+  //     slug: "black-clover",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 369,
+  //     category: [1, 2, 3],
+  //     rate: 4.5,
+  //     create_at: "12-5-2015",
+  //   },
+  //   {
+  //     id: 2,
+  //     img: jujutsu,
+  //     name: "Jujutsu Kaisen",
+  //     slug: "jujutsu-kaisen",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 273,
+  //     category: [1, 2, 3],
+  //     rate: 4.1,
+  //     create_at: "12-5-2016",
+  //   },
+  //   {
+  //     id: 3,
+  //     img: nanatsu,
+  //     name: "Nanatsu no Taizan",
+  //     slug: "nanatsu-no-taizan",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 346,
+  //     category: [4, 5, 6],
+  //     rate: 4.6,
+  //     create_at: "12-5-2017",
+  //   },
+  //   {
+  //     id: 4,
+  //     img: bluelock,
+  //     name: "Blue Lock",
+  //     slug: "blue-lock",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 271,
+  //     category: [7, 8, 9],
+  //     rate: 4.2,
+  //     create_at: "12-5-2018",
+  //   },
+  //   {
+  //     id: 5,
+  //     img: bleach,
+  //     name: "Bleach",
+  //     slug: "bleach",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 686,
+  //     category: [7, 8, 9],
+  //     rate: 4.8,
+  //     create_at: "12-5-2019",
+  //   },
+  //   {
+  //     id: 6,
+  //     img: bokunohero,
+  //     name: "Boku no Hero Academia",
+  //     slug: "boku-no-hero-academia",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 431,
+  //     category: [10, 11, 12],
+  //     rate: 4.0,
+  //     create_at: "12-5-2020",
+  //   },
+  //   {
+  //     id: 7,
+  //     img: haikyuu,
+  //     name: "Haikyuu!!",
+  //     slug: "haikyuu",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 402,
+  //     category: [10, 11, 12],
+  //     rate: 4.3,
+  //     create_at: "12-5-2020",
+  //   },
+  //   {
+  //     id: 8,
+  //     img: sao,
+  //     name: "Sword Art Online",
+  //     slug: "sword-art-online",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 11,
+  //     category: [13, 14, 15],
+  //     rate: 4.4,
+  //     create_at: "12-5-2021",
+  //   },
+  //   {
+  //     id: 9,
+  //     img: kagurabachi,
+  //     name: "Kagurabachi",
+  //     slug: "kagurabachi",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 22,
+  //     category: [13, 14, 15],
+  //     rate: 4.5,
+  //     create_at: "12-5-2022",
+  //   },
+  //   {
+  //     id: 10,
+  //     img: rezero,
+  //     name: "Re:Zero",
+  //     slug: "rezero",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 32,
+  //     category: [16, 17, 18],
+  //     rate: 4.7,
+  //     create_at: "12-5-2023",
+  //   },
+  //   {
+  //     id: 11,
+  //     img: kmy,
+  //     name: "Kimetsu no Yaiba",
+  //     slug: "kimetsu-no-yaiba",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 205,
+  //     category: [5, 10, 12],
+  //     rate: 4.1,
+  //     create_at: "12-5-2024",
+  //   },
+  //   {
+  //     id: 12,
+  //     img: yakusoku,
+  //     name: "Yakusoku no Neverland",
+  //     slug: "yakusoku-no-neverland",
+  //     author: "Kawahara Reki",
+  //     desc: "Năm 2022, công ty điện tử ARGUS sáng chế ra thiết bị có thể điều khiển hoạt động của não bộ mang tên NERvGear, giúp cho các trò chơi thực tế ảo trở thành hiện thực. Nhân vật chính Kirito cùng hơn 9500 người chơi khác được “may mắn” trải nghiệm Sword Art Online – game VRMMORPG đầu tiên trên thế giới ngay từ khi nó chính thức hoạt động, nhưng lại không thể ngờ rằng nó cũng chính là cái bẫy chết người sẽ khiến cuộc sống của họ hoàn toàn thay đổi. Hệ thống “Đăng xuất” trong game biến mất, tất cả sẽ bị nhốt trong SAO và không thể thoát ra trừ phi có người hoàn tất 100 tầng của tòa thành khổng lồ Aincrad. Ngoài ra, chỉ một lần ",
+  //     status: "Đang hoạt động",
+  //     chapter_number: 8,
+  //     category: [1, 18, 19],
+  //     rate: 4.6,
+  //     create_at: "12-5-2025",
+  //   },
+  // ];
 
   const [allComics, setAllComics] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -351,365 +356,376 @@ const ComicContextProvider = (props) => {
     fetchAllComics();
   }, []);
 
-  const allChapters = [
-    {
-      id: 1,
-      comic_id: 2,
-      title: "Người báo thù",
-      content:
-        'Cung điện vàng son lộng lẫy, ánh mặt trời xuyên qua tấm rèm tơ tằm thêu những đường vân uốn lượn, phủ lên gương mặt dịu dàng của thiếu niên trong thủy tạ.\nThiếu niên mặc trường bào nhạt màu hình hạc, ngồi trước án thư, làn da trắng tựa sứ, lông mày đẹp như tranh, sợi mi dày bao bọc một đôi mắt đen sáng ngời, nhẹ nhàng rũ xuống tạo thành hai mảnh trăng lưỡi liềm trên sống mũi cao thẳng. Mái tóc đen mượt một nửa được buộc lại bằng ngọc đới, một nửa phủ lên bộ áo gấm mềm mại, xõa từ cổ xuống thắt lưng.\nTư thế ưu nhã, dung mạo vô song.\nBên ngoài thủy tạ vang lên tiếng nói cười giòn giã, nhưng người nọ dường như không để ý, ánh mắt vẫn chăm chú nhìn vào quyển thư tịch trên tay.\n"Điện hạ."\nMưu sĩ Công Tôn Dương và Phạm Chu lần lượt bước vào thủy tạ.\nCông Tôn Dương cười nói: "Hôm nay là tiệc Lưu Thương, danh sĩ các nước đều muốn tranh nhau khoe tài, điện hạ không muốn đi xem một chút sao?"\nNgười ngồi sau bức rèm là Thái tử Giang quốc',
-      create_at: "20/02/2025",
-    },
-    {
-      id: 2,
-      comic_id: 2,
-      title: "Người báo thù",
-      content: `Editor: Nấm Mộc
-  
-  Bóng đêm như mực.
-  
-  Khách sạn Wies, lửa từ ngọn đèn sáng rực rỡ.
-  
-  Hành lang dài tĩnh mịch, nhìn không thấy điểm dừng, ánh sáng đèn mờ nhạt dọi xuống dưới, đem hành lang dài bao phủ càng thêm thần bí đẹp đẽ mà quý giá.
-  
-  Một thân hình nhỏ nhắn xinh xinh, rón ra rón rén đi đến trước“phòng tổng thống”.
-  
-  Cửa phòng khép hờ, Trang Nại Nại theo khe cửa đi vào bên trong xem xét, cả căn phòng thập phần yên tĩnh, chỉ có trong phòng tắm truyền đến tiếng nước dồn dập chảy, vì thế Trang Nại Nại nhẹ nhàng đẩy cửa ra, đi vào trong phòng.
-  
-  Xoay người chuẩn bị đóng cửa.
-  
-  
-  “Đem tài liệu đặt trên bàn là được rồi”. Đột nhiên, thanh âm mị hoặc trong trẻo nhưng lạnh lùng theo phòng tắm truyền ra.
-  
-  TimTrang Nại Nại “lộp bộp” một chút, thiếu chút nữa theo miệng nhảy ra.
-  
-  Lưng thoáng liền toát ra tầng mồ hôi lạnh.
-  
-  Cô quay đầu nhìn cũng không thấy người đi ra, lúc này mới nặng nề thở phào nhẹ nhõm, đóng cửa lại.
-  
-  Trong phòng cũng không mở đèn, chỉ còn lại ánh sáng yếu ớt ở ngọn đèn đầu giường, cùng cửa sổ rộng rãi sát đất, các ngọn đèn ở thành Bắc Kinh dần tắt đi, tạo nên cảnh tượng tươi sáng rõ nét đối lập.
-  
-  Chẳng qua, Trang Nại Nại cũng không rãnh rỗi nhìn ngắm cảnh sắc.
-  
-  Cô đứng trước giường lớn, rất nhanh lấy ra một cái áo ngủ gợi cảm rồi mặc vào, hít sâu một hơi, chui vào trong chăn, bày ra một tư thế dụ-hoặc (dụ dỗ-mê hoặc)
-  
-  Đúng lúc này, tiếng nước trong phòng tắm dừng lại, ngay sau đó cửa bị mở ra, một thân ảnh cao lớn từ bên trong phòng đi tới.
-  
-  Mang theo một cỗ hơi nước nhàn nhạt bay ra, còn có hơi thở tôn quý bẩm sinh, làm cho Trang Nại Nại hô hấp cảm thấy rất khó khăn.
-  
-  Người đàn ông mặc một chiếc áo tắm, cầm khăn mặt chà lau tóc, bỗng nhiên phát giác được trong phòng có người, động tác ngừng lại, mãnh liệt ngẩng đầu lên.
-  
-  Đôi mắt hẹp dài của anh bỗng híp lại, lóe ra tia sương giá rợn người, hai con ngươi sắc bén trực tiếp tập trung trên người Trang Nại Nại.
-  
-  
-  Hôm nay,Trang Nại Nại mang đồ trang sức trang nhã, ánh sáng lờ mờ dọi trên khuôn mặt trắng sứ nhỏ nhắn, đôi mắt đen như mực, môi như anh đào, ngũ quan khéo léo tinh xảo, đẹp không sao tả xiết.
-  
-  Cô mặc cái áo ngủ màu hồng nhạt, làm nổi bật cả thân thể như muốn buông thả nụ hoa khiến cho người ta muốn ngắt hái.
-  
-  Thế nhưng, người đàn ông kia cũng không bị cái cảnh sắc hấp dẫn này dụ hoặc, ngược lại là ánh mắt trầm xuống, trong con ngươi dấy lên mùi nguy hiểm, đe dọa đến cái người đang nằm trên giường.
-  
-  “Tại sao cô lại ở đây?” Môi mỏng của anh khẽ mở, tiếng nói mang theo một loại hoa lệ khuynh hướng cảm xúc, mị hoặc lòng người nhưng lại lạnh như băng hàn.
-  
-  Trang Nại Nại căng thẳng nuốt một ngụm nước bọt, cố gắng làm cho bản thân bình tĩnh lại, khuôn mặt xinh đẹp gạt bỏ nụ cười rực rỡ, tròng mắt chuyển động cực kỳ nhanh
-  
-  “ Cái kia, đêm vẫn còn dài, tôi tới làm cho anh ấm-giường ah...”
-  
-  “Ấm-giường?” mày người đàn ông kia nhăn lại, thanh âm lạnh như băng, một câu hỏi, nói ra là một mùi khắc nghiệt.
-  
-  Trang Nại Nại cảm thấy một đợt cảm giác bị áp bách mãnh liệt, nhất thời hô hấp lại trở nên khẩn trương lên, cô kiên trì mở miệng: “Đúng, đúng rồi tôi là hôn thê của anh, chúng ta ở cùng nhau, thiên kinh địa nghĩa*...” (* là điều hiển nhiên)
-  
-  
-  Lúc này, Trang Nại Nại nháy mắt nói, một đợt hơi thở nam tính tràn ngập xâm lược, bỗng nhiên tới gần, người đàn ông thân hình cao lớn vô cùng áp bức,ngũ quan gần ngay trước mắt lại tinh xảo như người điêu khắc.
-  
-  Trang Nại Nại một chút cử động cũng không dám, mắt to như nước trong veo nhìn Tư Chính Đình, trái tim đập vô cùng dữ dội.
-  
-  Chăn mền trên người bị xốc lên, cảm giác trong không khí mát lạnh xuyên thấu vào thân thể.
-  
-  Như vậy là cô đem thân thể chính mình kính dâng sao?
-  
-  Bất quá, qua đêm nay, anh hẳn là sẽ thực hiện hôn ước, cùng mình kết hôn...sao?
-  
-  Nghĩ đến đây, Trang Nại Nại lập tức nhắm mắt lại, bày ra một bộ dáng thấy chết không sờn. ( coi thường cái chết)
-  
-  Bất cứ giá nào! `,
-      create_at: "20/02/2025",
-    },
-    {
-      id: 3,
-      comic_id: 2,
-      title: "Người báo thù",
-      content: `Editor: Nấm Mộc
+  //   const allChapters = [
+  //     {
+  //       id: 1,
+  //       comic_id: 2,
+  //       title: "Người báo thù",
+  //       content:
+  //         'Cung điện vàng son lộng lẫy, ánh mặt trời xuyên qua tấm rèm tơ tằm thêu những đường vân uốn lượn, phủ lên gương mặt dịu dàng của thiếu niên trong thủy tạ.\nThiếu niên mặc trường bào nhạt màu hình hạc, ngồi trước án thư, làn da trắng tựa sứ, lông mày đẹp như tranh, sợi mi dày bao bọc một đôi mắt đen sáng ngời, nhẹ nhàng rũ xuống tạo thành hai mảnh trăng lưỡi liềm trên sống mũi cao thẳng. Mái tóc đen mượt một nửa được buộc lại bằng ngọc đới, một nửa phủ lên bộ áo gấm mềm mại, xõa từ cổ xuống thắt lưng.\nTư thế ưu nhã, dung mạo vô song.\nBên ngoài thủy tạ vang lên tiếng nói cười giòn giã, nhưng người nọ dường như không để ý, ánh mắt vẫn chăm chú nhìn vào quyển thư tịch trên tay.\n"Điện hạ."\nMưu sĩ Công Tôn Dương và Phạm Chu lần lượt bước vào thủy tạ.\nCông Tôn Dương cười nói: "Hôm nay là tiệc Lưu Thương, danh sĩ các nước đều muốn tranh nhau khoe tài, điện hạ không muốn đi xem một chút sao?"\nNgười ngồi sau bức rèm là Thái tử Giang quốc',
+  //       create_at: "20/02/2025",
+  //     },
+  //     {
+  //       id: 2,
+  //       comic_id: 2,
+  //       title: "Người báo thù",
+  //       content: `Editor: Nấm Mộc
 
-Bóng đêm như mực.
+  //   Bóng đêm như mực.
 
-Khách sạn Wies, lửa từ ngọn đèn sáng rực rỡ.
+  //   Khách sạn Wies, lửa từ ngọn đèn sáng rực rỡ.
 
-Hành lang dài tĩnh mịch, nhìn không thấy điểm dừng, ánh sáng đèn mờ nhạt dọi xuống dưới, đem hành lang dài bao phủ càng thêm thần bí đẹp đẽ mà quý giá.
+  //   Hành lang dài tĩnh mịch, nhìn không thấy điểm dừng, ánh sáng đèn mờ nhạt dọi xuống dưới, đem hành lang dài bao phủ càng thêm thần bí đẹp đẽ mà quý giá.
 
-Một thân hình nhỏ nhắn xinh xinh, rón ra rón rén đi đến trước“phòng tổng thống”.
+  //   Một thân hình nhỏ nhắn xinh xinh, rón ra rón rén đi đến trước“phòng tổng thống”.
 
-Cửa phòng khép hờ, Trang Nại Nại theo khe cửa đi vào bên trong xem xét, cả căn phòng thập phần yên tĩnh, chỉ có trong phòng tắm truyền đến tiếng nước dồn dập chảy, vì thế Trang Nại Nại nhẹ nhàng đẩy cửa ra, đi vào trong phòng.
+  //   Cửa phòng khép hờ, Trang Nại Nại theo khe cửa đi vào bên trong xem xét, cả căn phòng thập phần yên tĩnh, chỉ có trong phòng tắm truyền đến tiếng nước dồn dập chảy, vì thế Trang Nại Nại nhẹ nhàng đẩy cửa ra, đi vào trong phòng.
 
-Xoay người chuẩn bị đóng cửa.
+  //   Xoay người chuẩn bị đóng cửa.
 
+  //   “Đem tài liệu đặt trên bàn là được rồi”. Đột nhiên, thanh âm mị hoặc trong trẻo nhưng lạnh lùng theo phòng tắm truyền ra.
 
-“Đem tài liệu đặt trên bàn là được rồi”. Đột nhiên, thanh âm mị hoặc trong trẻo nhưng lạnh lùng theo phòng tắm truyền ra.
+  //   TimTrang Nại Nại “lộp bộp” một chút, thiếu chút nữa theo miệng nhảy ra.
 
-TimTrang Nại Nại “lộp bộp” một chút, thiếu chút nữa theo miệng nhảy ra.
+  //   Lưng thoáng liền toát ra tầng mồ hôi lạnh.
 
-Lưng thoáng liền toát ra tầng mồ hôi lạnh.
+  //   Cô quay đầu nhìn cũng không thấy người đi ra, lúc này mới nặng nề thở phào nhẹ nhõm, đóng cửa lại.
 
-Cô quay đầu nhìn cũng không thấy người đi ra, lúc này mới nặng nề thở phào nhẹ nhõm, đóng cửa lại.
+  //   Trong phòng cũng không mở đèn, chỉ còn lại ánh sáng yếu ớt ở ngọn đèn đầu giường, cùng cửa sổ rộng rãi sát đất, các ngọn đèn ở thành Bắc Kinh dần tắt đi, tạo nên cảnh tượng tươi sáng rõ nét đối lập.
 
-Trong phòng cũng không mở đèn, chỉ còn lại ánh sáng yếu ớt ở ngọn đèn đầu giường, cùng cửa sổ rộng rãi sát đất, các ngọn đèn ở thành Bắc Kinh dần tắt đi, tạo nên cảnh tượng tươi sáng rõ nét đối lập.
+  //   Chẳng qua, Trang Nại Nại cũng không rãnh rỗi nhìn ngắm cảnh sắc.
 
-Chẳng qua, Trang Nại Nại cũng không rãnh rỗi nhìn ngắm cảnh sắc.
+  //   Cô đứng trước giường lớn, rất nhanh lấy ra một cái áo ngủ gợi cảm rồi mặc vào, hít sâu một hơi, chui vào trong chăn, bày ra một tư thế dụ-hoặc (dụ dỗ-mê hoặc)
 
-Cô đứng trước giường lớn, rất nhanh lấy ra một cái áo ngủ gợi cảm rồi mặc vào, hít sâu một hơi, chui vào trong chăn, bày ra một tư thế dụ-hoặc (dụ dỗ-mê hoặc)
+  //   Đúng lúc này, tiếng nước trong phòng tắm dừng lại, ngay sau đó cửa bị mở ra, một thân ảnh cao lớn từ bên trong phòng đi tới.
 
-Đúng lúc này, tiếng nước trong phòng tắm dừng lại, ngay sau đó cửa bị mở ra, một thân ảnh cao lớn từ bên trong phòng đi tới.
+  //   Mang theo một cỗ hơi nước nhàn nhạt bay ra, còn có hơi thở tôn quý bẩm sinh, làm cho Trang Nại Nại hô hấp cảm thấy rất khó khăn.
 
-Mang theo một cỗ hơi nước nhàn nhạt bay ra, còn có hơi thở tôn quý bẩm sinh, làm cho Trang Nại Nại hô hấp cảm thấy rất khó khăn.
+  //   Người đàn ông mặc một chiếc áo tắm, cầm khăn mặt chà lau tóc, bỗng nhiên phát giác được trong phòng có người, động tác ngừng lại, mãnh liệt ngẩng đầu lên.
 
-Người đàn ông mặc một chiếc áo tắm, cầm khăn mặt chà lau tóc, bỗng nhiên phát giác được trong phòng có người, động tác ngừng lại, mãnh liệt ngẩng đầu lên.
+  //   Đôi mắt hẹp dài của anh bỗng híp lại, lóe ra tia sương giá rợn người, hai con ngươi sắc bén trực tiếp tập trung trên người Trang Nại Nại.
 
-Đôi mắt hẹp dài của anh bỗng híp lại, lóe ra tia sương giá rợn người, hai con ngươi sắc bén trực tiếp tập trung trên người Trang Nại Nại.
+  //   Hôm nay,Trang Nại Nại mang đồ trang sức trang nhã, ánh sáng lờ mờ dọi trên khuôn mặt trắng sứ nhỏ nhắn, đôi mắt đen như mực, môi như anh đào, ngũ quan khéo léo tinh xảo, đẹp không sao tả xiết.
 
+  //   Cô mặc cái áo ngủ màu hồng nhạt, làm nổi bật cả thân thể như muốn buông thả nụ hoa khiến cho người ta muốn ngắt hái.
 
-Hôm nay,Trang Nại Nại mang đồ trang sức trang nhã, ánh sáng lờ mờ dọi trên khuôn mặt trắng sứ nhỏ nhắn, đôi mắt đen như mực, môi như anh đào, ngũ quan khéo léo tinh xảo, đẹp không sao tả xiết.
+  //   Thế nhưng, người đàn ông kia cũng không bị cái cảnh sắc hấp dẫn này dụ hoặc, ngược lại là ánh mắt trầm xuống, trong con ngươi dấy lên mùi nguy hiểm, đe dọa đến cái người đang nằm trên giường.
 
-Cô mặc cái áo ngủ màu hồng nhạt, làm nổi bật cả thân thể như muốn buông thả nụ hoa khiến cho người ta muốn ngắt hái.
+  //   “Tại sao cô lại ở đây?” Môi mỏng của anh khẽ mở, tiếng nói mang theo một loại hoa lệ khuynh hướng cảm xúc, mị hoặc lòng người nhưng lại lạnh như băng hàn.
 
-Thế nhưng, người đàn ông kia cũng không bị cái cảnh sắc hấp dẫn này dụ hoặc, ngược lại là ánh mắt trầm xuống, trong con ngươi dấy lên mùi nguy hiểm, đe dọa đến cái người đang nằm trên giường.
+  //   Trang Nại Nại căng thẳng nuốt một ngụm nước bọt, cố gắng làm cho bản thân bình tĩnh lại, khuôn mặt xinh đẹp gạt bỏ nụ cười rực rỡ, tròng mắt chuyển động cực kỳ nhanh
 
-“Tại sao cô lại ở đây?” Môi mỏng của anh khẽ mở, tiếng nói mang theo một loại hoa lệ khuynh hướng cảm xúc, mị hoặc lòng người nhưng lại lạnh như băng hàn.
+  //   “ Cái kia, đêm vẫn còn dài, tôi tới làm cho anh ấm-giường ah...”
 
-Trang Nại Nại căng thẳng nuốt một ngụm nước bọt, cố gắng làm cho bản thân bình tĩnh lại, khuôn mặt xinh đẹp gạt bỏ nụ cười rực rỡ, tròng mắt chuyển động cực kỳ nhanh
+  //   “Ấm-giường?” mày người đàn ông kia nhăn lại, thanh âm lạnh như băng, một câu hỏi, nói ra là một mùi khắc nghiệt.
 
-“ Cái kia, đêm vẫn còn dài, tôi tới làm cho anh ấm-giường ah...”
+  //   Trang Nại Nại cảm thấy một đợt cảm giác bị áp bách mãnh liệt, nhất thời hô hấp lại trở nên khẩn trương lên, cô kiên trì mở miệng: “Đúng, đúng rồi tôi là hôn thê của anh, chúng ta ở cùng nhau, thiên kinh địa nghĩa*...” (* là điều hiển nhiên)
 
-“Ấm-giường?” mày người đàn ông kia nhăn lại, thanh âm lạnh như băng, một câu hỏi, nói ra là một mùi khắc nghiệt.
+  //   Lúc này, Trang Nại Nại nháy mắt nói, một đợt hơi thở nam tính tràn ngập xâm lược, bỗng nhiên tới gần, người đàn ông thân hình cao lớn vô cùng áp bức,ngũ quan gần ngay trước mắt lại tinh xảo như người điêu khắc.
 
-Trang Nại Nại cảm thấy một đợt cảm giác bị áp bách mãnh liệt, nhất thời hô hấp lại trở nên khẩn trương lên, cô kiên trì mở miệng: “Đúng, đúng rồi tôi là hôn thê của anh, chúng ta ở cùng nhau, thiên kinh địa nghĩa*...” (* là điều hiển nhiên)
+  //   Trang Nại Nại một chút cử động cũng không dám, mắt to như nước trong veo nhìn Tư Chính Đình, trái tim đập vô cùng dữ dội.
 
+  //   Chăn mền trên người bị xốc lên, cảm giác trong không khí mát lạnh xuyên thấu vào thân thể.
 
-Lúc này, Trang Nại Nại nháy mắt nói, một đợt hơi thở nam tính tràn ngập xâm lược, bỗng nhiên tới gần, người đàn ông thân hình cao lớn vô cùng áp bức,ngũ quan gần ngay trước mắt lại tinh xảo như người điêu khắc.
+  //   Như vậy là cô đem thân thể chính mình kính dâng sao?
 
-Trang Nại Nại một chút cử động cũng không dám, mắt to như nước trong veo nhìn Tư Chính Đình, trái tim đập vô cùng dữ dội.
+  //   Bất quá, qua đêm nay, anh hẳn là sẽ thực hiện hôn ước, cùng mình kết hôn...sao?
 
-Chăn mền trên người bị xốc lên, cảm giác trong không khí mát lạnh xuyên thấu vào thân thể.
+  //   Nghĩ đến đây, Trang Nại Nại lập tức nhắm mắt lại, bày ra một bộ dáng thấy chết không sờn. ( coi thường cái chết)
 
-Như vậy là cô đem thân thể chính mình kính dâng sao?
+  //   Bất cứ giá nào! `,
+  //       create_at: "20/02/2025",
+  //     },
+  //     {
+  //       id: 3,
+  //       comic_id: 2,
+  //       title: "Người báo thù",
+  //       content: `Editor: Nấm Mộc
 
-Bất quá, qua đêm nay, anh hẳn là sẽ thực hiện hôn ước, cùng mình kết hôn...sao?
+  // Bóng đêm như mực.
 
-Nghĩ đến đây, Trang Nại Nại lập tức nhắm mắt lại, bày ra một bộ dáng thấy chết không sờn. ( coi thường cái chết)
+  // Khách sạn Wies, lửa từ ngọn đèn sáng rực rỡ.
 
-Bất cứ giá nào! `,
-      create_at: "20/02/2025",
-    },
-    {
-      id: 4,
-      comic_id: 2,
-      title: "Người báo thù",
-      content: `Editor: Nấm Mộc
-  
-  Bóng đêm như mực.
-  
-  Khách sạn Wies, lửa từ ngọn đèn sáng rực rỡ.
-  
-  Hành lang dài tĩnh mịch, nhìn không thấy điểm dừng, ánh sáng đèn mờ nhạt dọi xuống dưới, đem hành lang dài bao phủ càng thêm thần bí đẹp đẽ mà quý giá.
-  
-  Một thân hình nhỏ nhắn xinh xinh, rón ra rón rén đi đến trước“phòng tổng thống”.
-  
-  Cửa phòng khép hờ, Trang Nại Nại theo khe cửa đi vào bên trong xem xét, cả căn phòng thập phần yên tĩnh, chỉ có trong phòng tắm truyền đến tiếng nước dồn dập chảy, vì thế Trang Nại Nại nhẹ nhàng đẩy cửa ra, đi vào trong phòng.
-  
-  Xoay người chuẩn bị đóng cửa.
-  
-  
-  “Đem tài liệu đặt trên bàn là được rồi”. Đột nhiên, thanh âm mị hoặc trong trẻo nhưng lạnh lùng theo phòng tắm truyền ra.
-  
-  TimTrang Nại Nại “lộp bộp” một chút, thiếu chút nữa theo miệng nhảy ra.
-  
-  Lưng thoáng liền toát ra tầng mồ hôi lạnh.
-  
-  Cô quay đầu nhìn cũng không thấy người đi ra, lúc này mới nặng nề thở phào nhẹ nhõm, đóng cửa lại.
-  
-  Trong phòng cũng không mở đèn, chỉ còn lại ánh sáng yếu ớt ở ngọn đèn đầu giường, cùng cửa sổ rộng rãi sát đất, các ngọn đèn ở thành Bắc Kinh dần tắt đi, tạo nên cảnh tượng tươi sáng rõ nét đối lập.
-  
-  Chẳng qua, Trang Nại Nại cũng không rãnh rỗi nhìn ngắm cảnh sắc.
-  
-  Cô đứng trước giường lớn, rất nhanh lấy ra một cái áo ngủ gợi cảm rồi mặc vào, hít sâu một hơi, chui vào trong chăn, bày ra một tư thế dụ-hoặc (dụ dỗ-mê hoặc)
-  
-  Đúng lúc này, tiếng nước trong phòng tắm dừng lại, ngay sau đó cửa bị mở ra, một thân ảnh cao lớn từ bên trong phòng đi tới.
-  
-  Mang theo một cỗ hơi nước nhàn nhạt bay ra, còn có hơi thở tôn quý bẩm sinh, làm cho Trang Nại Nại hô hấp cảm thấy rất khó khăn.
-  
-  Người đàn ông mặc một chiếc áo tắm, cầm khăn mặt chà lau tóc, bỗng nhiên phát giác được trong phòng có người, động tác ngừng lại, mãnh liệt ngẩng đầu lên.
-  
-  Đôi mắt hẹp dài của anh bỗng híp lại, lóe ra tia sương giá rợn người, hai con ngươi sắc bén trực tiếp tập trung trên người Trang Nại Nại.
-  
-  
-  Hôm nay,Trang Nại Nại mang đồ trang sức trang nhã, ánh sáng lờ mờ dọi trên khuôn mặt trắng sứ nhỏ nhắn, đôi mắt đen như mực, môi như anh đào, ngũ quan khéo léo tinh xảo, đẹp không sao tả xiết.
-  
-  Cô mặc cái áo ngủ màu hồng nhạt, làm nổi bật cả thân thể như muốn buông thả nụ hoa khiến cho người ta muốn ngắt hái.
-  
-  Thế nhưng, người đàn ông kia cũng không bị cái cảnh sắc hấp dẫn này dụ hoặc, ngược lại là ánh mắt trầm xuống, trong con ngươi dấy lên mùi nguy hiểm, đe dọa đến cái người đang nằm trên giường.
-  
-  “Tại sao cô lại ở đây?” Môi mỏng của anh khẽ mở, tiếng nói mang theo một loại hoa lệ khuynh hướng cảm xúc, mị hoặc lòng người nhưng lại lạnh như băng hàn.
-  
-  Trang Nại Nại căng thẳng nuốt một ngụm nước bọt, cố gắng làm cho bản thân bình tĩnh lại, khuôn mặt xinh đẹp gạt bỏ nụ cười rực rỡ, tròng mắt chuyển động cực kỳ nhanh
-  
-  “ Cái kia, đêm vẫn còn dài, tôi tới làm cho anh ấm-giường ah...”
-  
-  “Ấm-giường?” mày người đàn ông kia nhăn lại, thanh âm lạnh như băng, một câu hỏi, nói ra là một mùi khắc nghiệt.
-  
-  Trang Nại Nại cảm thấy một đợt cảm giác bị áp bách mãnh liệt, nhất thời hô hấp lại trở nên khẩn trương lên, cô kiên trì mở miệng: “Đúng, đúng rồi tôi là hôn thê của anh, chúng ta ở cùng nhau, thiên kinh địa nghĩa*...” (* là điều hiển nhiên)
-  
-  
-  Lúc này, Trang Nại Nại nháy mắt nói, một đợt hơi thở nam tính tràn ngập xâm lược, bỗng nhiên tới gần, người đàn ông thân hình cao lớn vô cùng áp bức,ngũ quan gần ngay trước mắt lại tinh xảo như người điêu khắc.
-  
-  Trang Nại Nại một chút cử động cũng không dám, mắt to như nước trong veo nhìn Tư Chính Đình, trái tim đập vô cùng dữ dội.
-  
-  Chăn mền trên người bị xốc lên, cảm giác trong không khí mát lạnh xuyên thấu vào thân thể.
-  
-  Như vậy là cô đem thân thể chính mình kính dâng sao?
-  
-  Bất quá, qua đêm nay, anh hẳn là sẽ thực hiện hôn ước, cùng mình kết hôn...sao?
-  
-  Nghĩ đến đây, Trang Nại Nại lập tức nhắm mắt lại, bày ra một bộ dáng thấy chết không sờn. ( coi thường cái chết)
-  
-  Bất cứ giá nào! `,
-      create_at: "20/02/2025",
-    },
-    {
-      id: 5,
-      comic_id: 2,
-      title: "Người báo thù",
-      content: `Editor: Nấm Mộc
-  
-  Bóng đêm như mực.
-  
-  Khách sạn Wies, lửa từ ngọn đèn sáng rực rỡ.
-  
-  Hành lang dài tĩnh mịch, nhìn không thấy điểm dừng, ánh sáng đèn mờ nhạt dọi xuống dưới, đem hành lang dài bao phủ càng thêm thần bí đẹp đẽ mà quý giá.
-  
-  Một thân hình nhỏ nhắn xinh xinh, rón ra rón rén đi đến trước“phòng tổng thống”.
-  
-  Cửa phòng khép hờ, Trang Nại Nại theo khe cửa đi vào bên trong xem xét, cả căn phòng thập phần yên tĩnh, chỉ có trong phòng tắm truyền đến tiếng nước dồn dập chảy, vì thế Trang Nại Nại nhẹ nhàng đẩy cửa ra, đi vào trong phòng.
-  
-  Xoay người chuẩn bị đóng cửa.
-  
-  
-  “Đem tài liệu đặt trên bàn là được rồi”. Đột nhiên, thanh âm mị hoặc trong trẻo nhưng lạnh lùng theo phòng tắm truyền ra.
-  
-  TimTrang Nại Nại “lộp bộp” một chút, thiếu chút nữa theo miệng nhảy ra.
-  
-  Lưng thoáng liền toát ra tầng mồ hôi lạnh.
-  
-  Cô quay đầu nhìn cũng không thấy người đi ra, lúc này mới nặng nề thở phào nhẹ nhõm, đóng cửa lại.
-  
-  Trong phòng cũng không mở đèn, chỉ còn lại ánh sáng yếu ớt ở ngọn đèn đầu giường, cùng cửa sổ rộng rãi sát đất, các ngọn đèn ở thành Bắc Kinh dần tắt đi, tạo nên cảnh tượng tươi sáng rõ nét đối lập.
-  
-  Chẳng qua, Trang Nại Nại cũng không rãnh rỗi nhìn ngắm cảnh sắc.
-  
-  Cô đứng trước giường lớn, rất nhanh lấy ra một cái áo ngủ gợi cảm rồi mặc vào, hít sâu một hơi, chui vào trong chăn, bày ra một tư thế dụ-hoặc (dụ dỗ-mê hoặc)
-  
-  Đúng lúc này, tiếng nước trong phòng tắm dừng lại, ngay sau đó cửa bị mở ra, một thân ảnh cao lớn từ bên trong phòng đi tới.
-  
-  Mang theo một cỗ hơi nước nhàn nhạt bay ra, còn có hơi thở tôn quý bẩm sinh, làm cho Trang Nại Nại hô hấp cảm thấy rất khó khăn.
-  
-  Người đàn ông mặc một chiếc áo tắm, cầm khăn mặt chà lau tóc, bỗng nhiên phát giác được trong phòng có người, động tác ngừng lại, mãnh liệt ngẩng đầu lên.
-  
-  Đôi mắt hẹp dài của anh bỗng híp lại, lóe ra tia sương giá rợn người, hai con ngươi sắc bén trực tiếp tập trung trên người Trang Nại Nại.
-  
-  
-  Hôm nay,Trang Nại Nại mang đồ trang sức trang nhã, ánh sáng lờ mờ dọi trên khuôn mặt trắng sứ nhỏ nhắn, đôi mắt đen như mực, môi như anh đào, ngũ quan khéo léo tinh xảo, đẹp không sao tả xiết.
-  
-  Cô mặc cái áo ngủ màu hồng nhạt, làm nổi bật cả thân thể như muốn buông thả nụ hoa khiến cho người ta muốn ngắt hái.
-  
-  Thế nhưng, người đàn ông kia cũng không bị cái cảnh sắc hấp dẫn này dụ hoặc, ngược lại là ánh mắt trầm xuống, trong con ngươi dấy lên mùi nguy hiểm, đe dọa đến cái người đang nằm trên giường.
-  
-  “Tại sao cô lại ở đây?” Môi mỏng của anh khẽ mở, tiếng nói mang theo một loại hoa lệ khuynh hướng cảm xúc, mị hoặc lòng người nhưng lại lạnh như băng hàn.
-  
-  Trang Nại Nại căng thẳng nuốt một ngụm nước bọt, cố gắng làm cho bản thân bình tĩnh lại, khuôn mặt xinh đẹp gạt bỏ nụ cười rực rỡ, tròng mắt chuyển động cực kỳ nhanh
-  
-  “ Cái kia, đêm vẫn còn dài, tôi tới làm cho anh ấm-giường ah...”
-  
-  “Ấm-giường?” mày người đàn ông kia nhăn lại, thanh âm lạnh như băng, một câu hỏi, nói ra là một mùi khắc nghiệt.
-  
-  Trang Nại Nại cảm thấy một đợt cảm giác bị áp bách mãnh liệt, nhất thời hô hấp lại trở nên khẩn trương lên, cô kiên trì mở miệng: “Đúng, đúng rồi tôi là hôn thê của anh, chúng ta ở cùng nhau, thiên kinh địa nghĩa*...” (* là điều hiển nhiên)
-  
-  
-  Lúc này, Trang Nại Nại nháy mắt nói, một đợt hơi thở nam tính tràn ngập xâm lược, bỗng nhiên tới gần, người đàn ông thân hình cao lớn vô cùng áp bức,ngũ quan gần ngay trước mắt lại tinh xảo như người điêu khắc.
-  
-  Trang Nại Nại một chút cử động cũng không dám, mắt to như nước trong veo nhìn Tư Chính Đình, trái tim đập vô cùng dữ dội.
-  
-  Chăn mền trên người bị xốc lên, cảm giác trong không khí mát lạnh xuyên thấu vào thân thể.
-  
-  Như vậy là cô đem thân thể chính mình kính dâng sao?
-  
-  Bất quá, qua đêm nay, anh hẳn là sẽ thực hiện hôn ước, cùng mình kết hôn...sao?
-  
-  Nghĩ đến đây, Trang Nại Nại lập tức nhắm mắt lại, bày ra một bộ dáng thấy chết không sờn. ( coi thường cái chết)
-  
-  Bất cứ giá nào! `,
-      create_at: "20/02/2025",
-    },
-  ];
+  // Hành lang dài tĩnh mịch, nhìn không thấy điểm dừng, ánh sáng đèn mờ nhạt dọi xuống dưới, đem hành lang dài bao phủ càng thêm thần bí đẹp đẽ mà quý giá.
+
+  // Một thân hình nhỏ nhắn xinh xinh, rón ra rón rén đi đến trước“phòng tổng thống”.
+
+  // Cửa phòng khép hờ, Trang Nại Nại theo khe cửa đi vào bên trong xem xét, cả căn phòng thập phần yên tĩnh, chỉ có trong phòng tắm truyền đến tiếng nước dồn dập chảy, vì thế Trang Nại Nại nhẹ nhàng đẩy cửa ra, đi vào trong phòng.
+
+  // Xoay người chuẩn bị đóng cửa.
+
+  // “Đem tài liệu đặt trên bàn là được rồi”. Đột nhiên, thanh âm mị hoặc trong trẻo nhưng lạnh lùng theo phòng tắm truyền ra.
+
+  // TimTrang Nại Nại “lộp bộp” một chút, thiếu chút nữa theo miệng nhảy ra.
+
+  // Lưng thoáng liền toát ra tầng mồ hôi lạnh.
+
+  // Cô quay đầu nhìn cũng không thấy người đi ra, lúc này mới nặng nề thở phào nhẹ nhõm, đóng cửa lại.
+
+  // Trong phòng cũng không mở đèn, chỉ còn lại ánh sáng yếu ớt ở ngọn đèn đầu giường, cùng cửa sổ rộng rãi sát đất, các ngọn đèn ở thành Bắc Kinh dần tắt đi, tạo nên cảnh tượng tươi sáng rõ nét đối lập.
+
+  // Chẳng qua, Trang Nại Nại cũng không rãnh rỗi nhìn ngắm cảnh sắc.
+
+  // Cô đứng trước giường lớn, rất nhanh lấy ra một cái áo ngủ gợi cảm rồi mặc vào, hít sâu một hơi, chui vào trong chăn, bày ra một tư thế dụ-hoặc (dụ dỗ-mê hoặc)
+
+  // Đúng lúc này, tiếng nước trong phòng tắm dừng lại, ngay sau đó cửa bị mở ra, một thân ảnh cao lớn từ bên trong phòng đi tới.
+
+  // Mang theo một cỗ hơi nước nhàn nhạt bay ra, còn có hơi thở tôn quý bẩm sinh, làm cho Trang Nại Nại hô hấp cảm thấy rất khó khăn.
+
+  // Người đàn ông mặc một chiếc áo tắm, cầm khăn mặt chà lau tóc, bỗng nhiên phát giác được trong phòng có người, động tác ngừng lại, mãnh liệt ngẩng đầu lên.
+
+  // Đôi mắt hẹp dài của anh bỗng híp lại, lóe ra tia sương giá rợn người, hai con ngươi sắc bén trực tiếp tập trung trên người Trang Nại Nại.
+
+  // Hôm nay,Trang Nại Nại mang đồ trang sức trang nhã, ánh sáng lờ mờ dọi trên khuôn mặt trắng sứ nhỏ nhắn, đôi mắt đen như mực, môi như anh đào, ngũ quan khéo léo tinh xảo, đẹp không sao tả xiết.
+
+  // Cô mặc cái áo ngủ màu hồng nhạt, làm nổi bật cả thân thể như muốn buông thả nụ hoa khiến cho người ta muốn ngắt hái.
+
+  // Thế nhưng, người đàn ông kia cũng không bị cái cảnh sắc hấp dẫn này dụ hoặc, ngược lại là ánh mắt trầm xuống, trong con ngươi dấy lên mùi nguy hiểm, đe dọa đến cái người đang nằm trên giường.
+
+  // “Tại sao cô lại ở đây?” Môi mỏng của anh khẽ mở, tiếng nói mang theo một loại hoa lệ khuynh hướng cảm xúc, mị hoặc lòng người nhưng lại lạnh như băng hàn.
+
+  // Trang Nại Nại căng thẳng nuốt một ngụm nước bọt, cố gắng làm cho bản thân bình tĩnh lại, khuôn mặt xinh đẹp gạt bỏ nụ cười rực rỡ, tròng mắt chuyển động cực kỳ nhanh
+
+  // “ Cái kia, đêm vẫn còn dài, tôi tới làm cho anh ấm-giường ah...”
+
+  // “Ấm-giường?” mày người đàn ông kia nhăn lại, thanh âm lạnh như băng, một câu hỏi, nói ra là một mùi khắc nghiệt.
+
+  // Trang Nại Nại cảm thấy một đợt cảm giác bị áp bách mãnh liệt, nhất thời hô hấp lại trở nên khẩn trương lên, cô kiên trì mở miệng: “Đúng, đúng rồi tôi là hôn thê của anh, chúng ta ở cùng nhau, thiên kinh địa nghĩa*...” (* là điều hiển nhiên)
+
+  // Lúc này, Trang Nại Nại nháy mắt nói, một đợt hơi thở nam tính tràn ngập xâm lược, bỗng nhiên tới gần, người đàn ông thân hình cao lớn vô cùng áp bức,ngũ quan gần ngay trước mắt lại tinh xảo như người điêu khắc.
+
+  // Trang Nại Nại một chút cử động cũng không dám, mắt to như nước trong veo nhìn Tư Chính Đình, trái tim đập vô cùng dữ dội.
+
+  // Chăn mền trên người bị xốc lên, cảm giác trong không khí mát lạnh xuyên thấu vào thân thể.
+
+  // Như vậy là cô đem thân thể chính mình kính dâng sao?
+
+  // Bất quá, qua đêm nay, anh hẳn là sẽ thực hiện hôn ước, cùng mình kết hôn...sao?
+
+  // Nghĩ đến đây, Trang Nại Nại lập tức nhắm mắt lại, bày ra một bộ dáng thấy chết không sờn. ( coi thường cái chết)
+
+  // Bất cứ giá nào! `,
+  //       create_at: "20/02/2025",
+  //     },
+  //     {
+  //       id: 4,
+  //       comic_id: 2,
+  //       title: "Người báo thù",
+  //       content: `Editor: Nấm Mộc
+
+  //   Bóng đêm như mực.
+
+  //   Khách sạn Wies, lửa từ ngọn đèn sáng rực rỡ.
+
+  //   Hành lang dài tĩnh mịch, nhìn không thấy điểm dừng, ánh sáng đèn mờ nhạt dọi xuống dưới, đem hành lang dài bao phủ càng thêm thần bí đẹp đẽ mà quý giá.
+
+  //   Một thân hình nhỏ nhắn xinh xinh, rón ra rón rén đi đến trước“phòng tổng thống”.
+
+  //   Cửa phòng khép hờ, Trang Nại Nại theo khe cửa đi vào bên trong xem xét, cả căn phòng thập phần yên tĩnh, chỉ có trong phòng tắm truyền đến tiếng nước dồn dập chảy, vì thế Trang Nại Nại nhẹ nhàng đẩy cửa ra, đi vào trong phòng.
+
+  //   Xoay người chuẩn bị đóng cửa.
+
+  //   “Đem tài liệu đặt trên bàn là được rồi”. Đột nhiên, thanh âm mị hoặc trong trẻo nhưng lạnh lùng theo phòng tắm truyền ra.
+
+  //   TimTrang Nại Nại “lộp bộp” một chút, thiếu chút nữa theo miệng nhảy ra.
+
+  //   Lưng thoáng liền toát ra tầng mồ hôi lạnh.
+
+  //   Cô quay đầu nhìn cũng không thấy người đi ra, lúc này mới nặng nề thở phào nhẹ nhõm, đóng cửa lại.
+
+  //   Trong phòng cũng không mở đèn, chỉ còn lại ánh sáng yếu ớt ở ngọn đèn đầu giường, cùng cửa sổ rộng rãi sát đất, các ngọn đèn ở thành Bắc Kinh dần tắt đi, tạo nên cảnh tượng tươi sáng rõ nét đối lập.
+
+  //   Chẳng qua, Trang Nại Nại cũng không rãnh rỗi nhìn ngắm cảnh sắc.
+
+  //   Cô đứng trước giường lớn, rất nhanh lấy ra một cái áo ngủ gợi cảm rồi mặc vào, hít sâu một hơi, chui vào trong chăn, bày ra một tư thế dụ-hoặc (dụ dỗ-mê hoặc)
+
+  //   Đúng lúc này, tiếng nước trong phòng tắm dừng lại, ngay sau đó cửa bị mở ra, một thân ảnh cao lớn từ bên trong phòng đi tới.
+
+  //   Mang theo một cỗ hơi nước nhàn nhạt bay ra, còn có hơi thở tôn quý bẩm sinh, làm cho Trang Nại Nại hô hấp cảm thấy rất khó khăn.
+
+  //   Người đàn ông mặc một chiếc áo tắm, cầm khăn mặt chà lau tóc, bỗng nhiên phát giác được trong phòng có người, động tác ngừng lại, mãnh liệt ngẩng đầu lên.
+
+  //   Đôi mắt hẹp dài của anh bỗng híp lại, lóe ra tia sương giá rợn người, hai con ngươi sắc bén trực tiếp tập trung trên người Trang Nại Nại.
+
+  //   Hôm nay,Trang Nại Nại mang đồ trang sức trang nhã, ánh sáng lờ mờ dọi trên khuôn mặt trắng sứ nhỏ nhắn, đôi mắt đen như mực, môi như anh đào, ngũ quan khéo léo tinh xảo, đẹp không sao tả xiết.
+
+  //   Cô mặc cái áo ngủ màu hồng nhạt, làm nổi bật cả thân thể như muốn buông thả nụ hoa khiến cho người ta muốn ngắt hái.
+
+  //   Thế nhưng, người đàn ông kia cũng không bị cái cảnh sắc hấp dẫn này dụ hoặc, ngược lại là ánh mắt trầm xuống, trong con ngươi dấy lên mùi nguy hiểm, đe dọa đến cái người đang nằm trên giường.
+
+  //   “Tại sao cô lại ở đây?” Môi mỏng của anh khẽ mở, tiếng nói mang theo một loại hoa lệ khuynh hướng cảm xúc, mị hoặc lòng người nhưng lại lạnh như băng hàn.
+
+  //   Trang Nại Nại căng thẳng nuốt một ngụm nước bọt, cố gắng làm cho bản thân bình tĩnh lại, khuôn mặt xinh đẹp gạt bỏ nụ cười rực rỡ, tròng mắt chuyển động cực kỳ nhanh
+
+  //   “ Cái kia, đêm vẫn còn dài, tôi tới làm cho anh ấm-giường ah...”
+
+  //   “Ấm-giường?” mày người đàn ông kia nhăn lại, thanh âm lạnh như băng, một câu hỏi, nói ra là một mùi khắc nghiệt.
+
+  //   Trang Nại Nại cảm thấy một đợt cảm giác bị áp bách mãnh liệt, nhất thời hô hấp lại trở nên khẩn trương lên, cô kiên trì mở miệng: “Đúng, đúng rồi tôi là hôn thê của anh, chúng ta ở cùng nhau, thiên kinh địa nghĩa*...” (* là điều hiển nhiên)
+
+  //   Lúc này, Trang Nại Nại nháy mắt nói, một đợt hơi thở nam tính tràn ngập xâm lược, bỗng nhiên tới gần, người đàn ông thân hình cao lớn vô cùng áp bức,ngũ quan gần ngay trước mắt lại tinh xảo như người điêu khắc.
+
+  //   Trang Nại Nại một chút cử động cũng không dám, mắt to như nước trong veo nhìn Tư Chính Đình, trái tim đập vô cùng dữ dội.
+
+  //   Chăn mền trên người bị xốc lên, cảm giác trong không khí mát lạnh xuyên thấu vào thân thể.
+
+  //   Như vậy là cô đem thân thể chính mình kính dâng sao?
+
+  //   Bất quá, qua đêm nay, anh hẳn là sẽ thực hiện hôn ước, cùng mình kết hôn...sao?
+
+  //   Nghĩ đến đây, Trang Nại Nại lập tức nhắm mắt lại, bày ra một bộ dáng thấy chết không sờn. ( coi thường cái chết)
+
+  //   Bất cứ giá nào! `,
+  //       create_at: "20/02/2025",
+  //     },
+  //     {
+  //       id: 5,
+  //       comic_id: 2,
+  //       title: "Người báo thù",
+  //       content: `Editor: Nấm Mộc
+
+  //   Bóng đêm như mực.
+
+  //   Khách sạn Wies, lửa từ ngọn đèn sáng rực rỡ.
+
+  //   Hành lang dài tĩnh mịch, nhìn không thấy điểm dừng, ánh sáng đèn mờ nhạt dọi xuống dưới, đem hành lang dài bao phủ càng thêm thần bí đẹp đẽ mà quý giá.
+
+  //   Một thân hình nhỏ nhắn xinh xinh, rón ra rón rén đi đến trước“phòng tổng thống”.
+
+  //   Cửa phòng khép hờ, Trang Nại Nại theo khe cửa đi vào bên trong xem xét, cả căn phòng thập phần yên tĩnh, chỉ có trong phòng tắm truyền đến tiếng nước dồn dập chảy, vì thế Trang Nại Nại nhẹ nhàng đẩy cửa ra, đi vào trong phòng.
+
+  //   Xoay người chuẩn bị đóng cửa.
+
+  //   “Đem tài liệu đặt trên bàn là được rồi”. Đột nhiên, thanh âm mị hoặc trong trẻo nhưng lạnh lùng theo phòng tắm truyền ra.
+
+  //   TimTrang Nại Nại “lộp bộp” một chút, thiếu chút nữa theo miệng nhảy ra.
+
+  //   Lưng thoáng liền toát ra tầng mồ hôi lạnh.
+
+  //   Cô quay đầu nhìn cũng không thấy người đi ra, lúc này mới nặng nề thở phào nhẹ nhõm, đóng cửa lại.
+
+  //   Trong phòng cũng không mở đèn, chỉ còn lại ánh sáng yếu ớt ở ngọn đèn đầu giường, cùng cửa sổ rộng rãi sát đất, các ngọn đèn ở thành Bắc Kinh dần tắt đi, tạo nên cảnh tượng tươi sáng rõ nét đối lập.
+
+  //   Chẳng qua, Trang Nại Nại cũng không rãnh rỗi nhìn ngắm cảnh sắc.
+
+  //   Cô đứng trước giường lớn, rất nhanh lấy ra một cái áo ngủ gợi cảm rồi mặc vào, hít sâu một hơi, chui vào trong chăn, bày ra một tư thế dụ-hoặc (dụ dỗ-mê hoặc)
+
+  //   Đúng lúc này, tiếng nước trong phòng tắm dừng lại, ngay sau đó cửa bị mở ra, một thân ảnh cao lớn từ bên trong phòng đi tới.
+
+  //   Mang theo một cỗ hơi nước nhàn nhạt bay ra, còn có hơi thở tôn quý bẩm sinh, làm cho Trang Nại Nại hô hấp cảm thấy rất khó khăn.
+
+  //   Người đàn ông mặc một chiếc áo tắm, cầm khăn mặt chà lau tóc, bỗng nhiên phát giác được trong phòng có người, động tác ngừng lại, mãnh liệt ngẩng đầu lên.
+
+  //   Đôi mắt hẹp dài của anh bỗng híp lại, lóe ra tia sương giá rợn người, hai con ngươi sắc bén trực tiếp tập trung trên người Trang Nại Nại.
+
+  //   Hôm nay,Trang Nại Nại mang đồ trang sức trang nhã, ánh sáng lờ mờ dọi trên khuôn mặt trắng sứ nhỏ nhắn, đôi mắt đen như mực, môi như anh đào, ngũ quan khéo léo tinh xảo, đẹp không sao tả xiết.
+
+  //   Cô mặc cái áo ngủ màu hồng nhạt, làm nổi bật cả thân thể như muốn buông thả nụ hoa khiến cho người ta muốn ngắt hái.
+
+  //   Thế nhưng, người đàn ông kia cũng không bị cái cảnh sắc hấp dẫn này dụ hoặc, ngược lại là ánh mắt trầm xuống, trong con ngươi dấy lên mùi nguy hiểm, đe dọa đến cái người đang nằm trên giường.
+
+  //   “Tại sao cô lại ở đây?” Môi mỏng của anh khẽ mở, tiếng nói mang theo một loại hoa lệ khuynh hướng cảm xúc, mị hoặc lòng người nhưng lại lạnh như băng hàn.
+
+  //   Trang Nại Nại căng thẳng nuốt một ngụm nước bọt, cố gắng làm cho bản thân bình tĩnh lại, khuôn mặt xinh đẹp gạt bỏ nụ cười rực rỡ, tròng mắt chuyển động cực kỳ nhanh
+
+  //   “ Cái kia, đêm vẫn còn dài, tôi tới làm cho anh ấm-giường ah...”
+
+  //   “Ấm-giường?” mày người đàn ông kia nhăn lại, thanh âm lạnh như băng, một câu hỏi, nói ra là một mùi khắc nghiệt.
+
+  //   Trang Nại Nại cảm thấy một đợt cảm giác bị áp bách mãnh liệt, nhất thời hô hấp lại trở nên khẩn trương lên, cô kiên trì mở miệng: “Đúng, đúng rồi tôi là hôn thê của anh, chúng ta ở cùng nhau, thiên kinh địa nghĩa*...” (* là điều hiển nhiên)
+
+  //   Lúc này, Trang Nại Nại nháy mắt nói, một đợt hơi thở nam tính tràn ngập xâm lược, bỗng nhiên tới gần, người đàn ông thân hình cao lớn vô cùng áp bức,ngũ quan gần ngay trước mắt lại tinh xảo như người điêu khắc.
+
+  //   Trang Nại Nại một chút cử động cũng không dám, mắt to như nước trong veo nhìn Tư Chính Đình, trái tim đập vô cùng dữ dội.
+
+  //   Chăn mền trên người bị xốc lên, cảm giác trong không khí mát lạnh xuyên thấu vào thân thể.
+
+  //   Như vậy là cô đem thân thể chính mình kính dâng sao?
+
+  //   Bất quá, qua đêm nay, anh hẳn là sẽ thực hiện hôn ước, cùng mình kết hôn...sao?
+
+  //   Nghĩ đến đây, Trang Nại Nại lập tức nhắm mắt lại, bày ra một bộ dáng thấy chết không sờn. ( coi thường cái chết)
+
+  //   Bất cứ giá nào! `,
+  //       create_at: "20/02/2025",
+  //     },
+  //   ];
 
   const allUsers = [
     {
       id: 1,
-      username: "Linh Nguyễn",
-      loginname: "linh",
+      username: "linh",
       password: "123",
-      avatar: "/img123.png",
-      coverphoto: "/img123.png",
+      fullname: "Linh Nguyễn",
       intro: "Hello",
-      create_at: "12/05/2022",
-      savedComics: [1, 2, 3],
-      readHistory: [3, 4, 5],
-      commment: [
-        {
-          id: 1,
-          comic_id: 2,
-          content: "Hay ko",
-          create_at: "12/2/2025",
-        },
-        {
-          id: 2,
-          comic_id: 2,
-          content: "Hay qua",
-          create_at: "12/2/2025",
-        },
-      ],
+      avatar: userIcon,
+      coverphoto: usercover,
+      country: "VietNam",
     },
     {
       id: 2,
-      username: "Lại Nguyên",
-      loginname: "nguyen",
+      username: "nguyen",
       password: "123",
-      avatar: "/img123.png",
-      coverphoto: "/img123.png",
+      fullname: "Lại Nguyên",
       intro: "Hello",
-      create_at: "12/05/2022",
-      savedComics: [1, 2, 3],
-      readHistory: [3, 4, 5],
-      commment: [
-        {
-          id: 1,
-          comic_id: 2,
-          content: "Hay ko",
-          create_at: "12/2/2025",
-        },
-        {
-          id: 2,
-          comic_id: 2,
-          content: "Hay qua",
-          create_at: "12/2/2025",
-        },
-      ],
+      avatar: userIcon,
+      coverphoto: usercover,
+      country: "VietNam",
+    },
+  ];
+
+  const allComments = [
+    {
+      id: 1,
+      user_id: 1,
+      content: "Hay ko",
+      comic_id: 11,
+      create_at: "2025/2/13",
+    },
+    {
+      id: 2,
+      user_id: 2,
+      content: "Hay qua",
+      comic_id: 11,
+      create_at: "2025/2/13",
+    },
+  ];
+
+  const savedComics = [
+    {
+      user_id: 1,
+      comic_id: 11,
+    },
+    {
+      user_id: 1,
+      comic_id: 12,
+    },
+    {
+      user_id: 1,
+      comic_id: 13,
+    },
+    {
+      user_id: 2,
+      comic_id: 14,
+    },
+  ];
+
+  const historyComics = [
+    {
+      user_id: 1,
+      comic_id: 14,
+    },
+    {
+      user_id: 1,
+      comic_id: 15,
+    },
+    {
+      user_id: 1,
+      comic_id: 16,
+    },
+    {
+      user_id: 2,
+      comic_id: 18,
     },
   ];
 
@@ -848,7 +864,7 @@ Bất cứ giá nào! `,
       category: "Nổi bật",
       description:
         "Chihiro, con trai của một thợ rèn huyền thoại, sống yên bình cho đến khi bi kịch ập đến, cướp đi tất cả. Cầm thanh kiếm cuối cùng của cha, cậu lao vào hành trình báo thù, đối mặt với những kẻ thù tàn ác và bí ẩn đằng sau thanh kiếm huyền thoại.",
-      comicId: 1,
+      comicId: 11,
     },
     {
       id: 2,
@@ -857,7 +873,7 @@ Bất cứ giá nào! `,
       category: "Nổi bật",
       description:
         "Trong một thế giới nơi bóng tối ngự trị, Abel - thợ săn quái vật trẻ tuổi với khả năng nhìn thấu bóng đêm, chiến đấu chống lại các sinh vật hắc ám đe dọa loài người. Khi anh phát hiện ra một âm mưu đe dọa cả thế giới, Abel phải đối mặt với quá khứ bí ẩn của chính mình.",
-      comicId: 2,
+      comicId: 12,
     },
     {
       id: 3,
@@ -866,18 +882,20 @@ Bất cứ giá nào! `,
       category: "Nổi bật",
       description:
         "Sau khi hy sinh trong trận chiến cuối cùng, linh hồn của chiến binh Haruki bị mắc kẹt giữa cõi âm và dương. Để tìm đường trở về, anh phải giúp những người còn sống vượt qua nguy hiểm và học cách sử dụng sức mạnh mới của mình trong một thế giới đầy rẫy những kẻ thù vô hình.",
-      comicId: 3,
+      comicId: 13,
     },
   ];
 
   const contextValue = {
     allComics,
-    truyenDeXuat,
     truyenMoi,
-    allChapters,
-    allUsers,
     allCategory,
     sliderComic,
+    isLoading,
+    allUsers,
+    allComments,
+    savedComics,
+    historyComics,
   };
 
   return (

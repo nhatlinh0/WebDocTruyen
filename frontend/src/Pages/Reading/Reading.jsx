@@ -15,7 +15,7 @@ const Reading = () => {
   // const { comicSlug, chapterId } = useParams();
   const { comicSlug } = useParams();
   const { allComics } = useContext(ComicContext);
-
+  const [isLoading, setIsLoading] = useState(true);
   const [comic, setComic] = useState();
   const [chapters, setChapters] = useState([]);
   const [chapter, setChapter] = useState([]);
@@ -32,6 +32,7 @@ const Reading = () => {
 
   useEffect(() => {
     if (comic?.id) {
+      setIsLoading(true);
       fetch(`https://newphim.online/api/truyen-chu/${comic.id}/chaps`)
         .then((res) => res.json())
         .then((data) => {
@@ -41,8 +42,10 @@ const Reading = () => {
               var newIndex = data.findIndex((item) => item.id == ids);
               setChapter(data[newIndex]);
               setIndex(newIndex);
+              setIsLoading(false);
             } else {
               setChapter(data[index]);
+              setIsLoading(false);
             }
           }
         })
@@ -95,21 +98,12 @@ const Reading = () => {
       setFontSize(fontSize - 2);
     }
   };
-  if (!chapter)
+  if (isLoading)
     return (
       <div className="bg-[#151018] rounded-3xl h-175 mx-25 flex justify-center items-center">
         <div className="text-center text-white">
           <div className="w-10 h-10 border-4 border-t-[#C72F44] border-[#332B37] rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-xl">Đang tải...</p>
-        </div>
-      </div>
-    );
-  if (!comic)
-    return (
-      <div className="bg-[#151018] rounded-3xl h-175 mx-25 flex justify-center items-center">
-        <div className="text-center text-white">
-          <div className="w-10 h-10 border-4 border-t-[#C72F44] border-[#332B37] rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-xl">Đang tải ...</p>
         </div>
       </div>
     );

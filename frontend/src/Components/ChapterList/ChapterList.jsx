@@ -55,7 +55,7 @@ const ChapterList = (props) => {
       0,
       Math.min(
         totalPages - pageNumberLimit,
-        currentPage - Math.ceil(pageNumberLimit / 2) //7
+        currentPage - Math.ceil(pageNumberLimit / 2)
       )
     );
     pageNumbers = Array.from(
@@ -85,7 +85,7 @@ const ChapterList = (props) => {
             value={chaptersPerPage}
             onChange={(e) => {
               setChaptersPerPage(Number(e.target.value));
-              setCurrentPage(1); // Reset về trang 1 khi thay đổi số lượng hiển thị
+              setCurrentPage(1);
             }}
           >
             <option value={10}>10</option>

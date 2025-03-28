@@ -25,7 +25,7 @@ const Comment = () => {
       <div className="flex mx-40 my-10">
         <img src={userIcon} alt="" className="h-14 w-14 mr-5 cursor-pointer" />
         <div className=" flex flex-col justify-center gap-3 pl-6 h-30 bg-[#e1e1e1] w-full rounded-xl">
-          <h1 className="text-[18px] text-[#C72F44] font-bold">Nguyễn Linh</h1>
+          <h1 className=" text-[#C72F44] font-bold">Nguyễn Linh</h1>
           <p className="text-black">Hay ko</p>
           <p className="text-[#635d66] text-sm">1 tháng trước</p>
         </div>
@@ -34,7 +34,7 @@ const Comment = () => {
       <div className="flex mx-40 my-10">
         <img src={userIcon} alt="" className="h-14 w-14 mr-5 cursor-pointer" />
         <div className=" flex flex-col justify-center gap-3 pl-6 h-30 bg-[#e1e1e1] w-full rounded-xl">
-          <h1 className="text-[18px] text-[#C72F44] font-bold">Lại Nguyên</h1>
+          <h1 className=" text-[#C72F44] font-bold">Lại Nguyên</h1>
           <p className="text-black">Hay </p>
           <p className="text-[#635d66] text-sm">1 tháng trước</p>
         </div>

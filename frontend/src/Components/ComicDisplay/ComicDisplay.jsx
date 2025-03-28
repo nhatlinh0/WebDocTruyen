@@ -55,14 +55,14 @@ const ComicDisplay = ({ comic }) => {
 
         <div className="flex items-center justify-between text-white mb-8">
           <div className="flex-1">
-            <h1 className="text-3xl font-bold my-4">{comic.name}</h1>
+            <h1 className="text-2xl font-bold my-4">{comic.name}</h1>
             <p className="text-base font-bold my-4">Tác giả: {comic.author}</p>
             <div className="flex items-center gap-1 my-4">
               <p className="text-base font-bold">Đánh giá: {comic.rate}/5</p>
               <MdOutlineStar className="text-xl text-[#FFFF0C]" />
             </div>
             <div className="flex items-center gap-2 my-4">
-              <Link to={`/reading/${comic.slug}/1`}>
+              <Link to={`/reading/${comic.slug}`}>
                 <div
                   className="rounded-xl w-45 py-4 bg-[#C72F44] text-center uppercase text-base font-bold cursor-pointer"
                   onClick={() => window.scrollTo(0, 0)}

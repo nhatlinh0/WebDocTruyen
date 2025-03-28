@@ -10,8 +10,18 @@ import { ComicContext } from "../../Context/ComicContext";
 import WebCard from "../../Components/WebCard/WebCard";
 
 const Home = () => {
-  const { truyenDeXuat, allCategory, truyenMoi, allComics } =
+  const { truyenDeXuat, allCategory, truyenMoi, allComics, isLoading } =
     useContext(ComicContext);
+  if (isLoading) {
+    return (
+      <div className="bg-[#151018] rounded-3xl h-175 mx-25 flex justify-center items-center">
+        <div className="text-center text-white">
+          <div className="w-10 h-10 border-4 border-t-[#C72F44] border-[#332B37] rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-xl">Đang tải ...</p>
+        </div>
+      </div>
+    );
+  }
   return (
     <div>
       <Slider />

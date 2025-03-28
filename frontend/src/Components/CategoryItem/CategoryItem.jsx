@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const CategoryItem = (props) => {
   return (
-    <Link to={`/category/${props.id}/`}>
+    <Link to={`/categories/${props.id}/`}>
       <div
         className="cursor-pointer relative group"
         onClick={() => window.scrollTo(0, 0)}

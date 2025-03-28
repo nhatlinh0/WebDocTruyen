@@ -12,10 +12,11 @@ import { Link } from "react-router-dom";
 import { ComicContext } from "../../Context/ComicContext";
 
 const Header = () => {
-  const { allCategory, allComics } = useContext(ComicContext);
+  const { allCategory, allComics, allUsers } = useContext(ComicContext);
   const [searchQuery, setSearchQuery] = useState("");
   const [showResults, setShowResults] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
+  const userLinh = allUsers[0];
   const navigate = useNavigate();
 
   // Xử lý tìm kiếm khi người dùng nhập
@@ -163,42 +164,42 @@ const Header = () => {
       <FaRegMoon className="w-5 h-5 cursor-pointer hover:text-[#ff4d6d] duration-300" />
       <div className="group relative flex items-center justify-center mr-20 space-x-2">
         <img
-          src={userIcon}
+          src={userLinh.avatar}
           alt=""
           className="w-11 h-11 rounded-[50%] cursor-pointer hover:scale-110 transition duration-300"
         />
-        <p className="w-30 text-center truncate">Nguyen Linh</p>
+        <p className="w-30 text-center truncate">{userLinh.fullname}</p>
 
         <div className="absolute top-[55px] z-50 w-64 bg-[#231B27] border border-[#C42F44] rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
           <div className="p-4 border-b border-[#3a2a43]">
             <div className="flex items-center space-x-3">
               <img
-                src={userIcon}
+                src={userLinh.avatar}
                 alt="User profile"
                 className="w-12 h-12 rounded-full border-2 border-[#C42F44]"
               />
               <div>
-                <p className="font-medium text-white">Nguyen Linh</p>
+                <p className="font-medium text-white">{userLinh.fullname}</p>
               </div>
             </div>
           </div>
 
           <ul className="p-2 font-normal text-white">
-            <Link to={"/profile"} state={{ menu: "saved" }}>
+            <Link to={"/profile"} state={{ menu: "saved", user: userLinh }}>
               <li className="px-4 py-3 flex items-center space-x-2 hover:bg-[#2B1552] hover:text-[#ff4d6d] rounded-md transition-colors duration-200 cursor-pointer">
                 <FaRegBookmark />
                 <span>Truyện đã lưu</span>
               </li>
             </Link>
 
-            <Link to={"/profile"} state={{ menu: "history" }}>
+            <Link to={"/profile"} state={{ menu: "history", user: userLinh }}>
               <li className="px-4 py-3 flex items-center space-x-2 hover:bg-[#2B1552] hover:text-[#ff4d6d] rounded-md transition-colors duration-200 cursor-pointer">
                 <FaRegClock />
                 <span>Lịch sử đọc</span>
               </li>
             </Link>
 
-            <Link to={"/profile"} state={{ menu: "setting" }}>
+            <Link to={"/profile"} state={{ menu: "setting", user: userLinh }}>
               <li className="px-4 py-3 flex items-center space-x-2 hover:bg-[#2B1552] hover:text-[#ff4d6d] rounded-md transition-colors duration-200 cursor-pointer">
                 <FaRegUser />
                 <span>Thông tin hồ sơ</span>

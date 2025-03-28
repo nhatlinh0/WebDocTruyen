@@ -6,10 +6,11 @@ import { useLocation } from "react-router-dom";
 const User = () => {
   const location = useLocation();
   const selectedMenu = location.state?.menu || "saved";
+  const user = location.state.user;
   return (
     <div>
-      <UserProfile />
-      <MenuUser initialMenu={selectedMenu} />
+      <UserProfile user={user} />
+      <MenuUser initialMenu={selectedMenu} user={user} />
     </div>
   );
 };

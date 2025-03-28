@@ -3,10 +3,11 @@ import { ComicContext } from "../../Context/ComicContext";
 import ComicItem from "../../Components/ComicItem/ComicItem";
 
 const NewestComic = () => {
-  const { allComics, truyenMoi } = useContext(ComicContext);
+  const { truyenMoi } = useContext(ComicContext);
   // const newestComics = allComics.sort((a, b) => {
   //   return Date.parse(b.create_at) - Date.parse(a.create_at);
   // });
+
   return (
     <div className="text-white">
       <h1 className="text-3xl font-bold ml-27 my-12">Truyện Mới nhất</h1>

@@ -14,7 +14,7 @@ const CategoryList = () => {
             <CategoryItem
               key={i}
               id={item.id}
-              img={item.img}
+              img={"https://newphim.online/" + item.img}
               name={item.name}
               desc={item.desc}
             />
