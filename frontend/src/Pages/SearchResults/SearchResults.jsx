@@ -54,7 +54,7 @@ const SearchResults = () => {
                   id={comic.id}
                   img={"https://newphim.online/" + comic.img}
                   name={comic.name}
-                  chapter={comic.chapter}
+                  chapter={comic.chapter_number}
                   rate={comic.rate}
                 />
               ))}

@@ -5,10 +5,26 @@ import { Link } from "react-router-dom";
 import { ComicContext } from "../../Context/ComicContext";
 
 const ComicDisplay = ({ comic }) => {
+  const userId = localStorage.getItem("userId");
+
   const { allCategory } = useContext(ComicContext);
   const category = allCategory.filter((item) => {
     return comic.category == item.id;
   });
+
+  const handleSaved = () => {
+    fetch(`https://newphim.online/api/favorite-stories/${comic.id}`, {
+      method: POST,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({}),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.log("Server Errror"));
+  };
 
   return (
     <div className=" rounded-3xl bg-[#151018] mx-25">
@@ -70,7 +86,10 @@ const ComicDisplay = ({ comic }) => {
                   Đọc ngay
                 </div>
               </Link>
-              <div className="rounded-xl w-45 py-4 text-[#C72F44] border-2 border-[#C72F44] bg-white text-center uppercase text-base font-bold cursor-pointer">
+              <div
+                className="rounded-xl w-45 py-4 text-[#C72F44] border-2 border-[#C72F44] bg-white text-center uppercase text-base font-bold cursor-pointer"
+                onClick={handleSaved}
+              >
                 Lưu truyện
               </div>
             </div>

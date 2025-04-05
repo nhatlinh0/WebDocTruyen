@@ -1,20 +1,3 @@
-import bleach from "../Assets/bleach-cover.jpg";
-import blackclover from "../Assets/blackclover-cover.jpg";
-import bokunohero from "../Assets/bokunohero-cover.jpg";
-import bluelock from "../Assets/bluelock-cover.jpg";
-import haikyuu from "../Assets/haikyuu-cover.jpg";
-import jujutsu from "../Assets/jujutsu-cover.jpg";
-import kagurabachi from "../Assets/kagurabachi-cover.webp";
-import kmy from "../Assets/kmy-cover.webp";
-import nanatsu from "../Assets/nanatsu-cover.jpg";
-import rezero from "../Assets/rezero-cover.jpg";
-import sao from "../Assets/sao-cover.jpg";
-import yakusoku from "../Assets/yakusoku-cover.jpg";
-import tokyoghoul from "../Assets/tokyoghoul-cover.png";
-import kaguya from "../Assets/kaguya-cover.webp";
-import nodame from "../Assets/nodame-cover.webp";
-import horror from "../Assets/horror-cover.jpg";
-
 import userIcon from "../Assets/avatar-icon.jpg";
 import usercover from "../Assets/user-cover.jpg";
 import image1 from "../Assets/sao-slider.jpg";
@@ -654,23 +637,23 @@ const ComicContextProvider = (props) => {
   const allUsers = [
     {
       id: 1,
-      username: "linh",
+      email: "linh",
       password: "123",
       fullname: "Linh Nguyễn",
       intro: "Hello",
       avatar: userIcon,
       coverphoto: usercover,
-      country: "VietNam",
+      province: "AG",
     },
     {
       id: 2,
-      username: "nguyen",
+      email: "nguyen",
       password: "123",
       fullname: "Lại Nguyên",
       intro: "Hello",
       avatar: userIcon,
       coverphoto: usercover,
-      country: "VietNam",
+      province: "LD",
     },
   ];
 
