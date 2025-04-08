@@ -26,7 +26,7 @@ const Session = (props) => {
         )) || <div></div>}
       </div>
 
-      <div className="grid grid-cols-4 justify-items-center gap-y-10">
+      <div className="grid grid-cols-5 justify-items-center gap-y-10">
         {props.children}
       </div>
     </div>

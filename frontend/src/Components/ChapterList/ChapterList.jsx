@@ -75,123 +75,126 @@ const ChapterList = (props) => {
     );
   }
   return (
-    <div className="bg-[#151018] rounded-3xl mx-25 py-6">
-      <div className="flex justify-between items-center mx-10 mb-6">
-        <p className="text-[#C72F44] text-xl font-bold">Danh sách chương</p>
-        <div className="flex items-center text-white text-sm">
-          <span>Hiển thị:</span>
-          <select
-            className="ml-2 bg-[#231B27] rounded-md px-2 py-1 border border-gray-700"
-            value={chaptersPerPage}
-            onChange={(e) => {
-              setChaptersPerPage(Number(e.target.value));
-              setCurrentPage(1);
-            }}
-          >
-            <option value={10}>10</option>
-            <option value={20}>20</option>
-            <option value={50}>50</option>
-            <option value={100}>100</option>
-          </select>
-        </div>
-      </div>
-
-      {totalChapters > 0 ? (
-        <>
-          <div className="grid grid-cols-2 text-white gap-y-6 place-items-start mx-10">
-            {currentChapters.map((item) => (
-              <Link
-                key={item.id}
-                to={`/reading/${props.comicSlug}`}
-                state={{ chapterId: item.id }}
-                className="hover:text-[#C72F44] transition-colors duration-200"
-              >
-                <p onClick={() => window.scrollTo(0, 0)}>{item.title}</p>
-              </Link>
-            ))}
-          </div>
-
-          {/* Phân trang */}
-          <div className="flex justify-center items-center mt-10 text-white">
-            <button
-              onClick={() => paginate(currentPage - 1)}
-              disabled={currentPage === 1}
-              className={`mx-1 p-2 rounded-md ${
-                currentPage === 1 ? "text-gray-500" : "hover:bg-[#231B27]"
-              }`}
+    <div className="flex justify-between mx-40 gap-20 my-30">
+      <div className="bg-[#151018] rounded-lg  py-6 ring-1 ring-blue-800 flex-7">
+        <div className="flex justify-between items-center mx-10 mb-6">
+          <p className="text-[#C72F44] text-xl font-bold">Danh sách chương</p>
+          <div className="flex items-center text-white text-sm">
+            <span>Hiển thị:</span>
+            <select
+              className="ml-2 bg-[#231B27] rounded-md px-2 py-1 border border-gray-700"
+              value={chaptersPerPage}
+              onChange={(e) => {
+                setChaptersPerPage(Number(e.target.value));
+                setCurrentPage(1);
+              }}
             >
-              <FiChevronLeft />
-            </button>
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+            </select>
+          </div>
+        </div>
 
-            {/* Trang đầu tiên */}
-            {pageNumbers[0] > 1 && (
-              <>
+        {totalChapters > 0 ? (
+          <>
+            <div className="grid grid-cols-2 text-white gap-y-6 place-items-start mx-10">
+              {currentChapters.map((item) => (
+                <Link
+                  key={item.id}
+                  to={`/reading/${props.comicSlug}`}
+                  state={{ chapterId: item.id }}
+                  className="hover:text-[#C72F44] transition-colors duration-200"
+                >
+                  <p onClick={() => window.scrollTo(0, 0)}>{item.title}</p>
+                </Link>
+              ))}
+            </div>
+
+            {/* Phân trang */}
+            <div className="flex justify-center items-center mt-10 text-white">
+              <button
+                onClick={() => paginate(currentPage - 1)}
+                disabled={currentPage === 1}
+                className={`mx-1 p-2 rounded-md ${
+                  currentPage === 1 ? "text-gray-500" : "hover:bg-[#231B27]"
+                }`}
+              >
+                <FiChevronLeft />
+              </button>
+
+              {/* Trang đầu tiên */}
+              {pageNumbers[0] > 1 && (
+                <>
+                  <button
+                    onClick={() => paginate(1)}
+                    className={`mx-1 px-3 py-1 rounded-md ${
+                      currentPage === 1
+                        ? "bg-[#C72F44] text-white"
+                        : "hover:bg-[#231B27]"
+                    }`}
+                  >
+                    1
+                  </button>
+                  {pageNumbers[0] > 2 && <span className="mx-1">...</span>}
+                </>
+              )}
+
+              {/* Các trang giữa */}
+              {pageNumbers.map((number) => (
                 <button
-                  onClick={() => paginate(1)}
+                  key={number}
+                  onClick={() => paginate(number)}
                   className={`mx-1 px-3 py-1 rounded-md ${
-                    currentPage === 1
+                    currentPage === number
                       ? "bg-[#C72F44] text-white"
                       : "hover:bg-[#231B27]"
                   }`}
                 >
-                  1
+                  {number}
                 </button>
-                {pageNumbers[0] > 2 && <span className="mx-1">...</span>}
-              </>
-            )}
+              ))}
 
-            {/* Các trang giữa */}
-            {pageNumbers.map((number) => (
+              {/* Trang cuối cùng */}
+              {pageNumbers[pageNumbers.length - 1] < totalPages && (
+                <>
+                  {pageNumbers[pageNumbers.length - 1] < totalPages - 1 && (
+                    <span className="mx-1">...</span>
+                  )}
+                  <button
+                    onClick={() => paginate(totalPages)}
+                    className={`mx-1 px-3 py-1 rounded-md ${
+                      currentPage === totalPages
+                        ? "bg-[#C72F44] text-white"
+                        : "hover:bg-[#231B27]"
+                    }`}
+                  >
+                    {totalPages}
+                  </button>
+                </>
+              )}
+
               <button
-                key={number}
-                onClick={() => paginate(number)}
-                className={`mx-1 px-3 py-1 rounded-md ${
-                  currentPage === number
-                    ? "bg-[#C72F44] text-white"
+                onClick={() => paginate(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className={`mx-1 p-2 rounded-md ${
+                  currentPage === totalPages
+                    ? "text-gray-500"
                     : "hover:bg-[#231B27]"
                 }`}
               >
-                {number}
+                <FiChevronRight />
               </button>
-            ))}
-
-            {/* Trang cuối cùng */}
-            {pageNumbers[pageNumbers.length - 1] < totalPages && (
-              <>
-                {pageNumbers[pageNumbers.length - 1] < totalPages - 1 && (
-                  <span className="mx-1">...</span>
-                )}
-                <button
-                  onClick={() => paginate(totalPages)}
-                  className={`mx-1 px-3 py-1 rounded-md ${
-                    currentPage === totalPages
-                      ? "bg-[#C72F44] text-white"
-                      : "hover:bg-[#231B27]"
-                  }`}
-                >
-                  {totalPages}
-                </button>
-              </>
-            )}
-
-            <button
-              onClick={() => paginate(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className={`mx-1 p-2 rounded-md ${
-                currentPage === totalPages
-                  ? "text-gray-500"
-                  : "hover:bg-[#231B27]"
-              }`}
-            >
-              <FiChevronRight />
-            </button>
+            </div>
+          </>
+        ) : (
+          <div className="text-center text-white py-10">
+            Không có chương nào cho truyện này
           </div>
-        </>
-      ) : (
-        <div className="text-center text-white py-10">
-          Không có chương nào cho truyện này
-        </div>
-      )}
+        )}
+      </div>
+      <div className="h-100 bg-white flex-3"></div>
     </div>
   );
 };

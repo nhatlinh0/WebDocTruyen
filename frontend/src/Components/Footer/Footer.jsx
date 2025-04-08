@@ -22,57 +22,7 @@ const Footer = () => {
 
   return (
     <div>
-      {/* <div className="flex flex-col justify-around items-center h-110 mt-12 bg-gradient-to-b from-[#231B27] to-[#2B1552]">
-        <Link to={"/"}>
-          <h1
-            className="text-[#C42F44] text-3xl font-bold uppercase cursor-pointer duration-300 hover:text-[#fff] hover:scale-105"
-            onClick={() => window.scrollTo(0, 0)}
-          >
-            Read3
-          </h1>
-        </Link>
-        <p className="text-2xl font-bold text-white">Kết nối với chúng tôi</p>
-        <div className="flex space-x-12">
-          <BiLogoFacebookCircle className="text-[#0866FF] text-5xl cursor-pointer duration-300 hover:scale-110" />
-          <FaDiscord className="text-[#5865F2] text-5xl cursor-pointer duration-300 hover:scale-110" />
-          <img
-            src={instagram}
-            alt=""
-            width={48}
-            height={48}
-            className="cursor-pointer duration-300 hover:scale-110"
-          />
-          <img
-            src={gmail}
-            alt=""
-            width={48}
-            height={48}
-            className="cursor-pointer duration-300 hover:scale-110"
-          />
-        </div>
-        <ul className="flex space-x-10">
-          <li className="text-base text-white font-bold cursor-pointer duration-300 hover:text-[#FFD700] hover:underline">
-            Về chúng tôi
-          </li>
-          <li className="text-base text-white font-bold cursor-pointer duration-300 hover:text-[#FFD700] hover:underline">
-            Quyền riêng tư
-          </li>
-          <li className="text-base text-white font-bold cursor-pointer duration-300 hover:text-[#FFD700] hover:underline">
-            Chính sách bảo mật
-          </li>
-          <li className="text-base text-white font-bold cursor-pointer duration-300 hover:text-[#FFD700] hover:underline">
-            Điều khoản
-          </li>
-          <li className="text-base text-white font-bold cursor-pointer duration-300 hover:text-[#FFD700] hover:underline">
-            Quản lý nội dung
-          </li>
-        </ul>
-        <div className="text-center text-sm mt-8 border-t border-gray-700 pt-4 text-white">
-          &copy; {new Date().getFullYear()} READ3. All Rights Reserved.
-        </div>
-      </div> */}
-
-      <footer className="bg-gradient-to-b from-[#231B27] to-[#2B1552] text-gray-300 mt-12">
+      <footer className="bg-gradient-to-b from-[#231B27] to-[#2B1552] text-gray-300 mt-20 px-30">
         {/* Top footer section with columns */}
         <div className="container mx-auto px-6 py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

@@ -3,8 +3,28 @@ import { MdStarRate } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 const ComicItem = (props) => {
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
+
+  const handleHistory = () => {
+    if (!userId || !token) {
+      return;
+    }
+    fetch(`https://newphim.online/api/history/${userId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ truyen_chu_id: props.id }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.log("Server Errror"));
+  };
+
   return (
-    <Link to={`/comic/${props.id}`}>
+    <Link to={`/comic/${props.id}`} onClick={handleHistory}>
       <div
         className="cursor-pointer hover:scale-105 group duration-300 mx-4"
         onClick={() => window.scrollTo(0, 0)}

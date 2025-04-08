@@ -1,4 +1,10 @@
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Outlet,
+  Navigate,
+} from "react-router-dom";
 import Header from "./Components/Header/Header";
 import Home from "./Pages/Home/Home";
 import Footer from "./Components/Footer/Footer";
@@ -24,6 +30,19 @@ const MainLayout = () => {
   );
 };
 
+const GuestGuard = ({ children }) => {
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
+
+  // Nếu đã đăng nhập, chuyển hướng về trang chủ
+  if (userId && token) {
+    return <Navigate to="/" replace />;
+  }
+
+  // Nếu chưa đăng nhập, hiển thị nội dung của route
+  return children;
+};
+
 function App() {
   return (
     <div className="w-full mx-auto bg-[#231B27]">
@@ -45,12 +64,28 @@ function App() {
             <Route path="/allcategory" element={<CategoryList />} />
             <Route path="/newest" element={<NewestComic />} />
             <Route path="/popular" element={<PopularComic />} />
-            <Route path="/profile" element={<User />} />
+            <Route path="/profile" element={<User />}>
+              <Route path=":menu" element={<User />}></Route>
+            </Route>
             <Route path="/search" element={<SearchResults />} />
           </Route>
 
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route
+            path="/login"
+            element={
+              <GuestGuard>
+                <Login />
+              </GuestGuard>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <GuestGuard>
+                <Register />
+              </GuestGuard>
+            }
+          />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

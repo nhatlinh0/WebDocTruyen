@@ -241,21 +241,21 @@ const Header = () => {
               </div>
 
               <ul className="p-2 font-normal text-white">
-                <Link to={"/profile"} state={{ menu: "saved" }}>
+                <Link to={"/profile/saved"}>
                   <li className="px-4 py-3 flex items-center space-x-2 hover:bg-[#2B1552] hover:text-[#ff4d6d] rounded-md transition-colors duration-200 cursor-pointer">
                     <FaRegBookmark />
                     <span>Truyện đã lưu</span>
                   </li>
                 </Link>
 
-                <Link to={"/profile"} state={{ menu: "history" }}>
+                <Link to={"/profile/history"}>
                   <li className="px-4 py-3 flex items-center space-x-2 hover:bg-[#2B1552] hover:text-[#ff4d6d] rounded-md transition-colors duration-200 cursor-pointer">
                     <FaRegClock />
                     <span>Lịch sử đọc</span>
                   </li>
                 </Link>
 
-                <Link to={"/profile"} state={{ menu: "setting" }}>
+                <Link to={"/profile/setting"}>
                   <li className="px-4 py-3 flex items-center space-x-2 hover:bg-[#2B1552] hover:text-[#ff4d6d] rounded-md transition-colors duration-200 cursor-pointer">
                     <FaRegUser />
                     <span>Thông tin hồ sơ</span>

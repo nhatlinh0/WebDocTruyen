@@ -1,25 +1,29 @@
 import React, { useContext } from "react";
 import sao from "../../Assets/sao-slider.jpg";
 import { MdOutlineStar } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { ComicContext } from "../../Context/ComicContext";
 
 const ComicDisplay = ({ comic }) => {
+  const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
-
+  const token = localStorage.getItem("token");
   const { allCategory } = useContext(ComicContext);
   const category = allCategory.filter((item) => {
     return comic.category == item.id;
   });
 
   const handleSaved = () => {
-    fetch(`https://newphim.online/api/favorite-stories/${comic.id}`, {
-      method: POST,
+    if (!userId || !token) {
+      navigate("/login");
+    }
+    fetch(`https://newphim.online/api/favorite-stories/${userId}`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({}),
+      body: JSON.stringify({ truyen_chu_id: comic.id }),
     })
       .then((res) => res.json())
       .then((data) => console.log(data))
@@ -27,7 +31,7 @@ const ComicDisplay = ({ comic }) => {
   };
 
   return (
-    <div className=" rounded-3xl bg-[#151018] mx-25">
+    <div className=" rounded-lg bg-[#151018] mx-40 ring-1 ring-blue-900">
       <div className="relative h-88 w-full">
         <img
           src={sao}
@@ -44,7 +48,8 @@ const ComicDisplay = ({ comic }) => {
       <div className="mx-8">
         <div className="text-white flex items-center justify-between my-8">
           <p className="text-base font-bold">
-            Trạng thái: <span className="text-[#FBFB6A]">{comic.status}</span>
+            Trạng thái:{" "}
+            <span className="text-[#FBFB6A] font-medium">{comic.status}</span>
           </p>
           <div className="flex justify-center items-center gap-2">
             {/* {category.map((item) => (
@@ -60,7 +65,7 @@ const ComicDisplay = ({ comic }) => {
 
             <Link to={`/categories/${comic.category}`}>
               <div
-                className="px-6 py-1 rounded-xl font-bold cursor-pointer bg-[#4B474E]"
+                className="px-6 py-1 rounded-xl text-sm font-bold cursor-pointer bg-[#4B474E]"
                 onClick={() => window.scrollTo(0, 0)}
               >
                 {category[0]?.name}
@@ -72,9 +77,13 @@ const ComicDisplay = ({ comic }) => {
         <div className="flex items-center justify-between text-white mb-8">
           <div className="flex-1">
             <h1 className="text-2xl font-bold my-4">{comic.name}</h1>
-            <p className="text-base font-bold my-4">Tác giả: {comic.author}</p>
+            <p className="text-base font-bold my-4">
+              Tác giả: <span className="font-light">{comic.author}</span>
+            </p>
             <div className="flex items-center gap-1 my-4">
-              <p className="text-base font-bold">Đánh giá: {comic.rate}/5</p>
+              <p className="text-base font-bold">
+                Đánh giá: <span className="font-medium">{comic.rate}/5</span>
+              </p>
               <MdOutlineStar className="text-xl text-[#FFFF0C]" />
             </div>
             <div className="flex items-center gap-2 my-4">

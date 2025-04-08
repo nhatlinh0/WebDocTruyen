@@ -12,7 +12,7 @@ const NewestComic = () => {
     <div className="text-white">
       <h1 className="text-3xl font-bold ml-27 my-12">Truyện Mới nhất</h1>
       <p className=" text-xl mx-30 my-10">{truyenMoi.length} kết quả</p>
-      <div className="grid grid-cols-4 justify-items-center gap-y-10 mx-30 mb-60">
+      <div className="grid grid-cols-5 justify-items-center gap-y-10 mx-30 mb-60">
         {truyenMoi.map((item, i) => (
           <ComicItem
             key={i}

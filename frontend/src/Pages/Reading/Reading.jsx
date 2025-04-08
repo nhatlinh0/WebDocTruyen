@@ -4,6 +4,7 @@ import { CiZoomIn } from "react-icons/ci";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
+import { IoSettingsOutline } from "react-icons/io5";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { ComicContext } from "../../Context/ComicContext";
 
@@ -173,6 +174,7 @@ const Reading = () => {
           >
             <MdOutlineKeyboardArrowRight className="text-2xl" />
           </div>
+          <IoSettingsOutline className="w-8 h-8 ml-20 cursor-pointer" />
         </div>
       </div>
 

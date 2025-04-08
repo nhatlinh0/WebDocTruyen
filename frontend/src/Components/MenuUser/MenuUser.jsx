@@ -1,13 +1,45 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ComicContext } from "../../Context/ComicContext";
 import ComicItem from "../ComicItem/ComicItem";
 
 import Setting from "../Setting/Setting";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const MenuUser = ({ initialMenu }) => {
-  const [menu, setMenu] = useState(initialMenu);
+const MenuUser = () => {
+  const { menu } = useParams();
+  const navigate = useNavigate();
+  const userId = localStorage.getItem("userId");
   const { allComics } = useContext(ComicContext);
+  const [savedComics, setSavedComics] = useState();
+  const [historyComics, setHistoryComics] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch(`https://newphim.online/api/favorite-stories/${userId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        const saved = allComics.filter((item) => {
+          return data.favorite_stories.some((saved) => saved.id === item.id);
+        });
+        setSavedComics(saved);
+        setIsLoading(false);
+      });
+  }, [allComics, userId]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch(`https://newphim.online/api/history/${userId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        const history = allComics.filter((item) => {
+          return data.history.some((history) => history.id === item.id);
+        });
+        setHistoryComics(history);
+        setIsLoading(false);
+      });
+  }, [allComics, userId]);
+
   const getMenuItemClasses = (menuName) => {
     return {
       text:
@@ -17,11 +49,17 @@ const MenuUser = ({ initialMenu }) => {
       indicator: menu === menuName ? "" : "hidden",
     };
   };
+
+  if (isLoading) return <div></div>;
+
   return (
-    <div className="mx-30 pt-10 pb-25">
+    <div className="mx-30 pt-10 pb-25 ">
       {/* MENU */}
       <div className="flex items-center gap-20">
-        <div onClick={() => setMenu("saved")} className="cursor-pointer">
+        <div
+          onClick={() => navigate("/profile/saved")}
+          className="cursor-pointer"
+        >
           <p
             className={`${
               getMenuItemClasses("saved").text
@@ -36,7 +74,10 @@ const MenuUser = ({ initialMenu }) => {
           ></div>
         </div>
 
-        <div onClick={() => setMenu("history")} className="cursor-pointer">
+        <div
+          onClick={() => navigate("/profile/history")}
+          className="cursor-pointer"
+        >
           <p
             className={`${
               getMenuItemClasses("history").text
@@ -51,7 +92,10 @@ const MenuUser = ({ initialMenu }) => {
           ></div>
         </div>
 
-        <div onClick={() => setMenu("setting")} className="cursor-pointer">
+        <div
+          onClick={() => navigate("/profile/setting")}
+          className="cursor-pointer"
+        >
           <p
             className={`${
               getMenuItemClasses("setting").text
@@ -74,16 +118,17 @@ const MenuUser = ({ initialMenu }) => {
           <h3 className="text-xl text-white mt-20 ml-5">Truyện đã lưu</h3>
           <div className="flex gap-20 justify-between mx-2 mt-8 ">
             <div className="grid grid-cols-3 gap-y-8">
-              {allComics.map((item, i) => (
-                <ComicItem
-                  key={i}
-                  id={item.id}
-                  img={item.img}
-                  name={item.name}
-                  chapter={item.chapter}
-                  rate={item.rate}
-                />
-              ))}
+              {savedComics &&
+                savedComics.map((item, i) => (
+                  <ComicItem
+                    key={i}
+                    id={item.id}
+                    img={"https://newphim.online/" + item.img}
+                    name={item.name}
+                    chapter={item.chapter}
+                    rate={item.rate}
+                  />
+                ))}
             </div>
             <div className="min-w-100 bg-amber-50"></div>
           </div>
@@ -95,16 +140,17 @@ const MenuUser = ({ initialMenu }) => {
           <h3 className="text-xl text-white  mt-20 ml-5">Lịch sử đọc truyện</h3>
           <div className="flex gap-20 justify-between mx-2 mt-8 ">
             <div className="grid grid-cols-3 gap-y-8">
-              {allComics.map((item, i) => (
-                <ComicItem
-                  key={i}
-                  id={item.id}
-                  img={item.img}
-                  name={item.name}
-                  chapter={item.chapter}
-                  rate={item.rate}
-                />
-              ))}
+              {historyComics &&
+                historyComics.map((item, i) => (
+                  <ComicItem
+                    key={i}
+                    id={item.id}
+                    img={"https://newphim.online/" + item.img}
+                    name={item.name}
+                    chapter={item.chapter}
+                    rate={item.rate}
+                  />
+                ))}
             </div>
             <div className="min-w-100 bg-amber-50"></div>
           </div>
