@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import sao from "../../Assets/sao-slider.jpg";
+import { FaEye } from "react-icons/fa";
 import { MdOutlineStar } from "react-icons/md";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { ComicContext } from "../../Context/ComicContext";
@@ -9,9 +10,21 @@ const ComicDisplay = ({ comic }) => {
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const { allCategory } = useContext(ComicContext);
+  const [view, setView] = useState(0);
+
   const category = allCategory.filter((item) => {
-    return comic.category == item.id;
+    return comic.category.some((cate) => cate == item.id);
   });
+
+  useEffect(() => {
+    fetch(`https://newphim.online/api/view-count/${comic.id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setView(data.view_count);
+        }
+      });
+  }, [userId]);
 
   const handleSaved = () => {
     if (!userId || !token) {
@@ -52,8 +65,8 @@ const ComicDisplay = ({ comic }) => {
             <span className="text-[#FBFB6A] font-medium">{comic.status}</span>
           </p>
           <div className="flex justify-center items-center gap-2">
-            {/* {category.map((item) => (
-              <Link to={`/category/${item.id}`}>
+            {category.map((item) => (
+              <Link to={`/categories/${item.id}`}>
                 <div
                   className="px-6 py-1 rounded-xl font-bold cursor-pointer bg-[#4B474E]"
                   onClick={() => window.scrollTo(0, 0)}
@@ -61,16 +74,16 @@ const ComicDisplay = ({ comic }) => {
                   {item.name}
                 </div>
               </Link>
-            ))} */}
+            ))}
 
-            <Link to={`/categories/${comic.category}`}>
+            {/* <Link to={`/categories/${comic.category}`}>
               <div
                 className="px-6 py-1 rounded-xl text-sm font-bold cursor-pointer bg-[#4B474E]"
                 onClick={() => window.scrollTo(0, 0)}
               >
                 {category[0]?.name}
               </div>
-            </Link>
+            </Link> */}
           </div>
         </div>
 
@@ -82,10 +95,20 @@ const ComicDisplay = ({ comic }) => {
             </p>
             <div className="flex items-center gap-1 my-4">
               <p className="text-base font-bold">
-                Đánh giá: <span className="font-medium">{comic.rate}/5</span>
+                Đánh giá:{" "}
+                <span className="font-medium">
+                  {comic.rate ? comic.rate.toFixed(1) : 0}/5
+                </span>
               </p>
               <MdOutlineStar className="text-xl text-[#FFFF0C]" />
             </div>
+            <div className="flex items-center gap-1 my-4">
+              <p className="text-base font-bold">
+                Lượt xem: <span className="font-medium">{view}</span>
+              </p>
+              <FaEye className="pl-1" />
+            </div>
+
             <div className="flex items-center gap-2 my-4">
               <Link to={`/reading/${comic.slug}`}>
                 <div

@@ -28,7 +28,7 @@ const Comic = () => {
 
   useEffect(() => {
     if (comic?.category) {
-      fetch(`https://newphim.online/api/categories/${comic.category}`)
+      fetch(`https://newphim.online/api/categories/${comic.category[0]}`)
         .then((res) => {
           return res.json();
         })
@@ -61,7 +61,7 @@ const Comic = () => {
     <div className="mt-10">
       <ComicDisplay comic={comic} />
       <ChapterList comicId={comic.id} comicSlug={comic.slug} />
-      <Comment />
+      <Comment comicId={comic.id} />
       <Session title="Truyện liên quan">
         {relatedComics.map((item, i) => (
           <ComicItem
@@ -69,7 +69,7 @@ const Comic = () => {
             id={item.id}
             img={"https://newphim.online/" + item.img}
             name={item.name}
-            chapter={item.chapter_number}
+            chapter={item.chapter_count}
             rate={item.rate}
           ></ComicItem>
         ))}

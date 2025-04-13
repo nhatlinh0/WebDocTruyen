@@ -1,17 +1,33 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ComicContext } from "../../Context/ComicContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { FaEye } from "react-icons/fa";
 
 const ChapterList = (props) => {
-  // const { allChapters } = useContext(ComicContext);
+  const navigate = useNavigate();
+  const { allComics } = useContext(ComicContext);
   // const chapters = allChapters.filter((item) => item.comic_id == props.comicId);
 
   const [chapters, setChapters] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [topComics, setTopComics] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [chaptersPerPage, setChaptersPerPage] = useState(20);
+
+  useEffect(() => {
+    fetch(`https://newphim.online/api/top-month`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          // var top = allComics.filter((item) => {
+          //   return data.some((part) => part.id == item.id);
+          // });
+          setTopComics(data);
+        }
+      })
+      .catch((error) => console.log("Server Errror"));
+  }, []);
 
   useEffect(() => {
     if (props.comicId) {
@@ -75,7 +91,7 @@ const ChapterList = (props) => {
     );
   }
   return (
-    <div className="flex justify-between mx-40 gap-20 my-30">
+    <div className="flex justify-between mx-40 gap-10 my-30">
       <div className="bg-[#151018] rounded-lg  py-6 ring-1 ring-blue-800 flex-7">
         <div className="flex justify-between items-center mx-10 mb-6">
           <p className="text-[#C72F44] text-xl font-bold">Danh sách chương</p>
@@ -194,7 +210,47 @@ const ChapterList = (props) => {
           </div>
         )}
       </div>
-      <div className="h-100 bg-white flex-3"></div>
+
+      <div className="flex-3  bg-[#151018] text-white rounded-xl ring-1 ring-blue-800">
+        <h1 className="text-center text-[#C72F44] font-bold py-2 border-b-1 border-blue-800">
+          Xem nhiều trong tháng
+        </h1>
+        <div className="overflow-y-auto h-100 px-4">
+          {topComics &&
+            topComics.map((item, i) => {
+              // Tìm comic dựa trên id ở bên ngoài JSX
+              const top = allComics.find((c) => c.id == item.id);
+              // Kiểm tra nếu top tồn tại mới render
+              return top ? (
+                <div
+                  key={i}
+                  className="flex items-center justify-between py-3 cursor-pointer border-b-[1px] border-gray-500"
+                  onClick={() => {
+                    window.scroll(0, 0);
+                    navigate(`/comic/${item.id}`);
+                  }}
+                >
+                  <h1>{i + 1}</h1>
+                  <img
+                    src={"https://newphim.online/" + top.img}
+                    alt=""
+                    className="w-14 h-17 object-cover"
+                  />
+                  <div className="w-[120px]">
+                    <p className="truncate pb-3">{top.name}</p>
+                    <p className="text-sm truncate">
+                      Chương {top.chapter_count}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1 my-4 justify-end">
+                    <FaEye className="text-[#9a989b]" />
+                    <p className="text-sm text-[#9a989b]">{item.view_count}</p>
+                  </div>
+                </div>
+              ) : null;
+            })}
+        </div>
+      </div>
     </div>
   );
 };

@@ -20,7 +20,7 @@ const NewestComic = () => {
             // img={item.img}
             img={"https://newphim.online/" + item.img}
             name={item.name}
-            chapter={item.chapter_number}
+            chapter={item.chapter_count}
             rate={item.rate}
           />
         ))}

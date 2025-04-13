@@ -180,7 +180,7 @@ const Header = () => {
                       <div>
                         <p className="text-white font-medium">{comic.name}</p>
                         <p className="text-gray-400 text-sm">
-                          Chương {comic.chapter_number}
+                          Chương {comic.chapter_count}
                         </p>
                       </div>
                     </Link>

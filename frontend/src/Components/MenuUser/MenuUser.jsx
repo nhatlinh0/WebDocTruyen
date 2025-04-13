@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import { ComicContext } from "../../Context/ComicContext";
 import ComicItem from "../ComicItem/ComicItem";
 
@@ -26,6 +26,18 @@ const MenuUser = () => {
         setIsLoading(false);
       });
   }, [allComics, userId]);
+
+  const handleRemoveFromSaved = (comicId) => {
+    setSavedComics((prevSaved) =>
+      prevSaved.filter((comic) => comic.id !== comicId)
+    );
+  };
+
+  const handleRemoveFromHistory = (comicId) => {
+    setHistoryComics((prevHistory) =>
+      prevHistory.filter((comic) => comic.id !== comicId)
+    );
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -125,8 +137,10 @@ const MenuUser = () => {
                     id={item.id}
                     img={"https://newphim.online/" + item.img}
                     name={item.name}
-                    chapter={item.chapter}
+                    chapter={item.chapter_count}
                     rate={item.rate}
+                    saved
+                    onRemove={handleRemoveFromSaved}
                   />
                 ))}
             </div>
@@ -147,8 +161,10 @@ const MenuUser = () => {
                     id={item.id}
                     img={"https://newphim.online/" + item.img}
                     name={item.name}
-                    chapter={item.chapter}
+                    chapter={item.chapter_count}
                     rate={item.rate}
+                    history
+                    onRemove={handleRemoveFromHistory}
                   />
                 ))}
             </div>

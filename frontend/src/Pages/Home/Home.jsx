@@ -34,7 +34,7 @@ const Home = () => {
               img={"https://newphim.online/" + item.img}
               // img={item.img}
               name={item.name}
-              chapter={item.chapter_number}
+              chapter={item.chapter_count}
               rate={item.rate}
             />
           );
@@ -49,7 +49,7 @@ const Home = () => {
               // img={item.img}
               img={"https://newphim.online/" + item.img}
               name={item.name}
-              chapter={item.chapter}
+              chapter={item.chapter_count}
               rate={item.rate}
             />
           );
@@ -63,6 +63,7 @@ const Home = () => {
               id={item.id}
               img={"https://newphim.online/" + item.img}
               name={item.name}
+              chapter={item.chapter_count}
               desc={item.desc}
             />
           );
