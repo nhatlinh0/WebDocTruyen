@@ -72,7 +72,7 @@ const Home = () => {
           <OtherItem />
         </Link>
       </Session>
-      <h1 className="text-white text-center font-bold text-3xl mb-10 mt-50">
+      <h1 className="text-white text-center font-bold text-xl md:text-3xl mb-10 mt-50">
         Bước vào thế giới của những câu chuyện không giới hạn ngay tại đây!
       </h1>
       <Introduce />

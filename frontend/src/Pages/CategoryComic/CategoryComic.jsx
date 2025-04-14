@@ -30,16 +30,18 @@ const CategoryComic = () => {
   // });
 
   return (
-    <div className="text-white">
+    <div className="text-white px-4 sm:px-8 md:px-16 lg:px-20">
       {comics && (
         <>
-          <h1 className="text-xl font-bold ml-27 my-12">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold my-6 sm:my-8 md:my-12">
             Thể loại: Truyện {comics.name}
           </h1>
-          <p className=" text-xl mx-30 my-10">
+
+          <p className="text-base sm:text-lg md:text-xl my-4 sm:my-6 md:my-10">
             {comics.stories.length} kết quả
           </p>
-          <div className="grid grid-cols-5 justify-items-center gap-y-10 mx-30 mb-60">
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 gap-y-6 sm:gap-y-8 md:gap-y-10 mb-20 sm:mb-40 md:mb-60">
             {comics.stories.map((item, i) => (
               <ComicItem
                 key={i}

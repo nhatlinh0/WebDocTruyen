@@ -91,11 +91,14 @@ const ChapterList = (props) => {
     );
   }
   return (
-    <div className="flex justify-between mx-40 gap-10 my-20">
-      <div className="bg-[#151018] rounded-lg  py-6 ring-1 ring-blue-800 flex-7">
-        <div className="flex justify-between items-center mx-10 mb-6">
-          <p className="text-[#C72F44] text-xl font-bold">Danh sách chương</p>
-          <div className="flex items-center text-white text-sm">
+    <div className="flex flex-col lg:flex-row justify-between mx-4 sm:mx-8 md:mx-16 lg:mx-20 xl:mx-40 gap-6 lg:gap-10 my-8 sm:my-12 md:my-16 lg:my-20">
+      {/* Danh sách chương */}
+      <div className="bg-[#151018] rounded-lg py-4 sm:py-6 ring-1 ring-blue-800 w-full lg:flex-7">
+        <div className="flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6 md:px-10 mb-4 sm:mb-6">
+          <p className="text-[#C72F44] text-lg sm:text-xl font-bold mb-3 sm:mb-0">
+            Danh sách chương
+          </p>
+          <div className="flex items-center text-white text-xs sm:text-sm">
             <span>Hiển thị:</span>
             <select
               className="ml-2 bg-[#231B27] rounded-md px-2 py-1 border border-gray-700"
@@ -115,13 +118,13 @@ const ChapterList = (props) => {
 
         {totalChapters > 0 ? (
           <>
-            <div className="grid grid-cols-2 text-white gap-y-6 place-items-start mx-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 text-white gap-y-4 sm:gap-y-6 place-items-start px-4 sm:px-6 md:px-10">
               {currentChapters.map((item) => (
                 <Link
                   key={item.id}
                   to={`/reading/${props.comicSlug}`}
                   state={{ chapterId: item.id }}
-                  className="hover:text-[#C72F44] transition-colors duration-200"
+                  className="hover:text-[#C72F44] transition-colors duration-200 w-full truncate pr-4"
                 >
                   <p onClick={() => window.scrollTo(0, 0)}>{item.title}</p>
                 </Link>
@@ -129,11 +132,11 @@ const ChapterList = (props) => {
             </div>
 
             {/* Phân trang */}
-            <div className="flex justify-center items-center mt-10 text-white">
+            <div className="flex flex-wrap justify-center items-center mt-6 sm:mt-8 md:mt-10 text-white">
               <button
                 onClick={() => paginate(currentPage - 1)}
                 disabled={currentPage === 1}
-                className={`mx-1 p-2 rounded-md ${
+                className={`mx-1 p-1 sm:p-2 rounded-md ${
                   currentPage === 1 ? "text-gray-500" : "hover:bg-[#231B27]"
                 }`}
               >
@@ -145,7 +148,7 @@ const ChapterList = (props) => {
                 <>
                   <button
                     onClick={() => paginate(1)}
-                    className={`mx-1 px-3 py-1 rounded-md ${
+                    className={`mx-1 px-2 sm:px-3 py-1 rounded-md ${
                       currentPage === 1
                         ? "bg-[#C72F44] text-white"
                         : "hover:bg-[#231B27]"
@@ -162,7 +165,7 @@ const ChapterList = (props) => {
                 <button
                   key={number}
                   onClick={() => paginate(number)}
-                  className={`mx-1 px-3 py-1 rounded-md ${
+                  className={`mx-1 px-2 sm:px-3 py-1 rounded-md ${
                     currentPage === number
                       ? "bg-[#C72F44] text-white"
                       : "hover:bg-[#231B27]"
@@ -180,7 +183,7 @@ const ChapterList = (props) => {
                   )}
                   <button
                     onClick={() => paginate(totalPages)}
-                    className={`mx-1 px-3 py-1 rounded-md ${
+                    className={`mx-1 px-2 sm:px-3 py-1 rounded-md ${
                       currentPage === totalPages
                         ? "bg-[#C72F44] text-white"
                         : "hover:bg-[#231B27]"
@@ -194,7 +197,7 @@ const ChapterList = (props) => {
               <button
                 onClick={() => paginate(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className={`mx-1 p-2 rounded-md ${
+                className={`mx-1 p-1 sm:p-2 rounded-md ${
                   currentPage === totalPages
                     ? "text-gray-500"
                     : "hover:bg-[#231B27]"
@@ -205,47 +208,47 @@ const ChapterList = (props) => {
             </div>
           </>
         ) : (
-          <div className="text-center text-white py-10">
+          <div className="text-center text-white py-6 sm:py-8 md:py-10">
             Không có chương nào cho truyện này
           </div>
         )}
       </div>
 
-      <div className="flex-3 bg-[#151018] text-white rounded-xl ring-1 ring-blue-800 overflow-hidden">
-        <h1 className="text-center text-[#C72F44] font-bold py-3 border-b border-blue-800 bg-[#1A1520] text-lg">
+      <div className="w-full lg:flex-3 bg-[#151018] text-white rounded-lg sm:rounded-xl ring-1 ring-blue-800 overflow-hidden mt-6 lg:mt-0">
+        <h1 className="text-center text-[#C72F44] font-bold py-2 sm:py-3 border-b border-blue-800 bg-[#1A1520] text-base sm:text-lg">
           Xem nhiều trong tháng
         </h1>
-        <div className="overflow-y-auto h-[500px] px-4 custom-scrollbar">
+        <div className="overflow-y-auto max-h-[300px] sm:max-h-[400px] md:h-[500px] px-3 sm:px-4 custom-scrollbar">
           {topComics &&
             topComics.map((item, i) => {
               const top = allComics.find((c) => c.id == item.id);
               return top ? (
                 <div
                   key={i}
-                  className="flex items-center space-x-3 py-4 cursor-pointer border-b border-gray-700 hover:bg-[#231B27] transition-all duration-200 rounded-md px-2 my-1"
+                  className="flex items-center space-x-2 sm:space-x-3 py-3 sm:py-4 cursor-pointer border-b border-gray-700 hover:bg-[#231B27] transition-all duration-200 rounded-md px-1 sm:px-2 my-1"
                   onClick={() => {
                     window.scroll(0, 0);
                     navigate(`/comic/${item.id}`);
                   }}
                 >
-                  <div className="flex items-center justify-center w-7 h-7 rounded-full bg-gradient-to-br from-[#C72F44] to-[#9A0F29] text-white font-medium text-sm">
+                  <div className="flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gradient-to-br from-[#C72F44] to-[#9A0F29] text-white font-medium text-xs sm:text-sm flex-shrink-0">
                     {i + 1}
                   </div>
                   <img
                     src={"https://newphim.online/" + top.img}
                     alt={top.name}
-                    className="w-14 h-20 object-cover rounded-md shadow-md hover:scale-105 transition-transform duration-200"
+                    className="w-10 h-14 sm:w-14 sm:h-20 object-cover rounded-md shadow-md hover:scale-105 transition-transform duration-200 flex-shrink-0"
                   />
                   <div className="flex-1 min-w-0">
-                    <p className="truncate text-white font-medium hover:text-[#C72F44]">
+                    <p className="truncate text-white font-medium hover:text-[#C72F44] text-sm sm:text-base">
                       {top.name}
                     </p>
-                    <p className="text-sm text-gray-400 truncate mt-1">
+                    <p className="text-xs sm:text-sm text-gray-400 truncate mt-0.5 sm:mt-1">
                       Chương {top.chapter_count}
                     </p>
-                    <div className="flex items-center mt-1">
-                      <FaEye className="text-[#9a989b] text-xs" />
-                      <p className="text-xs text-[#9a989b] ml-1">
+                    <div className="flex items-center mt-0.5 sm:mt-1">
+                      <FaEye className="text-[#9a989b] text-[10px] sm:text-xs" />
+                      <p className="text-[10px] sm:text-xs text-[#9a989b] ml-1">
                         {item.view_count?.toLocaleString() || "0"}
                       </p>
                     </div>

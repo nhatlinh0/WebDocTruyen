@@ -65,22 +65,22 @@ const MenuUser = () => {
   if (isLoading) return <div></div>;
 
   return (
-    <div className="mx-30 pt-10 pb-25 ">
+    <div className="px-4 sm:px-8 md:px-16 lg:px-30 pt-6 sm:pt-8 md:pt-10 pb-16 sm:pb-20 md:pb-25">
       {/* MENU */}
-      <div className="flex items-center gap-20">
+      <div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-10 md:gap-20 border-b border-gray-700 pb-2 overflow-x-auto">
         <div
           onClick={() => navigate("/profile/saved")}
-          className="cursor-pointer"
+          className="cursor-pointer flex-shrink-0"
         >
           <p
             className={`${
               getMenuItemClasses("saved").text
-            } text-lg font-medium`}
+            } text-sm sm:text-base md:text-lg font-medium`}
           >
             Đã lưu
           </p>
           <div
-            className={`h-1 bg-[#C72F44] rounded-full ${
+            className={`h-0.5 sm:h-1 bg-[#C72F44] rounded-full ${
               getMenuItemClasses("saved").indicator
             }`}
           ></div>
@@ -88,17 +88,17 @@ const MenuUser = () => {
 
         <div
           onClick={() => navigate("/profile/history")}
-          className="cursor-pointer"
+          className="cursor-pointer flex-shrink-0"
         >
           <p
             className={`${
               getMenuItemClasses("history").text
-            } text-lg font-medium`}
+            } text-sm sm:text-base md:text-lg font-medium`}
           >
             Lịch sử
           </p>
           <div
-            className={`h-1 bg-[#C72F44] rounded-full ${
+            className={`h-0.5 sm:h-1 bg-[#C72F44] rounded-full ${
               getMenuItemClasses("history").indicator
             }`}
           ></div>
@@ -106,17 +106,17 @@ const MenuUser = () => {
 
         <div
           onClick={() => navigate("/profile/setting")}
-          className="cursor-pointer"
+          className="cursor-pointer flex-shrink-0"
         >
           <p
             className={`${
               getMenuItemClasses("setting").text
-            } text-lg font-medium`}
+            } text-sm sm:text-base md:text-lg font-medium`}
           >
             Cài đặt
           </p>
           <div
-            className={`h-1 bg-[#C72F44] rounded-full ${
+            className={`h-0.5 sm:h-1 bg-[#C72F44] rounded-full ${
               getMenuItemClasses("setting").indicator
             }`}
           ></div>
@@ -127,11 +127,13 @@ const MenuUser = () => {
 
       {menu == "saved" && (
         <div>
-          <h3 className="text-xl text-white mt-20 ml-5">Truyện đã lưu</h3>
-          <div className="flex gap-20 justify-between mx-2 mt-8 ">
-            <div className="grid grid-cols-3 gap-y-8">
-              {savedComics &&
-                savedComics.map((item, i) => (
+          <h3 className="text-lg sm:text-xl text-white mt-6 sm:mt-10 md:mt-20 ml-0 sm:ml-2 md:ml-5">
+            Truyện đã lưu
+          </h3>
+          <div className="mt-4 sm:mt-6 md:mt-8">
+            {savedComics && savedComics.length > 0 ? (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-y-8">
+                {savedComics.map((item, i) => (
                   <ComicItem
                     key={i}
                     id={item.id}
@@ -143,19 +145,34 @@ const MenuUser = () => {
                     onRemove={handleRemoveFromSaved}
                   />
                 ))}
-            </div>
-            <div className="min-w-100 bg-amber-50"></div>
+              </div>
+            ) : (
+              <div className="text-center py-10 text-white">
+                <p className="text-lg">Bạn chưa lưu truyện nào</p>
+                <button
+                  onClick={() => {
+                    navigate("/");
+                    window.scrollTo(0, 0);
+                  }}
+                  className="mt-4 px-4 py-2 bg-[#C72F44] rounded-md hover:bg-opacity-80 transition-colors"
+                >
+                  Khám phá truyện
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}
 
       {menu == "history" && (
         <div>
-          <h3 className="text-xl text-white  mt-20 ml-5">Lịch sử đọc truyện</h3>
-          <div className="flex gap-20 justify-between mx-2 mt-8 ">
-            <div className="grid grid-cols-3 gap-y-8">
-              {historyComics &&
-                historyComics.map((item, i) => (
+          <h3 className="text-lg sm:text-xl text-white mt-6 sm:mt-10 md:mt-20 ml-0 sm:ml-2 md:ml-5">
+            Lịch sử đọc truyện
+          </h3>
+          <div className="mt-4 sm:mt-6 md:mt-8">
+            {historyComics && historyComics.length > 0 ? (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-y-8">
+                {historyComics.map((item, i) => (
                   <ComicItem
                     key={i}
                     id={item.id}
@@ -167,8 +184,21 @@ const MenuUser = () => {
                     onRemove={handleRemoveFromHistory}
                   />
                 ))}
-            </div>
-            <div className="min-w-100 bg-amber-50"></div>
+              </div>
+            ) : (
+              <div className="text-center py-10 text-white">
+                <p className="text-lg">Bạn chưa đọc truyện nào</p>
+                <button
+                  onClick={() => {
+                    navigate("/");
+                    window.scrollTo(0, 0);
+                  }}
+                  className="mt-4 px-4 py-2 bg-[#C72F44] rounded-md hover:bg-opacity-80 transition-colors"
+                >
+                  Khám phá truyện
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

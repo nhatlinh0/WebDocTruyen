@@ -184,30 +184,30 @@ const Setting = () => {
       </div>
     );
   return (
-    <div className="mt-14">
-      <h2 className="text-white text-xl ring-2 p-2  ring-[#41276b] mb-12 text-center shadow-[#41276b] shadow-xl">
+    <div className="mt-8 sm:mt-10 md:mt-14 px-4 sm:px-6">
+      <h2 className="text-white text-lg sm:text-xl ring-2 p-2 ring-[#41276b] mb-6 sm:mb-8 md:mb-12 text-center shadow-[#41276b] shadow-xl">
         Cài đặt tài khoản
       </h2>
 
-      <div className="bg-[#2B1552] rounded-lg p-6 max-w-5xl mx-auto">
-        <h3 className="text-white text-xl mb-6 border-b border-[#41276b] pb-3">
+      <div className="bg-[#2B1552] rounded-lg p-4 sm:p-6 max-w-5xl mx-auto">
+        <h3 className="text-white text-lg sm:text-xl mb-4 sm:mb-6 border-b border-[#41276b] pb-2 sm:pb-3">
           Thông tin cá nhân
         </h3>
 
-        <form className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <form className="space-y-4 sm:space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {/* Email đăng nhập (readonly) */}
-            <div className="space-y-2">
+            <div className="space-y-1 sm:space-y-2">
               <label
                 htmlFor="user-email"
-                className="block text-gray-300 text-sm font-medium"
+                className="block text-gray-300 text-xs sm:text-sm font-medium"
               >
                 Email
               </label>
               <input
                 type="email"
                 id="user-email"
-                className="w-full px-4 py-3 bg-[#1d1820] text-gray-400 rounded-md border border-[#41276b] cursor-not-allowed"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-[#1d1820] text-gray-400 rounded-md border border-[#41276b] cursor-not-allowed text-xs sm:text-sm"
                 value={formData?.email}
                 readOnly
               />
@@ -215,17 +215,17 @@ const Setting = () => {
             </div>
 
             {/* Biệt danh */}
-            <div className="space-y-2">
+            <div className="space-y-1 sm:space-y-2">
               <label
                 htmlFor="nickname"
-                className="block text-gray-300 text-sm font-medium"
+                className="block text-gray-300 text-xs sm:text-sm font-medium"
               >
                 Biệt danh
               </label>
               <input
                 type="text"
                 id="nickname"
-                className="w-full px-4 py-3 bg-[#231B27] text-white rounded-md border border-[#41276b] focus:border-[#C42F44] focus:outline-none focus:ring-1 focus:ring-[#C42F44] transition-colors"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-[#231B27] text-white rounded-md border border-[#41276b] focus:border-[#C42F44] focus:outline-none focus:ring-1 focus:ring-[#C42F44] transition-colors text-xs sm:text-sm"
                 placeholder="Nhập biệt danh của bạn"
                 value={formData?.nickname}
                 onChange={(e) =>
@@ -235,17 +235,17 @@ const Setting = () => {
             </div>
 
             {/* Tên người dùng */}
-            <div className="space-y-2">
+            <div className="space-y-1 sm:space-y-2">
               <label
                 htmlFor="fullName"
-                className="block text-gray-300 text-sm font-medium"
+                className="block text-gray-300 text-xs sm:text-sm font-medium"
               >
                 Tên người dùng
               </label>
               <input
                 type="text"
                 id="fullName"
-                className="w-full px-4 py-3 bg-[#231B27] text-white rounded-md border border-[#41276b] focus:border-[#C42F44] focus:outline-none focus:ring-1 focus:ring-[#C42F44] transition-colors"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-[#231B27] text-white rounded-md border border-[#41276b] focus:border-[#C42F44] focus:outline-none focus:ring-1 focus:ring-[#C42F44] transition-colors text-xs sm:text-sm"
                 placeholder="Nguyễn Văn A"
                 defaultValue={formData?.name}
                 onChange={(e) =>
@@ -258,13 +258,13 @@ const Setting = () => {
             <div className="space-y-2">
               <label
                 htmlFor="country"
-                className="block text-gray-300 text-sm font-medium"
+                className="block text-gray-300 text-xs sm:text-sm font-medium"
               >
                 Tỉnh thành
               </label>
               <select
                 id="country"
-                className="w-full overflow-y-auto px-4 py-3 bg-[#231B27] text-white rounded-md border border-[#41276b] focus:border-[#C42F44] focus:outline-none focus:ring-1 focus:ring-[#C42F44] transition-colors"
+                className="w-full overflow-y-auto px-3 sm:px-4 py-2 sm:py-3 bg-[#231B27] text-white rounded-md border border-[#41276b] focus:border-[#C42F44] focus:outline-none focus:ring-1 focus:ring-[#C42F44] transition-colors text-xs sm:text-sm"
                 defaultValue="VN"
                 onChange={(e) =>
                   setFormData({ ...formData, province: e.target.value })
@@ -340,19 +340,19 @@ const Setting = () => {
           </div>
 
           {/* Anh dai dien */}
-          <label className="block text-gray-300 text-sm font-medium mb-2">
+          <label className="block text-gray-300 text-xs sm:text-sm font-medium mb-1 sm:mb-2">
             Ảnh đại diện
           </label>
-          <div className="flex items-center space-x-6">
+          <div className="flex flex-col sm:flex-row items-center sm:space-x-6 space-y-4 sm:space-y-0">
             <img
               src={"https://newphim.online/" + formData?.avatar}
               alt="Avatar"
-              className="w-20 h-20 rounded-full border-2 border-[#C42F44]"
+              className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-[#C42F44]"
             />
             <div>
               <label
                 htmlFor="avatar-upload"
-                className="px-4 py-2 bg-[#C42F44] text-white rounded cursor-pointer hover:bg-[#d13a51] transition-colors inline-block"
+                className="px-3 sm:px-4 py-1.5 sm:py-2 bg-[#C42F44] text-white rounded cursor-pointer hover:bg-[#d13a51] transition-colors inline-block text-xs sm:text-sm"
               >
                 Tải ảnh lên
               </label>
@@ -370,25 +370,27 @@ const Setting = () => {
           </div>
 
           {/* Anh bia */}
-          <label className="block text-gray-300 text-sm font-medium mb-2">
+          <label className="block text-gray-300 text-xs sm:text-sm font-medium mb-1 sm:mb-2">
             Ảnh bìa
           </label>
-          <div className="space-y-4">
-            <div className="relative w-full h-75 rounded-lg overflow-hidden border border-[#41276b]">
+          <div className="space-y-3 sm:space-y-4">
+            <div className="relative w-full h-40 sm:h-60 md:h-75 rounded-lg overflow-hidden border border-[#41276b]">
               <img
                 src={"https://newphim.online/" + formData.anhbia}
                 alt="Cover"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-black/70 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
-                <p className="text-white text-sm">Ảnh bìa hiện tại</p>
+                <p className="text-white text-xs sm:text-sm">
+                  Ảnh bìa hiện tại
+                </p>
               </div>
             </div>
 
-            <div className="flex items-center space-x-4">
+            <div className="flex flex-col sm:flex-row items-center sm:space-x-4 space-y-2 sm:space-y-0">
               <label
                 htmlFor="cover-upload"
-                className="px-4 py-2 bg-[#C42F44] text-white rounded cursor-pointer hover:bg-[#d13a51] transition-colors inline-block"
+                className="px-3 sm:px-4 py-1.5 sm:py-2 bg-[#C42F44] text-white rounded cursor-pointer hover:bg-[#d13a51] transition-colors inline-block text-xs sm:text-sm w-full sm:w-auto text-center"
               >
                 Thay đổi ảnh bìa
               </label>
@@ -401,7 +403,7 @@ const Setting = () => {
               />
               <button
                 type="button"
-                className="px-4 py-2 bg-transparent text-gray-300 border border-gray-600 rounded hover:border-gray-400 hover:text-gray-200 transition-colors"
+                className="px-3 sm:px-4 py-1.5 sm:py-2 bg-transparent text-gray-300 border border-gray-600 rounded hover:border-gray-400 hover:text-gray-200 transition-colors text-xs sm:text-sm w-full sm:w-auto"
                 onClick={handleRemoveCover}
               >
                 Xóa ảnh bìa
@@ -414,10 +416,10 @@ const Setting = () => {
           </div>
 
           {/* Submit button */}
-          <div className="pt-6 flex justify-end">
+          <div className="pt-4 sm:pt-6 flex justify-end">
             <button
               type="submit"
-              className="px-6 py-3 bg-[#C42F44] text-white font-medium rounded-md hover:bg-[#d13a51] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C42F44] focus:ring-opacity-50"
+              className="px-4 sm:px-6 py-2 sm:py-3 bg-[#C42F44] text-white font-medium rounded-md hover:bg-[#d13a51] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C42F44] focus:ring-opacity-50 text-xs sm:text-sm"
             >
               Lưu thay đổi
             </button>
@@ -523,39 +525,41 @@ const Setting = () => {
 
       {/* password */}
 
-      <div className="bg-[#2B1552] rounded-lg p-6 max-w-5xl mt-20 mx-auto">
-        <h3 className="text-white text-xl mb-6">Đổi mật khẩu</h3>
-        <div className="pt-8 mt-6 border-t border-[#41276b]">
-          <div className="space-y-6">
+      <div className="bg-[#2B1552] rounded-lg p-4 sm:p-6 max-w-5xl mt-8 sm:mt-12 md:mt-20 mx-auto">
+        <h3 className="text-white text-lg sm:text-xl mb-4 sm:mb-6">
+          Đổi mật khẩu
+        </h3>
+        <div className="pt-4 sm:pt-8 mt-4 sm:mt-6 border-t border-[#41276b]">
+          <div className="space-y-4 sm:space-y-6">
             {/* Tên đăng nhập (readonly) */}
-            <div className="space-y-2">
+            <div className="space-y-1 sm:space-y-2">
               <label
                 htmlFor="password-username"
-                className="block text-gray-300 text-sm font-medium"
+                className="block text-gray-300 text-xs sm:text-sm font-medium"
               >
                 Tên đăng nhập
               </label>
               <input
                 type="text"
                 id="password-username"
-                className="w-full px-4 py-3 bg-[#1d1820] text-gray-400 rounded-md border border-[#41276b] cursor-not-allowed"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-[#1d1820] text-gray-400 rounded-md border border-[#41276b] cursor-not-allowed text-xs sm:text-sm"
                 value="adminlinh123"
                 readOnly
               />
             </div>
 
             {/* Mật khẩu hiện tại */}
-            <div className="space-y-2">
+            <div className="space-y-1 sm:space-y-2">
               <label
                 htmlFor="current-password"
-                className="block text-gray-300 text-sm font-medium"
+                className="block text-gray-300 text-xs sm:text-sm font-medium"
               >
                 Mật khẩu hiện tại
               </label>
               <input
                 type="password"
                 id="current-password"
-                className="w-full px-4 py-3 bg-[#231B27] text-white rounded-md border border-[#41276b] focus:border-[#C42F44] focus:outline-none focus:ring-1 focus:ring-[#C42F44] transition-colors"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-[#231B27] text-white rounded-md border border-[#41276b] focus:border-[#C42F44] focus:outline-none focus:ring-1 focus:ring-[#C42F44] transition-colors text-xs sm:text-sm"
                 placeholder="Nhập mật khẩu hiện tại"
                 value={passwordData.currentPassword}
                 onChange={(e) =>
@@ -568,17 +572,17 @@ const Setting = () => {
             </div>
 
             {/* Mật khẩu mới */}
-            <div className="space-y-2">
+            <div className="space-y-1 sm:space-y-2">
               <label
                 htmlFor="new-password"
-                className="block text-gray-300 text-sm font-medium"
+                className="block text-gray-300 text-xs sm:text-sm font-medium"
               >
                 Mật khẩu mới
               </label>
               <input
                 type="password"
                 id="new-password"
-                className="w-full px-4 py-3 bg-[#231B27] text-white rounded-md border border-[#41276b] focus:border-[#C42F44] focus:outline-none focus:ring-1 focus:ring-[#C42F44] transition-colors"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-[#231B27] text-white rounded-md border border-[#41276b] focus:border-[#C42F44] focus:outline-none focus:ring-1 focus:ring-[#C42F44] transition-colors text-xs sm:text-sm"
                 placeholder="Nhập mật khẩu mới"
                 value={passwordData.newPassword}
                 onChange={(e) =>
@@ -594,17 +598,17 @@ const Setting = () => {
             </div>
 
             {/* Xác nhận mật khẩu mới */}
-            <div className="space-y-2">
+            <div className="space-y-1 sm:space-y-2">
               <label
                 htmlFor="confirm-password"
-                className="block text-gray-300 text-sm font-medium"
+                className="block text-gray-300 text-xs sm:text-sm font-medium"
               >
                 Xác nhận mật khẩu mới
               </label>
               <input
                 type="password"
                 id="confirm-password"
-                className="w-full px-4 py-3 bg-[#231B27] text-white rounded-md border border-[#41276b] focus:border-[#C42F44] focus:outline-none focus:ring-1 focus:ring-[#C42F44] transition-colors"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-[#231B27] text-white rounded-md border border-[#41276b] focus:border-[#C42F44] focus:outline-none focus:ring-1 focus:ring-[#C42F44] transition-colors text-xs sm:text-sm"
                 placeholder="Nhập lại mật khẩu mới"
                 value={passwordData.confirmPassword}
                 onChange={(e) =>
@@ -620,7 +624,7 @@ const Setting = () => {
             <div className="pt-2">
               <button
                 type="button"
-                className="px-5 py-2.5 bg-[#C42F44] text-white font-medium rounded-md hover:bg-[#d13a51] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C42F44] focus:ring-opacity-50"
+                className="px-4 sm:px-5 py-2 sm:py-2.5 bg-[#C42F44] text-white font-medium rounded-md hover:bg-[#d13a51] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C42F44] focus:ring-opacity-50 text-xs sm:text-sm"
               >
                 Đổi mật khẩu
               </button>

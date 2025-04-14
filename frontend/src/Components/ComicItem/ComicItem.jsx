@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { MdStarRate } from "react-icons/md";
+import { IoClose } from "react-icons/io5"; // Icon X đẹp hơn cho mobile
 import { Link, useNavigate } from "react-router-dom";
 
 const ComicItem = (props) => {
@@ -97,20 +98,23 @@ const ComicItem = (props) => {
   };
 
   return (
-    <div className="relative cursor-pointer hover:scale-105 group duration-300 mx-4">
+    <div className="relative cursor-pointer hover:scale-105 group duration-300 mx-1 sm:mx-4">
       <div onClick={handleComicClick}>
         <img
           src={props.img}
           alt=""
-          className="object-cover object-top w-100 duration-300  aspect-[3/4] group-hover:brightness-75"
+          className="object-cover object-top w-full duration-300 aspect-[3/4] group-hover:brightness-75 rounded-md"
+          loading="lazy"
         />
-        <p className="text-xl font-bold text-white duration-300 group-hover:text-[#C42F44] line-clamp-1">
+        <p className="text-base sm:text-xl font-bold text-white duration-300 group-hover:text-[#C42F44] line-clamp-1 mt-1 sm:mt-2">
           {props.name}
         </p>
-        <p className="text-white font-light">Chương {props.chapter}</p>
-        <div className="flex items-center">
-          <MdStarRate className="text-yellow-300 mr-2" />
-          <p className="text-white font-bold">
+        <p className="text-xs sm:text-base text-white font-light">
+          Chương {props.chapter}
+        </p>
+        <div className="flex items-center mt-0.5 sm:mt-1">
+          <MdStarRate className="text-yellow-300 mr-1 sm:mr-2 text-sm sm:text-base" />
+          <p className="text-xs sm:text-base text-white font-bold">
             {props.rate ? props.rate.toFixed(1) : 0}/5
           </p>
         </div>
@@ -118,10 +122,12 @@ const ComicItem = (props) => {
 
       {(props.saved || props.history) && (
         <div
-          className="absolute z-100 top-0 right-0 translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full  bg-white text-center text-sm hover:bg-[#C42F44] hover:text-white"
+          className="absolute z-10 top-0 right-0 translate-x-1/3 -translate-y-1/3 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white shadow-md flex items-center justify-center text-xs sm:text-sm hover:bg-[#C42F44] hover:text-white"
           onClick={props.saved ? handleDeleteSaved : handleDeleteHistory}
         >
-          X
+          {/* Sử dụng X trên desktop và icon trên mobile */}
+          <span className="hidden sm:inline">X</span>
+          <IoClose className="sm:hidden" />
         </div>
       )}
     </div>
