@@ -59,31 +59,22 @@ const ComicDisplay = ({ comic }) => {
       </div>
 
       <div className="mx-8">
-        <div className="text-white flex items-center justify-between my-8">
-          <p className="text-base font-bold">
+        <div className="text-white flex flex-wrap items-center justify-between my-8">
+          <p className="text-base font-bold mb-3 md:mb-0">
             Trạng thái:{" "}
             <span className="text-[#FBFB6A] font-medium">{comic.status}</span>
           </p>
-          <div className="flex justify-center items-center gap-2">
-            {category.map((item) => (
-              <Link to={`/categories/${item.id}`}>
+          <div className="flex flex-wrap gap-2">
+            {category.map((item, index) => (
+              <Link key={item.id} to={`/categories/${item.id}`}>
                 <div
-                  className="px-6 py-1 rounded-xl font-bold cursor-pointer bg-[#4B474E]"
+                  className="px-4 py-1.5 rounded-lg text-sm font-medium cursor-pointer bg-[#2A262E] hover:bg-[#3A363E] border border-[#4B474E] transition-colors duration-200"
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   {item.name}
                 </div>
               </Link>
             ))}
-
-            {/* <Link to={`/categories/${comic.category}`}>
-              <div
-                className="px-6 py-1 rounded-xl text-sm font-bold cursor-pointer bg-[#4B474E]"
-                onClick={() => window.scrollTo(0, 0)}
-              >
-                {category[0]?.name}
-              </div>
-            </Link> */}
           </div>
         </div>
 
@@ -112,14 +103,14 @@ const ComicDisplay = ({ comic }) => {
             <div className="flex items-center gap-2 my-4">
               <Link to={`/reading/${comic.slug}`}>
                 <div
-                  className="rounded-xl w-45 py-4 bg-[#C72F44] text-center uppercase text-base font-bold cursor-pointer"
+                  className="rounded-xl w-45 py-4 bg-gradient-to-r from-[#C72F44] to-[#9A0F29] text-center uppercase text-base font-bold cursor-pointer shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   Đọc ngay
                 </div>
               </Link>
               <div
-                className="rounded-xl w-45 py-4 text-[#C72F44] border-2 border-[#C72F44] bg-white text-center uppercase text-base font-bold cursor-pointer"
+                className="rounded-xl w-45 py-4 text-[#C72F44] border-2 border-[#C72F44] bg-white text-center uppercase text-base font-bold cursor-pointer hover:bg-[#C72F44]/10 transform hover:-translate-y-0.5 transition-all duration-200"
                 onClick={handleSaved}
               >
                 Lưu truyện

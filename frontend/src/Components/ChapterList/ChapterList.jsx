@@ -91,7 +91,7 @@ const ChapterList = (props) => {
     );
   }
   return (
-    <div className="flex justify-between mx-40 gap-10 my-30">
+    <div className="flex justify-between mx-40 gap-10 my-20">
       <div className="bg-[#151018] rounded-lg  py-6 ring-1 ring-blue-800 flex-7">
         <div className="flex justify-between items-center mx-10 mb-6">
           <p className="text-[#C72F44] text-xl font-bold">Danh sách chương</p>
@@ -211,40 +211,44 @@ const ChapterList = (props) => {
         )}
       </div>
 
-      <div className="flex-3  bg-[#151018] text-white rounded-xl ring-1 ring-blue-800">
-        <h1 className="text-center text-[#C72F44] font-bold py-2 border-b-1 border-blue-800">
+      <div className="flex-3 bg-[#151018] text-white rounded-xl ring-1 ring-blue-800 overflow-hidden">
+        <h1 className="text-center text-[#C72F44] font-bold py-3 border-b border-blue-800 bg-[#1A1520] text-lg">
           Xem nhiều trong tháng
         </h1>
-        <div className="overflow-y-auto h-100 px-4">
+        <div className="overflow-y-auto h-[500px] px-4 custom-scrollbar">
           {topComics &&
             topComics.map((item, i) => {
-              // Tìm comic dựa trên id ở bên ngoài JSX
               const top = allComics.find((c) => c.id == item.id);
-              // Kiểm tra nếu top tồn tại mới render
               return top ? (
                 <div
                   key={i}
-                  className="flex items-center justify-between py-3 cursor-pointer border-b-[1px] border-gray-500"
+                  className="flex items-center space-x-3 py-4 cursor-pointer border-b border-gray-700 hover:bg-[#231B27] transition-all duration-200 rounded-md px-2 my-1"
                   onClick={() => {
                     window.scroll(0, 0);
                     navigate(`/comic/${item.id}`);
                   }}
                 >
-                  <h1>{i + 1}</h1>
+                  <div className="flex items-center justify-center w-7 h-7 rounded-full bg-gradient-to-br from-[#C72F44] to-[#9A0F29] text-white font-medium text-sm">
+                    {i + 1}
+                  </div>
                   <img
                     src={"https://newphim.online/" + top.img}
-                    alt=""
-                    className="w-14 h-17 object-cover"
+                    alt={top.name}
+                    className="w-14 h-20 object-cover rounded-md shadow-md hover:scale-105 transition-transform duration-200"
                   />
-                  <div className="w-[120px]">
-                    <p className="truncate pb-3">{top.name}</p>
-                    <p className="text-sm truncate">
+                  <div className="flex-1 min-w-0">
+                    <p className="truncate text-white font-medium hover:text-[#C72F44]">
+                      {top.name}
+                    </p>
+                    <p className="text-sm text-gray-400 truncate mt-1">
                       Chương {top.chapter_count}
                     </p>
-                  </div>
-                  <div className="flex items-center gap-1 my-4 justify-end">
-                    <FaEye className="text-[#9a989b]" />
-                    <p className="text-sm text-[#9a989b]">{item.view_count}</p>
+                    <div className="flex items-center mt-1">
+                      <FaEye className="text-[#9a989b] text-xs" />
+                      <p className="text-xs text-[#9a989b] ml-1">
+                        {item.view_count?.toLocaleString() || "0"}
+                      </p>
+                    </div>
                   </div>
                 </div>
               ) : null;

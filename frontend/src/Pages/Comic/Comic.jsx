@@ -60,8 +60,8 @@ const Comic = () => {
   return (
     <div className="mt-10">
       <ComicDisplay comic={comic} />
-      <ChapterList comicId={comic.id} comicSlug={comic.slug} />
-      <Comment comicId={comic.id} />
+      <ChapterList comicId={comic.id} comicSlug={comic.slug} />s
+      <Comment comicId={comic.id} rate={comic?.rate} />
       <Session title="Truyện liên quan">
         {relatedComics.map((item, i) => (
           <ComicItem

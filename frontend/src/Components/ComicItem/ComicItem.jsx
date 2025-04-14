@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { MdStarRate } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ComicItem = (props) => {
+  const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
 
@@ -24,7 +25,7 @@ const ComicItem = (props) => {
   };
 
   const handleView = () => {
-    fetch(`https://newphim.online/api/increment-view/58`, {
+    fetch(`https://newphim.online/api/increment-view/${props.id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -78,19 +79,26 @@ const ComicItem = (props) => {
       })
       .catch((error) => console.log("Server Errror"));
   };
+
+  const handleComicClick = (e) => {
+    e.preventDefault();
+    window.scrollTo(0, 0);
+
+    handleView();
+
+    if (userId && token) {
+      handleHistory();
+    }
+
+    // Chờ một chút để fetch requests có thời gian thực hiện
+    setTimeout(() => {
+      navigate(`/comic/${props.id}`);
+    }, 100);
+  };
+
   return (
     <div className="relative cursor-pointer hover:scale-105 group duration-300 mx-4">
-      <Link
-        to={`/comic/${props.id}`}
-        onClick={() => {
-          window.scrollTo(0, 0);
-
-          handleView();
-          if (userId && token) {
-            handleHistory();
-          }
-        }}
-      >
+      <div onClick={handleComicClick}>
         <img
           src={props.img}
           alt=""
@@ -106,7 +114,8 @@ const ComicItem = (props) => {
             {props.rate ? props.rate.toFixed(1) : 0}/5
           </p>
         </div>
-      </Link>
+      </div>
+
       {(props.saved || props.history) && (
         <div
           className="absolute z-100 top-0 right-0 translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full  bg-white text-center text-sm hover:bg-[#C42F44] hover:text-white"

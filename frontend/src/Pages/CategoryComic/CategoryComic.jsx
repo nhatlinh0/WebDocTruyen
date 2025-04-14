@@ -39,7 +39,7 @@ const CategoryComic = () => {
           <p className=" text-xl mx-30 my-10">
             {comics.stories.length} kết quả
           </p>
-          <div className="grid grid-cols-4 justify-items-center gap-y-10 mx-30 mb-60">
+          <div className="grid grid-cols-5 justify-items-center gap-y-10 mx-30 mb-60">
             {comics.stories.map((item, i) => (
               <ComicItem
                 key={i}
