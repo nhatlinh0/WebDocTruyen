@@ -1,15 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
-import avatar_default from "../../Assets/avatar-icon.jpg";
-import usercover from "../../Assets/user-cover.jpg";
+import defaultavatar from "../../Assets/comic-icon.png";
+import defaultcover from "../../Assets/default-cover.webp";
 import { UserContext } from "../../Context/UserContext";
 
 const Setting = () => {
   const userId = localStorage.getItem("userId");
-  const { userData, loading } = useContext(UserContext);
+  const token = localStorage.getItem("token");
+  const [loading, setLoading] = useState(true);
+
+  const { refresh } = useContext(UserContext);
   const [formData, setFormData] = useState({
+    email: "",
     nickname: "",
     name: "",
-    province: "",
+    country: "",
     avatar: "",
     anhbia: "",
   });
@@ -20,169 +24,112 @@ const Setting = () => {
     confirmPassword: "",
   });
 
-  useEffect(() => {
-    if (!loading) {
-      setFormData({
-        email: userData.email || "",
-        nickname: userData.nickname || "",
-        name: userData.name || "",
-        province: userData.province || "",
-        avatar: userData.avatar,
-        anhbia: userData.anhbia || "",
-      });
-    }
-  }, [userData, loading]);
-
-  // Tạo hàm xử lý thay đổi file avatar
-  const handleAvatarChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    // Kiểm tra kích thước file (giới hạn 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      alert("Kích thước ảnh quá lớn. Vui lòng chọn ảnh nhỏ hơn 5MB.");
-      return;
-    }
-
-    // Kiểm tra loại file
-    if (!file.type.match("image.*")) {
-      alert("Vui lòng chọn file ảnh.");
-      return;
-    }
-
-    try {
-      // Tạo FormData để gửi file
-      const formDataToSend = new FormData();
-      formDataToSend.append("avatar", file);
-      formDataToSend.append("userId", userId);
-
-      // Gửi file lên server
-      const response = await fetch(
-        "https://newphim.online/api/user/upload-avatar",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: formDataToSend,
-        }
-      );
-
-      const result = await response.json();
-
-      if (response.ok) {
-        // Cập nhật formData với đường dẫn ảnh mới
-        setFormData((prev) => ({
-          ...prev,
-          avatar: result.avatarPath, // Đường dẫn mới từ server
-        }));
-
-        alert("Tải ảnh đại diện thành công!");
-      } else {
-        alert(`Lỗi: ${result.message || "Không thể tải ảnh lên"}`);
-      }
-    } catch (error) {
-      console.error("Error uploading avatar:", error);
-      alert("Đã xảy ra lỗi khi tải ảnh lên.");
-    }
-  };
-
-  // Tạo hàm xử lý thay đổi file ảnh bìa
-  const handleCoverChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    // Kiểm tra kích thước file (giới hạn 8MB)
-    if (file.size > 8 * 1024 * 1024) {
-      alert("Kích thước ảnh quá lớn. Vui lòng chọn ảnh nhỏ hơn 8MB.");
-      return;
-    }
-
-    // Kiểm tra loại file
-    if (!file.type.match("image.*")) {
-      alert("Vui lòng chọn file ảnh.");
-      return;
-    }
-
-    try {
-      const formDataToSend = new FormData();
-      formDataToSend.append("cover", file);
-      formDataToSend.append("userId", userId);
-
-      const response = await fetch(
-        "https://newphim.online/api/user/upload-cover",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: formDataToSend,
-        }
-      );
-
-      const result = await response.json();
-
-      if (response.ok) {
-        // Cập nhật formData với đường dẫn ảnh bìa mới
-        setFormData((prev) => ({
-          ...prev,
-          anhbia: result.coverPath, // Đường dẫn mới từ server
-        }));
-
-        alert("Tải ảnh bìa thành công!");
-      } else {
-        alert(`Lỗi: ${result.message || "Không thể tải ảnh lên"}`);
-      }
-    } catch (error) {
-      console.error("Error uploading cover:", error);
-      alert("Đã xảy ra lỗi khi tải ảnh lên.");
-    }
-  };
-
-  // Hàm xóa ảnh bìa
-  const handleRemoveCover = async () => {
-    try {
-      const response = await fetch(
-        `https://newphim.online/api/user/remove-cover/${userId}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      const result = await response.json();
-
-      if (response.ok) {
-        // Xóa ảnh bìa trong formData
-        setFormData((prev) => ({
-          ...prev,
-          anhbia: "",
-        }));
-
-        alert("Đã xóa ảnh bìa!");
-      } else {
-        alert(`Lỗi: ${result.message || "Không thể xóa ảnh bìa"}`);
-      }
-    } catch (error) {
-      console.error("Error removing cover:", error);
-      alert("Đã xảy ra lỗi khi xóa ảnh bìa.");
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    if (files) {
+      const fileUrl = URL.createObjectURL(files[0]);
+      setFormData((prev) => ({
+        ...prev,
+        [name]: files[0],
+        [`${name}Preview`]: fileUrl,
+      }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
 
   console.log(formData);
 
-  if (loading)
-    return (
-      <div className="bg-[#151018] rounded-3xl h-175 mx-25 flex justify-center items-center">
-        <div className="text-center text-white">
-          <div className="w-10 h-10 border-4 border-t-[#C72F44] border-[#332B37] rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-xl">Đang tải...</p>
-        </div>
-      </div>
-    );
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formDataToSend = new FormData();
+
+    // formDataToSend.append("_method", "PUT");
+    formDataToSend.append("name", formData.name || "");
+    formDataToSend.append("country", formData.country || "");
+    formDataToSend.append("nickname", formData.nickname || "");
+    if (formData.avatar instanceof File) {
+      formDataToSend.append("avatar", formData.avatar);
+    }
+
+    if (formData.anhbia instanceof File) {
+      formDataToSend.append("anhbia", formData.anhbia);
+    }
+
+    try {
+      const response = await fetch(
+        "https://newphim.online/api/user/update-profile",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formDataToSend,
+        }
+      );
+
+      const data = await response.json();
+      if (response.ok) {
+        refreshUserData();
+        refresh();
+        alert("Cập nhật thông tin thành công!");
+      } else {
+        alert(`Lỗi: ${data.message || "Không thể cập nhật thông tin"}`);
+      }
+      console.log("Response:", data);
+    } catch (error) {
+      console.error("Lỗi gửi form:", error);
+      alert("Đã xảy ra lỗi khi cập nhật thông tin.");
+    }
+  };
+
+  const refreshUserData = () => {
+    fetch(`https://newphim.online/api/user/profile/${userId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          const timestamp = new Date().getTime();
+          setFormData({
+            email: data.email || "",
+            nickname: data.nickname || "",
+            name: data.name || "",
+            country: data.country || "",
+            avatar: data.avatar ? `${data.avatar}?v=${timestamp}` : "",
+            anhbia: data.anhbia ? `${data.anhbia}?v=${timestamp}` : "",
+          });
+          // Sau khi cập nhật userData, formData sẽ được cập nhật thông qua useEffect
+          setLoading(false);
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+
+  useEffect(() => {
+    refreshUserData();
+  }, [userId]);
+
+  // useEffect(() => {
+  //   if (!loading) {
+  //     setFormData({
+  //       email: userData.email || "",
+  //       nickname: userData.nickname || "",
+  //       name: userData.name || "",
+  //       country: userData.country || "",
+  //       avatar: userData.avatar || "",
+  //       anhbia: userData.anhbia || "",
+  //     });
+  //   }
+  // }, [userData, loading]);
+
+  // if (loading)
+  //   return (
+  //     <div className="bg-[#151018] rounded-3xl h-175 mx-25 flex justify-center items-center">
+  //       <div className="text-center text-white">
+  //         <div className="w-10 h-10 border-4 border-t-[#C72F44] border-[#332B37] rounded-full animate-spin mx-auto mb-4"></div>
+  //         <p className="text-xl">Đang tải...</p>
+  //       </div>
+  //     </div>
+  //   );
   return (
     <div className="mt-8 sm:mt-10 md:mt-14 px-4 sm:px-6">
       <h2 className="text-white text-lg sm:text-xl ring-2 p-2 ring-[#41276b] mb-6 sm:mb-8 md:mb-12 text-center shadow-[#41276b] shadow-xl">
@@ -194,7 +141,10 @@ const Setting = () => {
           Thông tin cá nhân
         </h3>
 
-        <form className="space-y-4 sm:space-y-6">
+        <form
+          onSubmit={(e) => handleSubmit(e)}
+          className="space-y-4 sm:space-y-6"
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {/* Email đăng nhập (readonly) */}
             <div className="space-y-1 sm:space-y-2">
@@ -206,9 +156,10 @@ const Setting = () => {
               </label>
               <input
                 type="email"
-                id="user-email"
+                name="email"
+                id="email"
                 className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-[#1d1820] text-gray-400 rounded-md border border-[#41276b] cursor-not-allowed text-xs sm:text-sm"
-                value={formData?.email}
+                value={formData?.email || ""}
                 readOnly
               />
               <p className="text-xs text-gray-400">Email không thể thay đổi</p>
@@ -225,12 +176,11 @@ const Setting = () => {
               <input
                 type="text"
                 id="nickname"
+                name="nickname"
                 className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-[#231B27] text-white rounded-md border border-[#41276b] focus:border-[#C42F44] focus:outline-none focus:ring-1 focus:ring-[#C42F44] transition-colors text-xs sm:text-sm"
                 placeholder="Nhập biệt danh của bạn"
-                value={formData?.nickname}
-                onChange={(e) =>
-                  setFormData({ ...formData, nickname: e.target.value })
-                }
+                value={formData?.nickname || ""}
+                onChange={(e) => handleChange(e)}
               />
             </div>
 
@@ -244,13 +194,12 @@ const Setting = () => {
               </label>
               <input
                 type="text"
-                id="fullName"
+                id="name"
+                name="name"
                 className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-[#231B27] text-white rounded-md border border-[#41276b] focus:border-[#C42F44] focus:outline-none focus:ring-1 focus:ring-[#C42F44] transition-colors text-xs sm:text-sm"
                 placeholder="Nguyễn Văn A"
-                defaultValue={formData?.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
+                value={formData?.name || ""}
+                onChange={(e) => handleChange(e)}
               />
             </div>
 
@@ -264,77 +213,76 @@ const Setting = () => {
               </label>
               <select
                 id="country"
+                name="country"
                 className="w-full overflow-y-auto px-3 sm:px-4 py-2 sm:py-3 bg-[#231B27] text-white rounded-md border border-[#41276b] focus:border-[#C42F44] focus:outline-none focus:ring-1 focus:ring-[#C42F44] transition-colors text-xs sm:text-sm"
-                defaultValue="VN"
-                onChange={(e) =>
-                  setFormData({ ...formData, province: e.target.value })
-                }
+                value={formData.country || "default"}
+                onChange={(e) => handleChange(e)}
               >
                 <option value="default" selected>
                   -- Tỉnh thành --
                 </option>
-                <option value="AG">An Giang</option>
-                <option value="BV">Bà Rịa - Vũng Tàu</option>
-                <option value="BL">Bạc Liêu</option>
-                <option value="BK">Bắc Kạn</option>
-                <option value="BG">Bắc Giang</option>
-                <option value="BN">Bắc Ninh</option>
-                <option value="BT">Bến Tre</option>
-                <option value="BD">Bình Định</option>
-                <option value="BP">Bình Phước</option>
-                <option value="BTh">Bình Thuận</option>
-                <option value="BDg">Bình Dương</option>
-                <option value="CM">Cà Mau</option>
-                <option value="CB">Cao Bằng</option>
-                <option value="CT">Cần Thơ</option>
-                <option value="ĐN">Đà Nẵng</option>
-                <option value="ĐB">Điện Biên</option>
-                <option value="ĐL">Đắk Lắk</option>
-                <option value="ĐNông">Đắk Nông</option>
-                <option value="ĐNa">Đồng Nai</option>
-                <option value="ĐTh">Đồng Tháp</option>
-                <option value="GL">Gia Lai</option>
-                <option value="HG">Hà Giang</option>
-                <option value="HNa">Hà Nam</option>
-                <option value="HN">Hà Nội</option>
-                <option value="HT">Hà Tĩnh</option>
-                <option value="HD">Hải Dương</option>
-                <option value="HP">Hải Phòng</option>
-                <option value="HGg">Hậu Giang</option>
-                <option value="HB">Hòa Bình</option>
-                <option value="HY">Hưng Yên</option>
-                <option value="HCM">TP. Hồ Chí Minh</option>
-                <option value="KH">Khánh Hòa</option>
-                <option value="KG">Kiên Giang</option>
-                <option value="KT">Kon Tum</option>
-                <option value="LC">Lai Châu</option>
-                <option value="LD">Lâm Đồng</option>
-                <option value="LS">Lạng Sơn</option>
-                <option value="LCA">Lào Cai</option>
-                <option value="LA">Long An</option>
-                <option value="ND">Nam Định</option>
-                <option value="NA">Nghệ An</option>
-                <option value="NB">Ninh Bình</option>
-                <option value="NT">Ninh Thuận</option>
-                <option value="PT">Phú Thọ</option>
-                <option value="PY">Phú Yên</option>
-                <option value="QB">Quảng Bình</option>
-                <option value="QNa">Quảng Nam</option>
-                <option value="QNg">Quảng Ngãi</option>
-                <option value="QN">Quảng Ninh</option>
-                <option value="QT">Quảng Trị</option>
-                <option value="ST">Sóc Trăng</option>
-                <option value="SL">Sơn La</option>
-                <option value="TNI">Tây Ninh</option>
-                <option value="TB">Thái Bình</option>
-                <option value="TN">Thái Nguyên</option>
-                <option value="TH">Thanh Hóa</option>
-                <option value="TT-H">Thừa Thiên Huế</option>
-                <option value="TV">Trà Vinh</option>
-                <option value="TQ">Tuyên Quang</option>
-                <option value="VL">Vĩnh Long</option>
-                <option value="VP">Vĩnh Phúc</option>
-                <option value="YB">Yên Bái</option>
+                <option value="An Giang">An Giang</option>
+                <option value="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu</option>
+                <option value="Bạc Liêu">Bạc Liêu</option>
+                <option value="Bắc Kạn">Bắc Kạn</option>
+                <option value="Bắc Giang">Bắc Giang</option>
+                <option value="Bắc Ninh">Bắc Ninh</option>
+                <option value="Bến Tre">Bến Tre</option>
+                <option value="Bình Định">Bình Định</option>
+                <option value="Bình Phước">Bình Phước</option>
+                <option value="Bình Thuận">Bình Thuận</option>
+                <option value="Bình Dương">Bình Dương</option>
+                <option value="Cà Mau">Cà Mau</option>
+                <option value="Cao Bằng">Cao Bằng</option>
+                <option value="Cần Thơ">Cần Thơ</option>
+                <option value="Đà Nẵng">Đà Nẵng</option>
+                <option value="Điện Biên">Điện Biên</option>
+                <option value="Đắk Lắk">Đắk Lắk</option>
+                <option value="Đắk Nông">Đắk Nông</option>
+                <option value="Đồng Nai">Đồng Nai</option>
+                <option value="Đồng Tháp">Đồng Tháp</option>
+                <option value="Gia Lai">Gia Lai</option>
+                <option value="Hà Giang">Hà Giang</option>
+                <option value="Hà Nam">Hà Nam</option>
+                <option value="Hà Nội">Hà Nội</option>
+                <option value="Hà Tĩnh">Hà Tĩnh</option>
+                <option value="Hải Dương">Hải Dương</option>
+                <option value="Hải Phòng">Hải Phòng</option>
+                <option value="Hậu Giang">Hậu Giang</option>
+                <option value="Hòa Bình">Hòa Bình</option>
+                <option value="Hưng Yên">Hưng Yên</option>
+                <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                <option value="Khánh Hòa">Khánh Hòa</option>
+                <option value="Kiên Giang">Kiên Giang</option>
+                <option value="Kon Tum">Kon Tum</option>
+                <option value="Lai Châu">Lai Châu</option>
+                <option value="Lâm Đồng">Lâm Đồng</option>
+                <option value="Lạng Sơn">Lạng Sơn</option>
+                <option value="Lào Cai">Lào Cai</option>
+                <option value="Long An">Long An</option>
+                <option value="Nam Định">Nam Định</option>
+                <option value="Nghệ An">Nghệ An</option>
+                <option value="Ninh Bình">Ninh Bình</option>
+                <option value="Ninh Thuận">Ninh Thuận</option>
+                <option value="Phú Thọ">Phú Thọ</option>
+                <option value="Phú Yên">Phú Yên</option>
+                <option value="Quảng Bình">Quảng Bình</option>
+                <option value="Quảng Nam">Quảng Nam</option>
+                <option value="Quảng Ngãi">Quảng Ngãi</option>
+                <option value="Quảng Ninh">Quảng Ninh</option>
+                <option value="Quảng Trị">Quảng Trị</option>
+                <option value="Sóc Trăng">Sóc Trăng</option>
+                <option value="Sơn La">Sơn La</option>
+                <option value="Tây Ninh">Tây Ninh</option>
+                <option value="Thái Bình">Thái Bình</option>
+                <option value="Thái Nguyên">Thái Nguyên</option>
+                <option value="Thanh Hóa">Thanh Hóa</option>
+                <option value="Huế">Huế</option>
+                <option value="Trà Vinh">Trà Vinh</option>
+                <option value="Tuyên Quang">Tuyên Quang</option>
+                <option value="Vĩnh Long">Vĩnh Long</option>
+                <option value="Vĩnh Phúc">Vĩnh Phúc</option>
+                <option value="Yên Bái">Yên Bái</option>
               </select>
             </div>
           </div>
@@ -345,7 +293,12 @@ const Setting = () => {
           </label>
           <div className="flex flex-col sm:flex-row items-center sm:space-x-6 space-y-4 sm:space-y-0">
             <img
-              src={"https://newphim.online/" + formData?.avatar}
+              src={
+                formData?.avatarPreview ||
+                (formData.avatar
+                  ? "https://newphim.online/" + formData.avatar
+                  : defaultavatar)
+              }
               alt="Avatar"
               className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-[#C42F44]"
             />
@@ -358,10 +311,11 @@ const Setting = () => {
               </label>
               <input
                 id="avatar-upload"
+                name="avatar"
                 type="file"
                 className="hidden"
                 accept="image/*"
-                onChange={handleAvatarChange}
+                onChange={(e) => handleChange(e)}
               />
               <p className="text-xs text-gray-400 mt-1">
                 Tối đa 5MB (JPG, PNG)
@@ -376,7 +330,12 @@ const Setting = () => {
           <div className="space-y-3 sm:space-y-4">
             <div className="relative w-full h-40 sm:h-60 md:h-75 rounded-lg overflow-hidden border border-[#41276b]">
               <img
-                src={"https://newphim.online/" + formData.anhbia}
+                src={
+                  formData?.anhbiaPreview ||
+                  (formData.anhbia
+                    ? "https://newphim.online/" + formData.anhbia
+                    : defaultcover)
+                }
                 alt="Cover"
                 className="w-full h-full object-cover"
               />
@@ -397,17 +356,11 @@ const Setting = () => {
               <input
                 id="cover-upload"
                 type="file"
+                name="anhbia"
                 className="hidden"
                 accept="image/*"
-                onChange={handleCoverChange}
+                onChange={(e) => handleChange(e)}
               />
-              <button
-                type="button"
-                className="px-3 sm:px-4 py-1.5 sm:py-2 bg-transparent text-gray-300 border border-gray-600 rounded hover:border-gray-400 hover:text-gray-200 transition-colors text-xs sm:text-sm w-full sm:w-auto"
-                onClick={handleRemoveCover}
-              >
-                Xóa ảnh bìa
-              </button>
             </div>
 
             <p className="text-xs text-gray-400">

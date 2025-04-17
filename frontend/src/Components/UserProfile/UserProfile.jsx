@@ -1,6 +1,4 @@
 import React, { useContext } from "react";
-import usercover from "../../Assets/user-cover.jpg";
-import avatar from "../../Assets/avatar-icon.jpg";
 import { UserContext } from "../../Context/UserContext";
 
 const UserProfile = () => {
@@ -19,14 +17,24 @@ const UserProfile = () => {
   return (
     <div>
       <img
-        src={"https://newphim.online/" + userData?.anhbia || usercover}
+        src={
+          "https://newphim.online/" + userData?.anhbia
+          // +
+          // "?v=" +
+          // new Date().getTime()
+        }
         alt="Ảnh bìa người dùng"
         className="px-4 sm:px-8 md:px-16 lg:px-25 mt-4 sm:mt-6 md:mt-10 w-full h-40 sm:h-60 md:h-80 lg:h-100 object-cover rounded-lg sm:rounded-xl"
       />
 
       <div className="mx-4 sm:mx-8 md:mx-16 lg:mx-25 relative flex flex-col sm:flex-row items-center sm:items-start">
         <img
-          src={"https://newphim.online/" + userData?.avatar || avatar}
+          src={
+            "https://newphim.online/" + userData?.avatar
+            // +
+            // "?v=" +
+            // new Date().getTime()
+          }
           alt="Avatar người dùng"
           className="rounded-full -translate-y-10 sm:-translate-y-[40px] md:-translate-y-[60px] mx-auto sm:mx-0 sm:ml-8 md:ml-16 lg:ml-25 w-20 h-20 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-50 lg:h-50 ring-2 ring-red-500 object-cover"
         />

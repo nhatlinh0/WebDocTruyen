@@ -7,7 +7,7 @@ const UserContextProvider = (props) => {
     email: "",
     nickname: "",
     name: "",
-    province: "",
+    country: "",
     avatar: "",
     anhbia: "",
   });
@@ -20,19 +20,20 @@ const UserContextProvider = (props) => {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
+          const timestamp = new Date().getTime();
           setUserData({
             email: data.email || "",
             nickname: data.nickname || "",
             name: data.name || "",
-            province: data.province || "",
-            avatar: data.avatar || "",
-            anhbia: data.anhbia || "",
+            country: data.country || "",
+            avatar: `${data.avatar}?v=${timestamp}` || "",
+            anhbia: `${data.anhbia}?v=${timestamp}` || "",
           });
           setLoading(false);
         }
       })
       .catch((error) => console.log(error));
-  }, [userId]);
+  }, [userId, loading]);
 
   useEffect(() => {
     fetchUserData();
@@ -42,7 +43,7 @@ const UserContextProvider = (props) => {
     userData,
     setUserData,
     loading,
-    refreshUserData: fetchUserData,
+    refresh: fetchUserData,
   };
 
   return (

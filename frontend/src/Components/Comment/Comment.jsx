@@ -14,6 +14,7 @@ const Comment = ({ comicId, rate }) => {
   const [showReportModal, setShowReportModal] = useState(false);
   const [reportType, setReportType] = useState("");
   const [reportDescription, setReportDescription] = useState("");
+  const [userComment, setUserComment] = useState([]);
 
   const handleRate = () => {
     if (!userId || !token) {
@@ -32,22 +33,29 @@ const Comment = ({ comicId, rate }) => {
       .catch((error) => console.log("Server Errror"));
   };
 
-  // const handleComment = () => {
-  //   if (!userId || !token) {
-  //     navigate("/login");
-  //   }
-  //   fetch(`https://newphim.online/api/history/${userId}`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //     body: JSON.stringify({ truyen_chu_id: comicId }),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => console.log(data))
-  //     .catch((error) => console.log("Server Errror"));
-  // };
+  const handleComment = () => {
+    if (!userId || !token) {
+      navigate("/login");
+    }
+    fetch(`https://newphim.online/api/comments/truyen-chu`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        user_id: userId,
+        content: comment,
+        truyen_chu_id: comicId,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setComment("");
+      })
+      .catch((error) => console.log("Server Errror"));
+  };
 
   const handleError = () => {
     if (!userId || !token) {
@@ -85,6 +93,16 @@ const Comment = ({ comicId, rate }) => {
       });
   }, [userId]);
 
+  useEffect(() => {
+    fetch(`https://newphim.online/api/comments?truyen_chu_id=${comicId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setUserComment(data);
+        }
+      });
+  }, [userId]);
+
   const getRatingText = (rating) => {
     switch (rating) {
       case 1:
@@ -100,6 +118,12 @@ const Comment = ({ comicId, rate }) => {
       default:
         return "";
     }
+  };
+  const formatDate = (currentDate) => {
+    const date = new Date(currentDate);
+
+    const formattedDate = date.toLocaleDateString("vi-VN"); // Output: 16/04/2025
+    return formattedDate;
   };
 
   return (
@@ -244,7 +268,8 @@ const Comment = ({ comicId, rate }) => {
       <div className="flex items-center mx-4 sm:mx-8 md:mx-16 lg:mx-40 mt-8 sm:mt-12 mb-4 sm:mb-6 pb-2 border-b border-gray-700">
         <FaCommentAlt className="text-xl sm:text-2xl text-[#C72F44]" />
         <p className="text-lg sm:text-xl ml-2 sm:ml-3 font-bold">
-          Bình luận <span className="text-[#C72F44]">(2)</span>
+          Bình luận{" "}
+          <span className="text-[#C72F44]">({userComment.length})</span>
         </p>
       </div>
 
@@ -270,7 +295,7 @@ const Comment = ({ comicId, rate }) => {
                 }`}
                 disabled={!comment.trim()}
                 onClick={() => {
-                  /* handleComment() */
+                  handleComment();
                 }}
               >
                 Đăng bình luận
@@ -281,43 +306,28 @@ const Comment = ({ comicId, rate }) => {
       </div>
 
       {/* user comment */}
-      <div className="flex mx-4 sm:mx-8 md:mx-16 lg:mx-40 my-6 sm:my-10">
-        <img
-          src={userIcon}
-          alt="User avatar"
-          className="h-10 w-10 sm:h-14 sm:w-14 mr-3 sm:mr-5 cursor-pointer rounded-full"
-        />
-        <div className="px-4 sm:px-6 bg-[#e1e1e1] w-full rounded-lg sm:rounded-xl">
-          <h1 className="text-[#C72F44] font-bold py-2 text-sm sm:text-base">
-            Nguyễn Linh
-          </h1>
+      {userComment.map((item) => (
+        <div className="flex mx-4 sm:mx-8 md:mx-16 lg:mx-40 my-6 sm:my-10">
+          <img
+            src={userIcon}
+            alt="User avatar"
+            className="h-10 w-10 sm:h-14 sm:w-14 mr-3 sm:mr-5 cursor-pointer rounded-full"
+          />
+          <div className="px-4 sm:px-6 bg-[#e1e1e1] w-full rounded-lg sm:rounded-xl">
+            <h1 className="text-[#C72F44] font-bold py-2 text-sm sm:text-base">
+              {item.user_id}
+            </h1>
 
-          <div className="h-[0.1px] bg-[#c6c4c4]"></div>
-          <p className="text-black text-xs sm:text-sm py-2 sm:py-3">Hay ko</p>
-          <p className="text-[#635d66] text-[10px] sm:text-[12px] py-1 sm:py-2">
-            1 tháng trước
-          </p>
+            <div className="h-[0.1px] bg-[#c6c4c4]"></div>
+            <p className="text-black text-xs sm:text-sm py-2 sm:py-3">
+              {item.content}
+            </p>
+            <p className="text-[#635d66] text-[10px] sm:text-[12px] py-1 sm:py-2">
+              {item.created_at ? formatDate(item.created_at) : ""}
+            </p>
+          </div>
         </div>
-      </div>
-
-      <div className="flex mx-4 sm:mx-8 md:mx-16 lg:mx-40 my-6 sm:my-10">
-        <img
-          src={userIcon}
-          alt="User avatar"
-          className="h-10 w-10 sm:h-14 sm:w-14 mr-3 sm:mr-5 cursor-pointer rounded-full"
-        />
-        <div className="px-4 sm:px-6 bg-[#e1e1e1] w-full rounded-lg sm:rounded-xl">
-          <h1 className="text-[#C72F44] font-bold py-2 text-sm sm:text-base">
-            Lại Nguyên
-          </h1>
-
-          <div className="h-[0.1px] bg-[#c6c4c4]"></div>
-          <p className="text-black text-xs sm:text-sm py-2 sm:py-3">Hay vl</p>
-          <p className="text-[#635d66] text-[10px] sm:text-[12px] py-1 sm:py-2">
-            1 tháng trước
-          </p>
-        </div>
-      </div>
+      ))}
 
       <div className="h-[1px] bg-[#C42F44] mx-4 sm:mx-8 md:mx-16 lg:mx-25"></div>
     </div>

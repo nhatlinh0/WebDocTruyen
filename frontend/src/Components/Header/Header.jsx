@@ -63,7 +63,7 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    if (!token || userId) {
+    if (!token || !userId) {
       return;
     }
     setIsLoading(true);
@@ -73,7 +73,6 @@ const Header = () => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({}),
     })
       .then((res) => {
         if (res.ok) {
@@ -199,7 +198,12 @@ const Header = () => {
               {token ? (
                 <div className="flex items-center px-4 py-2 space-x-3 mb-4">
                   <img
-                    src={"https://newphim.online/" + userData.avatar}
+                    src={
+                      "https://newphim.online/" + userData.avatar
+                      //  + "?v="
+                      // +
+                      // new Date().getTime()
+                    }
                     alt="User"
                     className="w-12 h-12 rounded-full border-2 border-[#C42F44]"
                   />
@@ -493,7 +497,12 @@ const Header = () => {
             {token ? (
               <div className="hidden md:flex items-center space-x-2">
                 <img
-                  src={"https://newphim.online/" + userData.avatar}
+                  src={
+                    "https://newphim.online/" + userData.avatar
+                    // +
+                    // "?v=" +
+                    // new Date().getTime()
+                  }
                   alt=""
                   className="w-8 h-8 md:w-11 md:h-11 rounded-full cursor-pointer hover:scale-110 transition duration-300"
                 />
@@ -506,7 +515,12 @@ const Header = () => {
                   <div className="p-4 border-b border-[#3a2a43]">
                     <div className="flex items-center space-x-3">
                       <img
-                        src={"https://newphim.online/" + userData.avatar}
+                        src={
+                          "https://newphim.online/" + userData.avatar
+                          // +
+                          // "?v=" +
+                          // new Date().getTime()
+                        }
                         alt="User profile"
                         className="w-12 h-12 rounded-full border-2 border-[#C42F44]"
                       />
