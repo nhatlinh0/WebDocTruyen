@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import AuthLayout from "../../Components/AuthLayout/AuthLayout";
 import registerBg from "../../assets/sao-slider.jpg";
+import toast, { Toaster } from "react-hot-toast";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -21,7 +22,7 @@ const Register = () => {
       !confirmPassword ||
       password.length < 8
     ) {
-      alert(123);
+      toast.error("Vui lòng nhập đủ thông tin");
       return;
     }
 
@@ -43,12 +44,12 @@ const Register = () => {
       const data = await response.json();
 
       if (response.ok) {
-        alert("Đăng ký thành công! Vui lòng đăng nhập.");
+        toast.success("Đăng ký thành công! Vui lòng đăng nhập.");
       } else {
-        alert(data.message || "Đăng ký thất bại!");
+        toast.error(data.message || "Đăng ký thất bại!");
       }
     } catch (error) {
-      alert("Lỗi kết nối! Vui lòng thử lại.");
+      toast.error("Lỗi kết nối! Vui lòng thử lại.");
     }
   };
 

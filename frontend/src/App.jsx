@@ -19,6 +19,7 @@ import SearchResults from "./Pages/SearchResults/SearchResults";
 import Register from "./Pages/Register/Register";
 import Login from "./Pages/Login/Login";
 import NotFound from "./Pages/NotFound/NotFound";
+import toast, { Toaster } from "react-hot-toast";
 
 const MainLayout = () => {
   return (
@@ -46,6 +47,7 @@ const GuestGuard = ({ children }) => {
 function App() {
   return (
     <div className="w-full mx-auto bg-[#231B27]">
+      <Toaster />
       <BrowserRouter>
         <Routes>
           <Route element={<MainLayout />}>
@@ -54,7 +56,8 @@ function App() {
               <Route path=":comicId" element={<Comic />}></Route>
             </Route>
             <Route path="/reading" element={<Reading />}>
-              <Route path=":comicSlug" element={<Reading />}>
+              <Route path=":comicId" element={<Reading />}>
+                <Route path=":chapterId" element={<Reading />}></Route>
                 {/* <Route path=":chapterId" element={<Reading />}></Route> */}
               </Route>
             </Route>

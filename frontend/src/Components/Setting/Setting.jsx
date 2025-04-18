@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import defaultavatar from "../../Assets/comic-icon.png";
 import defaultcover from "../../Assets/default-cover.webp";
 import { UserContext } from "../../Context/UserContext";
+import toast, { Toaster } from "react-hot-toast";
 
 const Setting = () => {
   const userId = localStorage.getItem("userId");
@@ -38,7 +39,7 @@ const Setting = () => {
     }
   };
 
-  console.log(formData);
+  // console.log(formData);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -72,14 +73,14 @@ const Setting = () => {
       if (response.ok) {
         refreshUserData();
         refresh();
-        alert("Cập nhật thông tin thành công!");
+        toast.success("Cập nhật thông tin thành công!");
       } else {
-        alert(`Lỗi: ${data.message || "Không thể cập nhật thông tin"}`);
+        toast.error(`Lỗi: ${data.message || "Không thể cập nhật thông tin"}`);
       }
       console.log("Response:", data);
     } catch (error) {
       console.error("Lỗi gửi form:", error);
-      alert("Đã xảy ra lỗi khi cập nhật thông tin.");
+      toast.error("Đã xảy ra lỗi khi cập nhật thông tin.");
     }
   };
 
@@ -104,32 +105,51 @@ const Setting = () => {
       .catch((error) => console.log(error));
   };
 
+  const handlePassword = () => {
+    if (passwordData.confirmPassword !== passwordData.newPassword) {
+      toast.error("Xác nhận mật khâu không khớp");
+      return;
+    }
+    if (
+      !passwordData.confirmPassword ||
+      !passwordData.newPassword ||
+      !passwordData.currentPassword
+    ) {
+      toast.error("Vui lòng nhập đủ thông tin");
+      return;
+    }
+    fetch(`https://newphim.online/api/user/change-password`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        old_password: passwordData.currentPassword,
+        new_password: passwordData.newPassword,
+        new_password_confirmation: passwordData.confirmPassword,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          toast.error(data.error);
+        }
+        if (data.message) {
+          toast.success(data.message);
+        }
+        setPasswordData({
+          currentPassword: "",
+          newPassword: "",
+          confirmPassword: "",
+        });
+      })
+      .catch((error) => toast.error("Server Errror"));
+  };
+
   useEffect(() => {
     refreshUserData();
   }, [userId]);
-
-  // useEffect(() => {
-  //   if (!loading) {
-  //     setFormData({
-  //       email: userData.email || "",
-  //       nickname: userData.nickname || "",
-  //       name: userData.name || "",
-  //       country: userData.country || "",
-  //       avatar: userData.avatar || "",
-  //       anhbia: userData.anhbia || "",
-  //     });
-  //   }
-  // }, [userData, loading]);
-
-  // if (loading)
-  //   return (
-  //     <div className="bg-[#151018] rounded-3xl h-175 mx-25 flex justify-center items-center">
-  //       <div className="text-center text-white">
-  //         <div className="w-10 h-10 border-4 border-t-[#C72F44] border-[#332B37] rounded-full animate-spin mx-auto mb-4"></div>
-  //         <p className="text-xl">Đang tải...</p>
-  //       </div>
-  //     </div>
-  //   );
   return (
     <div className="mt-8 sm:mt-10 md:mt-14 px-4 sm:px-6">
       <h2 className="text-white text-lg sm:text-xl ring-2 p-2 ring-[#41276b] mb-6 sm:mb-8 md:mb-12 text-center shadow-[#41276b] shadow-xl">
@@ -380,102 +400,6 @@ const Setting = () => {
         </form>
       </div>
 
-      {/* <div className="bg-[#2B1552] rounded-lg p-6 max-w-5xl mx-auto mt-20">
-        <div className="pt-4 border-t border-[#41276b]">
-          <label className="block text-gray-300 text-sm font-medium mb-2">
-            Ảnh đại diện
-          </label>
-          <div className="flex items-center space-x-6">
-            <img
-              src={"https://newphim.online/" + formData?.avatar}
-              alt="Avatar"
-              className="w-20 h-20 rounded-full border-2 border-[#C42F44]"
-            />
-            <div>
-              <label
-                htmlFor="avatar-upload"
-                className="px-4 py-2 bg-[#C42F44] text-white rounded cursor-pointer hover:bg-[#d13a51] transition-colors inline-block"
-              >
-                Tải ảnh lên
-              </label>
-              <input
-                id="avatar-upload"
-                type="file"
-                className="hidden"
-                accept="image/*"
-                onChange={handleAvatarChange}
-              />
-              <p className="text-xs text-gray-400 mt-1">
-                Tối đa 5MB (JPG, PNG)
-              </p>
-            </div>
-          </div>
-          <div className="flex justify-end">
-            <button
-              type="submit"
-              className="px-6 py-3 bg-[#C42F44] text-white font-medium rounded-md hover:bg-[#d13a51] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C42F44] focus:ring-opacity-50"
-            >
-              Lưu
-            </button>
-          </div>
-        </div>
-      </div> */}
-
-      {/* <div className="bg-[#2B1552] rounded-lg p-6 max-w-5xl mx-auto mt-1">
-        <div className="pt-4 border-t border-[#41276b] mt-6">
-          <label className="block text-gray-300 text-sm font-medium mb-2">
-            Ảnh bìa
-          </label>
-          <div className="space-y-4">
-            <div className="relative w-full h-75 rounded-lg overflow-hidden border border-[#41276b]">
-              <img
-                src={"https://newphim.online/" + formData.anhbia}
-                alt="Cover"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-black/70 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
-                <p className="text-white text-sm">Ảnh bìa hiện tại</p>
-              </div>
-            </div>
-
-            <div className="flex items-center space-x-4">
-              <label
-                htmlFor="cover-upload"
-                className="px-4 py-2 bg-[#C42F44] text-white rounded cursor-pointer hover:bg-[#d13a51] transition-colors inline-block"
-              >
-                Thay đổi ảnh bìa
-              </label>
-              <input
-                id="cover-upload"
-                type="file"
-                className="hidden"
-                accept="image/*"
-                onChange={handleCoverChange}
-              />
-              <button
-                type="button"
-                className="px-4 py-2 bg-transparent text-gray-300 border border-gray-600 rounded hover:border-gray-400 hover:text-gray-200 transition-colors"
-                onClick={handleRemoveCover}
-              >
-                Xóa ảnh bìa
-              </button>
-            </div>
-
-            <p className="text-xs text-gray-400">
-              Kích thước đề xuất: 1200 x 400 pixel. Tối đa 8MB (JPG, PNG)
-            </p>
-          </div>
-          <div className="flex justify-end">
-            <button
-              type="submit"
-              className="px-6 py-3 bg-[#C42F44] text-white font-medium rounded-md hover:bg-[#d13a51] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C42F44] focus:ring-opacity-50"
-            >
-              Lưu
-            </button>
-          </div>
-        </div>
-      </div> */}
-
       {/* password */}
 
       <div className="bg-[#2B1552] rounded-lg p-4 sm:p-6 max-w-5xl mt-8 sm:mt-12 md:mt-20 mx-auto">
@@ -490,13 +414,13 @@ const Setting = () => {
                 htmlFor="password-username"
                 className="block text-gray-300 text-xs sm:text-sm font-medium"
               >
-                Tên đăng nhập
+                Email đăng nhập
               </label>
               <input
                 type="text"
                 id="password-username"
                 className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-[#1d1820] text-gray-400 rounded-md border border-[#41276b] cursor-not-allowed text-xs sm:text-sm"
-                value="adminlinh123"
+                value={formData.email}
                 readOnly
               />
             </div>
@@ -578,6 +502,7 @@ const Setting = () => {
               <button
                 type="button"
                 className="px-4 sm:px-5 py-2 sm:py-2.5 bg-[#C42F44] text-white font-medium rounded-md hover:bg-[#d13a51] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C42F44] focus:ring-opacity-50 text-xs sm:text-sm"
+                onClick={handlePassword}
               >
                 Đổi mật khẩu
               </button>

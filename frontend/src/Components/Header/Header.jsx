@@ -11,6 +11,7 @@ import userIcon from "../../Assets/avatar-icon.jpg";
 import { Link } from "react-router-dom";
 import { ComicContext } from "../../Context/ComicContext";
 import { UserContext } from "../../Context/UserContext";
+import toast, { Toaster } from "react-hot-toast";
 
 const Header = () => {
   const { allCategory, allComics } = useContext(ComicContext);
@@ -81,11 +82,11 @@ const Header = () => {
           setIsLoading(false);
           window.location.href = "/login";
         } else {
-          alert("Lỗi kết nối");
+          toast.error("Lỗi kết nối");
           setIsLoading(false);
         }
       })
-      .catch((error) => alert(error));
+      .catch((error) => toast.error(error));
   };
 
   // Xử lý khi người dùng nhấn Enter

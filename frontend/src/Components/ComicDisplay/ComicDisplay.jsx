@@ -4,12 +4,14 @@ import { FaEye } from "react-icons/fa";
 import { MdOutlineStar } from "react-icons/md";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { ComicContext } from "../../Context/ComicContext";
+import toast, { Toaster } from "react-hot-toast";
 
 const ComicDisplay = ({ comic }) => {
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const { allCategory } = useContext(ComicContext);
+  const [firstIndex, setFirstIndex] = useState(0);
   const [view, setView] = useState(0);
 
   const category = allCategory.filter((item) => {
@@ -26,6 +28,17 @@ const ComicDisplay = ({ comic }) => {
       });
   }, [userId]);
 
+  useEffect(() => {
+    fetch(`https://newphim.online/api/truyen-chu/${comic.id}/chaps`)
+      .then((res) => res.json())
+      .then((data) => {
+        setFirstIndex(data[0].id);
+      })
+      .catch((error) => {
+        console.error("Error fetching chapters:", error);
+      });
+  }, [comic.id]);
+
   const handleSaved = () => {
     if (!userId || !token) {
       navigate("/login");
@@ -39,7 +52,7 @@ const ComicDisplay = ({ comic }) => {
       body: JSON.stringify({ truyen_chu_id: comic.id }),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => toast.success(data.message))
       .catch((error) => console.log("Server Errror"));
   };
 
@@ -105,14 +118,19 @@ const ComicDisplay = ({ comic }) => {
 
             {/* Nút đọc và lưu truyện */}
             <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 my-4 sm:my-6">
-              <Link to={`/reading/${comic.slug}`} className="w-full sm:w-auto">
-                <div
-                  className="rounded-lg sm:rounded-xl w-full sm:w-45 py-2.5 sm:py-4 bg-gradient-to-r from-[#C72F44] to-[#9A0F29] text-center uppercase text-sm sm:text-base font-bold cursor-pointer shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
-                  onClick={() => window.scrollTo(0, 0)}
+              {firstIndex && (
+                <Link
+                  to={`/reading/${comic.id}/${firstIndex}`}
+                  className="w-full sm:w-auto"
                 >
-                  Đọc ngay
-                </div>
-              </Link>
+                  <div
+                    className="rounded-lg sm:rounded-xl w-full sm:w-45 py-2.5 sm:py-4 bg-gradient-to-r from-[#C72F44] to-[#9A0F29] text-center uppercase text-sm sm:text-base font-bold cursor-pointer shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+                    onClick={() => window.scrollTo(0, 0)}
+                  >
+                    Đọc ngay
+                  </div>
+                </Link>
+              )}
               <div
                 className={`rounded-lg sm:rounded-xl w-full sm:w-45 py-2.5 sm:py-4
                   

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import AuthLayout from "../../Components/AuthLayout/AuthLayout";
 import loginBg from "../../assets/sao-slider.jpg";
+import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -32,12 +33,11 @@ const Login = () => {
         setIsLoading(false);
         window.location.href = "/";
       } else {
-        alert("Đăng nhập thất bại: " + data.message);
+        toast.error("Đăng nhập thất bại");
         setIsLoading(false);
       }
     } catch (error) {
-      console.error("Lỗi đăng nhập:", error);
-      alert("Lỗi kết nối đến máy chủ!");
+      toast.error("Lỗi kết nối đến máy chủ!");
     }
   };
 

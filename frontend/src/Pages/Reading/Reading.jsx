@@ -11,13 +11,10 @@ import { ComicContext } from "../../Context/ComicContext";
 const Reading = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const ids = location.state?.chapterId;
+  const comicName = location.state?.comicName;
 
-  // const { comicSlug, chapterId } = useParams();
-  const { comicSlug } = useParams();
-  const { allComics } = useContext(ComicContext);
+  const { comicId, chapterId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
-  const [comic, setComic] = useState();
   const [chapters, setChapters] = useState([]);
   const [chapter, setChapter] = useState([]);
   const [index, setIndex] = useState(0);
@@ -30,73 +27,54 @@ const Reading = () => {
   const [lineHeight, setLineHeight] = useState(3);
   const [fontFamily, setFontFamily] = useState("sans-serif");
 
-  // ...existing code...
-
   // Thêm hàm để toggle settings modal
   const toggleSettings = () => {
     setShowSettings(!showSettings);
   };
 
   useEffect(() => {
-    const foundComic = allComics.find((item) => item.slug == comicSlug);
-    setComic(foundComic);
-  }, [comicSlug, allComics]);
-
-  // const chapters = allChapters.filter((item) => item.comic_id == comic.id);
+    setIsLoading(true);
+    fetch(`https://newphim.online/api/truyen-chu/${comicId}/chaps/${chapterId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setChapter(data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching chapter:", error);
+      });
+  }, [comicId, chapterId]);
 
   useEffect(() => {
-    if (comic?.id) {
-      setIsLoading(true);
-      fetch(`https://newphim.online/api/truyen-chu/${comic.id}/chaps`)
-        .then((res) => res.json())
-        .then((data) => {
+    setIsLoading(true);
+    fetch(`https://newphim.online/api/truyen-chu/${comicId}/chaps`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
           setChapters(data);
-          if (data && data.length > 0) {
-            if (ids) {
-              var newIndex = data.findIndex((item) => item.id == ids);
-              setChapter(data[newIndex]);
-              setIndex(newIndex);
-              setIsLoading(false);
-            } else {
-              setChapter(data[index]);
-              setIsLoading(false);
-            }
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching chapters:", error);
-        });
-    }
-  }, [comic?.id]);
-
-  // useEffect(() => {
-  //   const foundChapter = chapters.find((item) => item.id == chapterId);
-  //   setChapter(foundChapter);
-  // }, [chapterId]);
+          setIndex(data.findIndex((i) => i.id == chapterId));
+          setIsLoading(false);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching chapter:", error);
+      });
+  }, [comicId]);
 
   const increaseNumber = () => {
-    // const nextChapter = parseInt(chapterId) + 1;
-    // navigate(`/reading/${comicSlug}/${nextChapter}`);
     if (index + 1 < chapters.length) {
-      setIndex((prevIndex) => {
-        const newIndex = prevIndex + 1;
-        setChapter(chapters[newIndex]);
-        return newIndex;
-      });
+      setIndex((prev) => prev + 1);
+      const nextChapter = parseInt(chapterId) + 1;
+      navigate(`/reading/${comicId}/${nextChapter}`);
       window.scrollTo(0, 0);
     }
   };
 
   const decreaseNumber = () => {
-    // const prevChapter = Math.max(1, parseInt(chapterId) - 1);
-    // window.scrollTo(0, 0);
-    // navigate(`/reading/${comicSlug}/${prevChapter}`);
     if (index > 0) {
-      setIndex((prevIndex) => {
-        const newIndex = prevIndex - 1;
-        setChapter(chapters[newIndex]);
-        return newIndex;
-      });
+      setIndex((prev) => prev - 1);
+      const prevChapter = parseInt(chapterId) - 1;
+      navigate(`/reading/${comicId}/${prevChapter}`);
       window.scrollTo(0, 0);
     }
   };
@@ -129,7 +107,7 @@ const Reading = () => {
     >
       {/* Tiêu đề truyện */}
       <h1 className="text-xl sm:text-2xl font-bold my-3 sm:my-7 mx-4 sm:ml-8 md:ml-20 bg-gradient-to-r from-red-600 to-fuchsia-500 inline-block text-transparent bg-clip-text">
-        {comic.name}
+        {comicName}
       </h1>
 
       {/* Toolbar điều khiển */}
@@ -180,8 +158,8 @@ const Reading = () => {
                     className="p-2 sm:p-3 cursor-pointer text-xs sm:text-sm hover:bg-[#231B27] transition-colors truncate"
                     onClick={() => {
                       setToggleMenu(false);
-                      setChapter(item);
                       setIndex(i);
+                      navigate(`/reading/${comicId}/${item.id}`);
                       window.scrollTo(0, 0);
                     }}
                   >

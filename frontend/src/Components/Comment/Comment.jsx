@@ -15,6 +15,7 @@ const Comment = ({ comicId, rate }) => {
   const [reportType, setReportType] = useState("");
   const [reportDescription, setReportDescription] = useState("");
   const [userComment, setUserComment] = useState([]);
+  const [userNames, setUserNames] = useState({});
 
   const handleRate = () => {
     if (!userId || !token) {
@@ -53,6 +54,7 @@ const Comment = ({ comicId, rate }) => {
       .then((data) => {
         console.log(data);
         setComment("");
+        updateComments();
       })
       .catch((error) => console.log("Server Errror"));
   };
@@ -83,6 +85,16 @@ const Comment = ({ comicId, rate }) => {
       .catch((error) => console.log("Server Errror"));
   };
 
+  const updateComments = () => {
+    fetch(`https://newphim.online/api/comments?truyen_chu_id=${comicId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setUserComment(data);
+        }
+      });
+  };
+
   useEffect(() => {
     fetch(`https://newphim.online/api/rates/truyen_chu/${userId}/${comicId}`)
       .then((res) => res.json())
@@ -94,14 +106,23 @@ const Comment = ({ comicId, rate }) => {
   }, [userId]);
 
   useEffect(() => {
-    fetch(`https://newphim.online/api/comments?truyen_chu_id=${comicId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data) {
-          setUserComment(data);
-        }
-      });
+    updateComments();
   }, [userId]);
+
+  useEffect(() => {
+    userComment.forEach((comment) => {
+      fetch(`https://newphim.online/api/user/profile/${comment.user_id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data) {
+            setUserNames((prev) => ({
+              ...prev,
+              [comment.user_id]: data.name,
+            }));
+          }
+        });
+    });
+  }, [userComment]);
 
   const getRatingText = (rating) => {
     switch (rating) {
@@ -269,7 +290,9 @@ const Comment = ({ comicId, rate }) => {
         <FaCommentAlt className="text-xl sm:text-2xl text-[#C72F44]" />
         <p className="text-lg sm:text-xl ml-2 sm:ml-3 font-bold">
           Bình luận{" "}
-          <span className="text-[#C72F44]">({userComment.length})</span>
+          <span className="text-[#C72F44]">
+            ({userComment ? userComment.length : 0})
+          </span>
         </p>
       </div>
 
@@ -306,28 +329,29 @@ const Comment = ({ comicId, rate }) => {
       </div>
 
       {/* user comment */}
-      {userComment.map((item) => (
-        <div className="flex mx-4 sm:mx-8 md:mx-16 lg:mx-40 my-6 sm:my-10">
-          <img
-            src={userIcon}
-            alt="User avatar"
-            className="h-10 w-10 sm:h-14 sm:w-14 mr-3 sm:mr-5 cursor-pointer rounded-full"
-          />
-          <div className="px-4 sm:px-6 bg-[#e1e1e1] w-full rounded-lg sm:rounded-xl">
-            <h1 className="text-[#C72F44] font-bold py-2 text-sm sm:text-base">
-              {item.user_id}
-            </h1>
+      {userComment &&
+        userComment.map((item) => (
+          <div className="flex mx-4 sm:mx-8 md:mx-16 lg:mx-40 my-6 sm:my-10">
+            <img
+              src={userIcon}
+              alt="User avatar"
+              className="h-10 w-10 sm:h-14 sm:w-14 mr-3 sm:mr-5 cursor-pointer rounded-full"
+            />
+            <div className="px-4 sm:px-6 bg-[#e1e1e1] w-full rounded-lg sm:rounded-xl">
+              <h1 className="text-[#C72F44] font-bold py-2 text-sm sm:text-base">
+                {userNames[item.user_id] || "Ẩn danh"}
+              </h1>
 
-            <div className="h-[0.1px] bg-[#c6c4c4]"></div>
-            <p className="text-black text-xs sm:text-sm py-2 sm:py-3">
-              {item.content}
-            </p>
-            <p className="text-[#635d66] text-[10px] sm:text-[12px] py-1 sm:py-2">
-              {item.created_at ? formatDate(item.created_at) : ""}
-            </p>
+              <div className="h-[0.1px] bg-[#c6c4c4]"></div>
+              <p className="text-black text-xs sm:text-sm py-2 sm:py-3">
+                {item.content}
+              </p>
+              <p className="text-[#635d66] text-[10px] sm:text-[12px] py-1 sm:py-2">
+                {item.created_at ? formatDate(item.created_at) : ""}
+              </p>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
 
       <div className="h-[1px] bg-[#C42F44] mx-4 sm:mx-8 md:mx-16 lg:mx-25"></div>
     </div>

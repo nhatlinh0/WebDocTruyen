@@ -57,7 +57,6 @@ const ChapterList = (props) => {
   const paginate = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= totalPages) {
       setCurrentPage(pageNumber);
-      window.scrollTo(0, 0);
     }
   };
 
@@ -122,8 +121,8 @@ const ChapterList = (props) => {
               {currentChapters.map((item) => (
                 <Link
                   key={item.id}
-                  to={`/reading/${props.comicSlug}`}
-                  state={{ chapterId: item.id }}
+                  to={`/reading/${props.comicId}/${item.id}`}
+                  state={{ comicName: props.comicName }}
                   className="hover:text-[#C72F44] transition-colors duration-200 w-full truncate pr-4"
                 >
                   <p onClick={() => window.scrollTo(0, 0)}>{item.title}</p>
