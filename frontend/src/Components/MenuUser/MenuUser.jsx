@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 import { ComicContext } from "../../Context/ComicContext";
 import ComicItem from "../ComicItem/ComicItem";
+import ReactPaginate from "react-paginate";
 
 import Setting from "../Setting/Setting";
 import { useNavigate, useParams } from "react-router-dom";
@@ -62,8 +63,29 @@ const MenuUser = () => {
     };
   };
 
-  if (isLoading) return <div></div>;
+  // PHAN TRANG
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 20;
 
+  const pageCount =
+    menu == "saved"
+      ? Math.ceil(savedComics?.length / itemsPerPage)
+      : Math.ceil(historyComics?.length / itemsPerPage);
+
+  const handlePageClick = (event) => {
+    setCurrentPage(event.selected);
+  };
+
+  const offset = currentPage * itemsPerPage;
+  const currentItems =
+    menu == "saved"
+      ? savedComics?.slice(offset, offset + itemsPerPage)
+      : historyComics?.slice(offset, offset + itemsPerPage);
+
+  useEffect(() => {
+    // Reset trang về 0 khi menu thay đổi
+    setCurrentPage(0);
+  }, [menu]);
   return (
     <div className="px-4 sm:px-8 md:px-16 lg:px-30 pt-6 sm:pt-8 md:pt-10 pb-16 sm:pb-20 md:pb-25">
       {/* MENU */}
@@ -131,9 +153,9 @@ const MenuUser = () => {
             Truyện đã lưu
           </h3>
           <div className="mt-4 sm:mt-6 md:mt-8">
-            {savedComics && savedComics.length > 0 ? (
+            {currentItems && currentItems.length > 0 ? (
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-y-8">
-                {savedComics.map((item, i) => (
+                {currentItems.map((item, i) => (
                   <ComicItem
                     key={i}
                     id={item.id}
@@ -170,9 +192,9 @@ const MenuUser = () => {
             Lịch sử đọc truyện
           </h3>
           <div className="mt-4 sm:mt-6 md:mt-8">
-            {historyComics && historyComics.length > 0 ? (
+            {currentItems && currentItems.length > 0 ? (
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-y-8">
-                {historyComics.map((item, i) => (
+                {currentItems.map((item, i) => (
                   <ComicItem
                     key={i}
                     id={item.id}
@@ -204,6 +226,27 @@ const MenuUser = () => {
       )}
 
       {menu === "setting" && <Setting />}
+
+      {(savedComics || historyComics) && (
+        <ReactPaginate
+          key={menu}
+          breakLabel="..."
+          previousLabel={"←"}
+          nextLabel={"→"}
+          pageRangeDisplayed={3}
+          marginPagesDisplayed={2}
+          pageCount={pageCount}
+          forcePage={currentPage}
+          onPageChange={handlePageClick}
+          containerClassName="flex justify-center gap-2 py-4"
+          pageClassName="border border-gray-600 rounded"
+          pageLinkClassName="block rounded px-3 py-1 text-white hover:bg-[#C72F44]"
+          previousLinkClassName="block px-3 py-1 border rounded text-white hover:bg-gray-500"
+          nextLinkClassName="block px-3 py-1 border rounded text-white hover:bg-gray-500"
+          activeLinkClassName="bg-[#C72F44] text-white"
+          breakClassName="text-white"
+        />
+      )}
     </div>
   );
 };

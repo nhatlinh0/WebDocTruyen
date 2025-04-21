@@ -9,20 +9,20 @@ const ComicItem = (props) => {
   const token = localStorage.getItem("token");
 
   const handleHistory = () => {
-    // if (!userId || !token) {
-    //   return;
-    // }
-    // fetch(`https://newphim.online/api/history/${userId}`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${token}`,
-    //   },
-    //   body: JSON.stringify({ truyen_chu_id: props.id }),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => console.log(data))
-    //   .catch((error) => console.log("Server Errror"));
+    if (!userId || !token) {
+      return;
+    }
+    fetch(`https://newphim.online/api/history/${userId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ truyen_chu_id: props.id }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.log("Server Errror"));
   };
 
   const handleView = () => {

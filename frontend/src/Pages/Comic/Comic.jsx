@@ -33,7 +33,9 @@ const Comic = () => {
           return res.json();
         })
         .then((data) => {
-          setRelatedComics(data.stories.filter((item) => item.id != comic.id));
+          setRelatedComics(
+            data.stories.filter((item) => item.id != comic.id).slice(0, 30)
+          );
           setIsLoading(false);
         });
     }

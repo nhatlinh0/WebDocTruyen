@@ -1,8 +1,14 @@
 import userIcon from "../Assets/avatar-icon.jpg";
 import usercover from "../Assets/user-cover.jpg";
-import image1 from "../Assets/sao-slider.jpg";
-import image2 from "../Assets/kagurabachi-slider.jpg";
-import image3 from "../Assets/sao-slider.jpg";
+// import image1 from "../Assets/sao-slider.jpg";
+// import image2 from "../Assets/kagurabachi-slider.jpg";
+// import image3 from "../Assets/sao-slider.jpg";
+import image1 from "../Assets/background1.webp";
+import image2 from "../Assets/background2.jpg";
+import image3 from "../Assets/background3.webp";
+import image4 from "../Assets/background4.jpg";
+import image5 from "../Assets/background5.jpg";
+
 import { createContext, useEffect, useState } from "react";
 
 export const ComicContext = createContext(null);
@@ -28,7 +34,7 @@ const ComicContextProvider = (props) => {
       try {
         setIsLoading(true);
 
-        const totalPages = 4;
+        const totalPages = 10;
 
         const fetchPromises = Array.from({ length: totalPages }, (_, i) =>
           fetch(`https://newphim.online/api/truyen-chu?page=${i + 1}`).then(
@@ -261,30 +267,30 @@ const ComicContextProvider = (props) => {
   const sliderComic = [
     {
       id: 1,
-      image: image1,
-      title: "Đao kiếm thần vực",
+      image: image5,
+      title: "1913 tân quân phiệt",
       category: "Nổi bật",
       description:
-        "Chihiro, con trai của một thợ rèn huyền thoại, sống yên bình cho đến khi bi kịch ập đến, cướp đi tất cả. Cầm thanh kiếm cuối cùng của cha, cậu lao vào hành trình báo thù, đối mặt với những kẻ thù tàn ác và bí ẩn đằng sau thanh kiếm huyền thoại.",
-      comicId: 11,
+        "Dân quốc + thần y + hệ thống + trọng sinh + Bến Thượng Hải Thân hoạn bệnh nan y trung y học viện học sinh Diệp Trường Thanh trọng sinh đến dân quốc năm đầu Bến Thượng Hải một cái tương đồng tên họ y quán học đồ trên người.",
+      comicId: 34152,
     },
     {
       id: 2,
-      image: image2,
-      title: "Thợ săn hắc ám",
+      image: image4,
+      title: "Bắc Đẩu Đế Tôn",
       category: "Nổi bật",
       description:
-        "Trong một thế giới nơi bóng tối ngự trị, Abel - thợ săn quái vật trẻ tuổi với khả năng nhìn thấu bóng đêm, chiến đấu chống lại các sinh vật hắc ám đe dọa loài người. Khi anh phát hiện ra một âm mưu đe dọa cả thế giới, Abel phải đối mặt với quá khứ bí ẩn của chính mình.",
-      comicId: 12,
+        "Mấy chục vạn năm về sau, một trận oanh động Mộ Vân thành tiến giai xem lễ, thiên tài thiếu niên Lý Mộc bị người ám toán, nhân sinh rơi xuống đáy cốc.",
+      comicId: 34117,
     },
     {
       id: 3,
-      image: image3,
-      title: "Linh hồn chiến binh",
+      image: image1,
+      title: "Chấp Ma (Hợp Thể Song Tu)",
       category: "Nổi bật",
       description:
-        "Sau khi hy sinh trong trận chiến cuối cùng, linh hồn của chiến binh Haruki bị mắc kẹt giữa cõi âm và dương. Để tìm đường trở về, anh phải giúp những người còn sống vượt qua nguy hiểm và học cách sử dụng sức mạnh mới của mình trong một thế giới đầy rẫy những kẻ thù vô hình.",
-      comicId: 13,
+        'Vương Lâm - một thiếu niên bình thường, may mắn được gia nhập vào một môn phái tu tiên xuống dốc của nước Triệu, vì thiếu linh căn, vì một hiểu nhầm tai hại, vì một khối thiết tinh và nhờ có được một "Thần Bí Hạt Châu". Vương Lâm đã bước lên con đường tu tiên và trên con đường này, hắn sẽ đối mặt với chuyện gì?',
+      comicId: 34026,
     },
   ];
 

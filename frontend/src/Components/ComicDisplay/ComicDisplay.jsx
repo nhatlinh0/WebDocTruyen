@@ -11,7 +11,7 @@ const ComicDisplay = ({ comic }) => {
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const { allCategory } = useContext(ComicContext);
-  const [firstIndex, setFirstIndex] = useState(0);
+  const [firstIndex, setFirstIndex] = useState("Đọc Ngay");
   const [view, setView] = useState(0);
 
   const category = allCategory.filter((item) => {
@@ -57,7 +57,7 @@ const ComicDisplay = ({ comic }) => {
   };
 
   return (
-    <div className="rounded-lg bg-[#151018] mx-4 sm:mx-8 md:mx-16 lg:mx-40 ring-1 ring-blue-900">
+    <div className="rounded-lg bg-[#151018] mx-4 sm:mx-8 md:mx-16 lg:mx-20 ring-1 ring-blue-900">
       <div className="relative h-40 sm:h-60 md:h-88 w-full">
         <img
           src={sao}

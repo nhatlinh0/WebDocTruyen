@@ -5,6 +5,7 @@ import ComicItem from "../../Components/ComicItem/ComicItem";
 import CategoryItem from "../../Components/CategoryItem/CategoryItem";
 import Introduce from "../../Components/Introduce/Introduce";
 import OtherItem from "../../Components/OtherItem/OtherItem";
+import AllComics from "../../Components/AllComics/AllComics";
 import { useContext } from "react";
 import { ComicContext } from "../../Context/ComicContext";
 import WebCard from "../../Components/WebCard/WebCard";
@@ -12,6 +13,13 @@ import WebCard from "../../Components/WebCard/WebCard";
 const Home = () => {
   const { truyenDeXuat, allCategory, truyenMoi, allComics, isLoading } =
     useContext(ComicContext);
+
+  const popularComics = allComics
+    .sort((a, b) => {
+      return b.rate - a.rate;
+    })
+    .slice(0, 100);
+
   if (isLoading) {
     return (
       <div className="bg-[#151018] rounded-3xl h-175 mx-25 flex justify-center items-center">
@@ -26,7 +34,7 @@ const Home = () => {
     <div>
       <Slider />
       <Session title="Truyện đề xuất" more type="popular">
-        {allComics.map((item, i) => {
+        {popularComics.slice(0, 20).map((item, i) => {
           return (
             <ComicItem
               key={i}
@@ -77,6 +85,7 @@ const Home = () => {
       </h1>
       <Introduce />
       <WebCard />
+      <AllComics title="Tất cả truyện" />
     </div>
   );
 };

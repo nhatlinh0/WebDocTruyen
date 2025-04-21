@@ -9,14 +9,12 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [accept, setAccept] = useState(false);
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
     if (
       password !== confirmPassword ||
-      !accept ||
       !email ||
       !password ||
       !confirmPassword ||
@@ -161,34 +159,6 @@ const Register = () => {
             </div>
 
             {/* Terms and Conditions */}
-            <div className="flex items-start">
-              <div className="flex items-center h-5">
-                <input
-                  id="terms"
-                  type="checkbox"
-                  onChange={(e) => setAccept(e.target.checked)}
-                  className="h-4 w-4 text-[#C42F44] rounded border-gray-500 focus:ring-[#C42F44]"
-                />
-              </div>
-              <div className="ml-3 text-sm">
-                <label htmlFor="terms" className="text-gray-300">
-                  Tôi đồng ý với{" "}
-                  <Link
-                    to="/terms"
-                    className="text-[#C42F44] hover:text-[#d13a51]"
-                  >
-                    Điều khoản sử dụng
-                  </Link>{" "}
-                  và{" "}
-                  <Link
-                    to="/privacy"
-                    className="text-[#C42F44] hover:text-[#d13a51]"
-                  >
-                    Chính sách bảo mật
-                  </Link>
-                </label>
-              </div>
-            </div>
 
             {/* Submit button */}
             <div className="pt-2">

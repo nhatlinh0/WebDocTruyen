@@ -8,7 +8,7 @@ const PopularComic = () => {
     .sort((a, b) => {
       return b.rate - a.rate;
     })
-    .slice(0, 16);
+    .slice(0, 100);
   return (
     <div className="text-white px-4 sm:px-8 md:px-10 lg:px-16">
       <h1 className="text-xl sm:text-2xl md:text-3xl font-bold my-6 md:my-8 lg:my-12">

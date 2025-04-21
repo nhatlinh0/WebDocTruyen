@@ -140,9 +140,7 @@ const Reading = () => {
           </div>
 
           <div className="flex justify-between items-center bg-[#332B37] h-full w-full sm:w-1/2 rounded-xl p-2 sm:p-4 relative">
-            <p className="text-sm sm:text-base w-40 truncate mr-2">
-              {chapter.title}
-            </p>
+            <p className="text-sm sm:text-base mr-2">{chapter.title}</p>
             <div
               className="pl-1 sm:pl-2 border-l-2 cursor-pointer flex-shrink-0"
               onClick={() => setToggleMenu(!toggleMenu)}

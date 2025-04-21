@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
+import ReactPaginate from "react-paginate";
 import { FaCommentAlt, FaStar, FaExclamationTriangle } from "react-icons/fa";
 import userIcon from "../../Assets/icons8-user-100.png";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 const Comment = ({ comicId, rate }) => {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
   // State chỉ để hiển thị giao diện, bạn sẽ xử lý logic sau
+
   const [hoverRating, setHoverRating] = useState(0);
   const [selectedRating, setSelectedRating] = useState(0);
   const [comment, setComment] = useState("");
@@ -15,7 +18,23 @@ const Comment = ({ comicId, rate }) => {
   const [reportType, setReportType] = useState("");
   const [reportDescription, setReportDescription] = useState("");
   const [userComment, setUserComment] = useState([]);
-  const [userNames, setUserNames] = useState({});
+  const [userNames, setUserNames] = useState([]);
+  const [userAvatars, setUserAvatars] = useState([]);
+
+  // PHAN TRANG
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 5;
+
+  const pageCount = Math.ceil(userComment.length / itemsPerPage);
+
+  const handlePageClick = (event) => {
+    setCurrentPage(event.selected);
+  };
+
+  const offset = currentPage * itemsPerPage;
+  const currentItems = userComment.slice(offset, offset + itemsPerPage);
+
+  // KET THUC PHAN TRANG
 
   const handleRate = () => {
     if (!userId || !token) {
@@ -30,8 +49,12 @@ const Comment = ({ comicId, rate }) => {
       body: JSON.stringify({ user_id: userId, rating: selectedRating }),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.log("Server Errror"));
+      .then((data) => {
+        if (data) {
+          toast.success("Đánh giá thành công");
+        }
+      })
+      .catch((error) => toast.error("Server Errror"));
   };
 
   const handleComment = () => {
@@ -52,11 +75,11 @@ const Comment = ({ comicId, rate }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        toast.success("Bình luận thành công");
         setComment("");
         updateComments();
       })
-      .catch((error) => console.log("Server Errror"));
+      .catch((error) => toast.error("Server Errror"));
   };
 
   const handleError = () => {
@@ -77,12 +100,12 @@ const Comment = ({ comicId, rate }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        toast.success("Báo lỗi thành công");
         setReportType("");
         setReportDescription("");
         setShowReportModal(false);
       })
-      .catch((error) => console.log("Server Errror"));
+      .catch((error) => toast.error("Server Errror"));
   };
 
   const updateComments = () => {
@@ -118,6 +141,10 @@ const Comment = ({ comicId, rate }) => {
             setUserNames((prev) => ({
               ...prev,
               [comment.user_id]: data.name,
+            }));
+            setUserAvatars((prev) => ({
+              ...prev,
+              [comment.user_id]: data.avatar,
             }));
           }
         });
@@ -298,11 +325,16 @@ const Comment = ({ comicId, rate }) => {
 
       <div className="mx-4 sm:mx-8 md:mx-16 lg:mx-40 mb-6 sm:mb-8 bg-[#231B27] rounded-lg sm:rounded-xl border border-gray-700 shadow-md overflow-hidden">
         <div className="flex items-start p-3 sm:p-4">
-          <img
-            src={userIcon}
+          {/* <img
+            src={
+              "https://newphim.online/" +
+                userAvatars[item.user_id] +
+                "?v=" +
+                new Date().getTime() || userIcon
+            }
             alt="User"
             className="h-8 w-8 sm:h-10 sm:w-10 rounded-full mr-2 sm:mr-3 border-2 border-gray-700"
-          />
+          /> */}
           <div className="flex-1 flex flex-col">
             <textarea
               className="w-full p-2 sm:p-3 bg-[#332B37] border border-gray-600 rounded-lg text-white min-h-[60px] sm:min-h-[80px] focus:border-[#C72F44] focus:ring focus:ring-[#C72F44]/20 transition-all duration-200 outline-none resize-none text-sm sm:text-base"
@@ -330,10 +362,15 @@ const Comment = ({ comicId, rate }) => {
 
       {/* user comment */}
       {userComment &&
-        userComment.map((item) => (
+        currentItems.map((item) => (
           <div className="flex mx-4 sm:mx-8 md:mx-16 lg:mx-40 my-6 sm:my-10">
             <img
-              src={userIcon}
+              src={
+                "https://newphim.online/" +
+                  userAvatars[item.user_id] +
+                  "?v=" +
+                  new Date().getTime() || userIcon
+              }
               alt="User avatar"
               className="h-10 w-10 sm:h-14 sm:w-14 mr-3 sm:mr-5 cursor-pointer rounded-full"
             />
@@ -353,6 +390,24 @@ const Comment = ({ comicId, rate }) => {
           </div>
         ))}
 
+      {userComment && (
+        <ReactPaginate
+          breakLabel="..."
+          previousLabel={"←"}
+          nextLabel={"→"}
+          pageRangeDisplayed={3}
+          marginPagesDisplayed={2}
+          pageCount={pageCount}
+          onPageChange={handlePageClick}
+          containerClassName="flex justify-center gap-2 py-4"
+          pageClassName="border border-gray-600 rounded"
+          pageLinkClassName="block rounded px-3 py-1 text-white hover:bg-[#C72F44]"
+          previousLinkClassName="block px-3 py-1 border rounded text-white hover:bg-gray-500"
+          nextLinkClassName="block px-3 py-1 border rounded text-white hover:bg-gray-500"
+          activeLinkClassName="bg-[#C72F44] text-white"
+          breakClassName="text-white"
+        />
+      )}
       <div className="h-[1px] bg-[#C42F44] mx-4 sm:mx-8 md:mx-16 lg:mx-25"></div>
     </div>
   );

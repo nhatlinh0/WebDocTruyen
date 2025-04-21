@@ -1,29 +1,24 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ComicContext } from "../../Context/ComicContext";
 import { Link, useNavigate } from "react-router-dom";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { FaEye } from "react-icons/fa";
+import ReactPaginate from "react-paginate";
 
 const ChapterList = (props) => {
   const navigate = useNavigate();
   const { allComics } = useContext(ComicContext);
-  // const chapters = allChapters.filter((item) => item.comic_id == props.comicId);
-
   const [chapters, setChapters] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [topComics, setTopComics] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [chaptersPerPage, setChaptersPerPage] = useState(20);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [chaptersPerPage, setChaptersPerPage] = useState(20);
 
   useEffect(() => {
     fetch(`https://newphim.online/api/top-month`)
       .then((res) => res.json())
       .then((data) => {
         if (data) {
-          // var top = allComics.filter((item) => {
-          //   return data.some((part) => part.id == item.id);
-          // });
-          setTopComics(data);
+          setTopComics(data.slice(0, 10));
         }
       })
       .catch((error) => console.log("Server Errror"));
@@ -44,40 +39,32 @@ const ChapterList = (props) => {
     }
   }, [props.comicId]);
 
-  const totalChapters = chapters.length;
-  const totalPages = Math.ceil(totalChapters / chaptersPerPage);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentItems, setCurrentItems] = useState([]);
+  const itemsPerPage = 50;
 
-  const indexOfLastChapter = currentPage * chaptersPerPage;
-  const indexOfFirstChapter = indexOfLastChapter - chaptersPerPage;
-  const currentChapters = chapters.slice(
-    indexOfFirstChapter,
-    indexOfLastChapter
-  );
-
-  const paginate = (pageNumber) => {
-    if (pageNumber > 0 && pageNumber <= totalPages) {
-      setCurrentPage(pageNumber);
-    }
+  // const pageCount = Math.ceil(chapters.length / itemsPerPage);
+  const pageCount = 40;
+  const handlePageClick = (event) => {
+    setCurrentPage(event.selected + 1);
   };
 
-  const pageNumberLimit = 5;
-
-  let pageNumbers = [];
-  if (totalPages <= pageNumberLimit) {
-    pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
-  } else {
-    const leftOffset = Math.max(
-      0,
-      Math.min(
-        totalPages - pageNumberLimit,
-        currentPage - Math.ceil(pageNumberLimit / 2)
-      )
-    );
-    pageNumbers = Array.from(
-      { length: pageNumberLimit },
-      (_, i) => leftOffset + i + 1
-    ).filter((num) => num <= totalPages);
-  }
+  useEffect(() => {
+    fetch(
+      `https://newphim.online/api/truyen-chu/${props.comicId}/chaps?page=${currentPage}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setCurrentItems(data);
+          setIsLoading(false);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching chapters:", error);
+        setIsLoading(false);
+      });
+  }, [currentPage]);
 
   if (isLoading) {
     return (
@@ -90,7 +77,7 @@ const ChapterList = (props) => {
     );
   }
   return (
-    <div className="flex flex-col lg:flex-row justify-between mx-4 sm:mx-8 md:mx-16 lg:mx-20 xl:mx-40 gap-6 lg:gap-10 my-8 sm:my-12 md:my-16 lg:my-20">
+    <div className="flex flex-col lg:flex-row justify-between mx-4 sm:mx-8 md:mx-16 lg:mx-20 xl:mx-20 gap-6 lg:gap-10 my-8 sm:my-12 md:my-16 lg:my-20">
       {/* Danh sách chương */}
       <div className="bg-[#151018] rounded-lg py-4 sm:py-6 ring-1 ring-blue-800 w-full lg:flex-7">
         <div className="flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6 md:px-10 mb-4 sm:mb-6">
@@ -98,7 +85,7 @@ const ChapterList = (props) => {
             Danh sách chương
           </p>
           <div className="flex items-center text-white text-xs sm:text-sm">
-            <span>Hiển thị:</span>
+            {/* <span>Hiển thị:</span>
             <select
               className="ml-2 bg-[#231B27] rounded-md px-2 py-1 border border-gray-700"
               value={chaptersPerPage}
@@ -111,14 +98,14 @@ const ChapterList = (props) => {
               <option value={20}>20</option>
               <option value={50}>50</option>
               <option value={100}>100</option>
-            </select>
+            </select> */}
           </div>
         </div>
 
-        {totalChapters > 0 ? (
+        {currentItems.length > 0 ? (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 text-white gap-y-4 sm:gap-y-6 place-items-start px-4 sm:px-6 md:px-10">
-              {currentChapters.map((item) => (
+              {currentItems.map((item) => (
                 <Link
                   key={item.id}
                   to={`/reading/${props.comicId}/${item.id}`}
@@ -131,80 +118,22 @@ const ChapterList = (props) => {
             </div>
 
             {/* Phân trang */}
-            <div className="flex flex-wrap justify-center items-center mt-6 sm:mt-8 md:mt-10 text-white">
-              <button
-                onClick={() => paginate(currentPage - 1)}
-                disabled={currentPage === 1}
-                className={`mx-1 p-1 sm:p-2 rounded-md ${
-                  currentPage === 1 ? "text-gray-500" : "hover:bg-[#231B27]"
-                }`}
-              >
-                <FiChevronLeft />
-              </button>
-
-              {/* Trang đầu tiên */}
-              {pageNumbers[0] > 1 && (
-                <>
-                  <button
-                    onClick={() => paginate(1)}
-                    className={`mx-1 px-2 sm:px-3 py-1 rounded-md ${
-                      currentPage === 1
-                        ? "bg-[#C72F44] text-white"
-                        : "hover:bg-[#231B27]"
-                    }`}
-                  >
-                    1
-                  </button>
-                  {pageNumbers[0] > 2 && <span className="mx-1">...</span>}
-                </>
-              )}
-
-              {/* Các trang giữa */}
-              {pageNumbers.map((number) => (
-                <button
-                  key={number}
-                  onClick={() => paginate(number)}
-                  className={`mx-1 px-2 sm:px-3 py-1 rounded-md ${
-                    currentPage === number
-                      ? "bg-[#C72F44] text-white"
-                      : "hover:bg-[#231B27]"
-                  }`}
-                >
-                  {number}
-                </button>
-              ))}
-
-              {/* Trang cuối cùng */}
-              {pageNumbers[pageNumbers.length - 1] < totalPages && (
-                <>
-                  {pageNumbers[pageNumbers.length - 1] < totalPages - 1 && (
-                    <span className="mx-1">...</span>
-                  )}
-                  <button
-                    onClick={() => paginate(totalPages)}
-                    className={`mx-1 px-2 sm:px-3 py-1 rounded-md ${
-                      currentPage === totalPages
-                        ? "bg-[#C72F44] text-white"
-                        : "hover:bg-[#231B27]"
-                    }`}
-                  >
-                    {totalPages}
-                  </button>
-                </>
-              )}
-
-              <button
-                onClick={() => paginate(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                className={`mx-1 p-1 sm:p-2 rounded-md ${
-                  currentPage === totalPages
-                    ? "text-gray-500"
-                    : "hover:bg-[#231B27]"
-                }`}
-              >
-                <FiChevronRight />
-              </button>
-            </div>
+            <ReactPaginate
+              breakLabel="..."
+              previousLabel={"←"}
+              nextLabel={"→"}
+              pageRangeDisplayed={3}
+              marginPagesDisplayed={2}
+              pageCount={pageCount}
+              onPageChange={handlePageClick}
+              containerClassName="flex justify-center gap-2 py-4"
+              pageClassName="border border-gray-600 rounded"
+              pageLinkClassName="block rounded px-3 py-1 text-white hover:bg-[#C72F44]"
+              previousLinkClassName="block px-3 py-1 border rounded text-white hover:bg-gray-500"
+              nextLinkClassName="block px-3 py-1 border rounded text-white hover:bg-gray-500"
+              activeLinkClassName="bg-[#C72F44] text-white"
+              breakClassName="text-white"
+            />
           </>
         ) : (
           <div className="text-center text-white py-6 sm:py-8 md:py-10">
@@ -217,7 +146,7 @@ const ChapterList = (props) => {
         <h1 className="text-center text-[#C72F44] font-bold py-2 sm:py-3 border-b border-blue-800 bg-[#1A1520] text-base sm:text-lg">
           Xem nhiều trong tháng
         </h1>
-        <div className="overflow-y-auto max-h-[300px] sm:max-h-[400px] md:h-[500px] px-3 sm:px-4 custom-scrollbar">
+        <div className="overflow-y-auto px-3 sm:px-4 custom-scrollbar">
           {topComics &&
             topComics.map((item, i) => {
               const top = allComics.find((c) => c.id == item.id);

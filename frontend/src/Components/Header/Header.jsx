@@ -491,7 +491,7 @@ const Header = () => {
           </div>
 
           {/* Dark mode toggle */}
-          <FaRegMoon className="hidden md:block w-5 h-5 ml-4 cursor-pointer hover:text-[#ff4d6d] duration-300" />
+          {/* <FaRegMoon className="hidden md:block w-5 h-5 ml-4 cursor-pointer hover:text-[#ff4d6d] duration-300" /> */}
 
           {/* User profile / Login buttons */}
           <div className="group relative flex items-center justify-center ml-4 lg:mr-4">

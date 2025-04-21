@@ -105,12 +105,6 @@ const Login = () => {
                   >
                     Mật khẩu
                   </label>
-                  <Link
-                    to="/forgot-password"
-                    className="text-sm text-[#C42F44] hover:text-[#d13a51]"
-                  >
-                    Quên mật khẩu?
-                  </Link>
                 </div>
                 <input
                   id="password"
@@ -122,7 +116,7 @@ const Login = () => {
                 />
               </div>
               {/* Remember me */}
-              <div className="flex items-center">
+              {/* <div className="flex items-center">
                 <input
                   id="remember-me"
                   type="checkbox"
@@ -134,7 +128,7 @@ const Login = () => {
                 >
                   Lưu thông tin đăng nhập
                 </label>
-              </div>
+              </div> */}
               {/* Submit button */}
               <div>
                 <button

@@ -3,6 +3,7 @@ import defaultavatar from "../../Assets/comic-icon.png";
 import defaultcover from "../../Assets/default-cover.webp";
 import { UserContext } from "../../Context/UserContext";
 import toast, { Toaster } from "react-hot-toast";
+import ReactPaginate from "react-paginate";
 
 const Setting = () => {
   const userId = localStorage.getItem("userId");
@@ -150,6 +151,7 @@ const Setting = () => {
   useEffect(() => {
     refreshUserData();
   }, [userId]);
+
   return (
     <div className="mt-8 sm:mt-10 md:mt-14 px-4 sm:px-6">
       <h2 className="text-white text-lg sm:text-xl ring-2 p-2 ring-[#41276b] mb-6 sm:mb-8 md:mb-12 text-center shadow-[#41276b] shadow-xl">
