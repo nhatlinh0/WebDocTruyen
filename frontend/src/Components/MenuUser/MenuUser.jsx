@@ -227,7 +227,7 @@ const MenuUser = () => {
 
       {menu === "setting" && <Setting />}
 
-      {(savedComics || historyComics) && (
+      {menu != "setting" && (savedComics || historyComics) && (
         <ReactPaginate
           key={menu}
           breakLabel="..."

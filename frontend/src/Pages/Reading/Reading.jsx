@@ -11,7 +11,10 @@ import { ComicContext } from "../../Context/ComicContext";
 const Reading = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const comicName = location.state?.comicName;
+  // const comicName = location.state?.comicName;
+  // const currentPage = location.state?.page;
+  const [comicName, setComicName] = useState(location.state?.comicName);
+  const [currentPage, setCurrentPage] = useState(location.state?.page);
 
   const { comicId, chapterId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
@@ -47,7 +50,9 @@ const Reading = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`https://newphim.online/api/truyen-chu/${comicId}/chaps`)
+    fetch(
+      `https://newphim.online/api/truyen-chu/${comicId}/chaps?page=${currentPage}`
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data) {
@@ -415,7 +420,8 @@ const Reading = () => {
 
           <div className="text-white text-sm sm:text-lg my-2 sm:my-0">
             <span className="px-2 sm:px-4 py-1 sm:py-2 bg-[#332B37] rounded-lg">
-              Chương {index + 1}/{chapters.length}
+              Chương {50 * (currentPage - 1) + index + 1}/
+              {50 * (currentPage - 1) + chapters.length}
             </span>
           </div>
 

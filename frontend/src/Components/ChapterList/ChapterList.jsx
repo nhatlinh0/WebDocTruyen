@@ -109,7 +109,7 @@ const ChapterList = (props) => {
                 <Link
                   key={item.id}
                   to={`/reading/${props.comicId}/${item.id}`}
-                  state={{ comicName: props.comicName }}
+                  state={{ comicName: props.comicName, page: currentPage }}
                   className="hover:text-[#C72F44] transition-colors duration-200 w-full truncate pr-4"
                 >
                   <p onClick={() => window.scrollTo(0, 0)}>{item.title}</p>
