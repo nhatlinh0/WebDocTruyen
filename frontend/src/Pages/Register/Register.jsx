@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import AuthLayout from "../../Components/AuthLayout/AuthLayout";
-import registerBg from "../../assets/sao-slider.jpg";
+import registerBg from "../../assets/background1.webp";
 import toast, { Toaster } from "react-hot-toast";
 
 const Register = () => {

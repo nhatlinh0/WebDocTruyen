@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import sao from "../../Assets/sao-slider.jpg";
+import background2 from "../../Assets/background2.jpg";
 import { FaEye } from "react-icons/fa";
 import { MdOutlineStar } from "react-icons/md";
 import { Link, Navigate, useNavigate } from "react-router-dom";
@@ -60,7 +60,7 @@ const ComicDisplay = ({ comic }) => {
     <div className="rounded-lg bg-[#151018] mx-4 sm:mx-8 md:mx-16 lg:mx-20 ring-1 ring-blue-900">
       <div className="relative h-40 sm:h-60 md:h-88 w-full">
         <img
-          src={sao}
+          src={background2}
           alt=""
           className="absolute inset-0 object-cover w-full h-full rounded-t-lg sm:rounded-t-xl md:rounded-t-3xl brightness-30"
         />
