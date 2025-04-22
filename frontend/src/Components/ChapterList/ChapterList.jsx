@@ -44,7 +44,9 @@ const ChapterList = (props) => {
   const itemsPerPage = 50;
 
   // const pageCount = Math.ceil(chapters.length / itemsPerPage);
-  const pageCount = 40;
+
+  const pageCount =
+    Number(props.chapterCount) > 0 ? Number(props.chapterCount) / 50 : 0;
   const handlePageClick = (event) => {
     setCurrentPage(event.selected + 1);
   };

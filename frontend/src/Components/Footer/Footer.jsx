@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BiLogoFacebookCircle } from "react-icons/bi";
 import { FaDiscord } from "react-icons/fa";
 import instagram from "../../Assets/instagram-icon.png";
@@ -19,6 +19,17 @@ import {
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    fetch(`https://newphim.online/api/categories`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setCategories(data.slice(0, 8));
+        }
+      });
+  }, []);
 
   return (
     <div>
@@ -73,70 +84,20 @@ const Footer = () => {
                 Thể loại truyện
               </h3>
               <ul className="space-y-2 md:space-y-3 grid grid-cols-2 sm:block">
-                <li>
-                  <a
-                    href="#"
-                    className="text-sm hover:text-red-400 transition-colors"
-                  >
-                    Manga
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-sm hover:text-red-400 transition-colors"
-                  >
-                    Manhwa
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-sm hover:text-red-400 transition-colors"
-                  >
-                    Manhua
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-sm hover:text-red-400 transition-colors"
-                  >
-                    Action
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-sm hover:text-red-400 transition-colors"
-                  >
-                    Fantasy
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-sm hover:text-red-400 transition-colors"
-                  >
-                    Romance
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-sm hover:text-red-400 transition-colors"
-                  >
-                    Adventure
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-sm hover:text-red-400 transition-colors"
-                  >
-                    Comedy
-                  </a>
-                </li>
+                {categories &&
+                  categories.map((c) => {
+                    return (
+                      <li key={c.id}>
+                        <Link
+                          to={`/categories/${c.id}`}
+                          onClick={() => window.scrollTo(0, 0)}
+                          className="text-sm hover:text-red-400 transition-colors"
+                        >
+                          {c.name}
+                        </Link>
+                      </li>
+                    );
+                  })}
               </ul>
             </div>
 

@@ -10,7 +10,7 @@ const CategoryList = () => {
         Tất cả thể loại
       </h1>
 
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8 md:gap-10 mb-16 sm:mb-24 md:mb-40 lg:mb-60">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-8 md:gap-10 mb-16 sm:mb-24 md:mb-40 lg:mb-60">
         {allCategory.map((item, i) => {
           return (
             <CategoryItem

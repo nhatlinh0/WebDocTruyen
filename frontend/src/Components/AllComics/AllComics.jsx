@@ -39,7 +39,7 @@ const AllComics = (props) => {
         </h1>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 justify-items-center gap-4 md:gap-6 lg:gap-y-10">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6 lg:gap-y-10">
         {currentItems.map((item, i) => {
           return (
             <ComicItem
