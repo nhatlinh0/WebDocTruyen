@@ -28,13 +28,16 @@ const Comic = () => {
 
   useEffect(() => {
     if (comic?.category) {
-      fetch(`https://newphim.online/api/categories/${comic.category[0]}`)
+      fetch(
+        `https://newphim.online/api/categories/${comic.category[0]}/stories`
+      )
         .then((res) => {
           return res.json();
         })
         .then((data) => {
           setRelatedComics(
-            data.stories.filter((item) => item.id != comic.id).slice(0, 30)
+            // data.stories.filter((item) => item.id != comic.id).slice(0, 30)
+            data.filter((item) => item.id != comic.id).slice(0, 30)
           );
           setIsLoading(false);
         });

@@ -20,6 +20,7 @@ import Register from "./Pages/Register/Register";
 import Login from "./Pages/Login/Login";
 import NotFound from "./Pages/NotFound/NotFound";
 import toast, { Toaster } from "react-hot-toast";
+import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 
 const MainLayout = () => {
   return (
@@ -78,6 +79,14 @@ function App() {
             element={
               <GuestGuard>
                 <Login />
+              </GuestGuard>
+            }
+          />
+          <Route
+            path="/forgotpassword"
+            element={
+              <GuestGuard>
+                <ForgotPassword />
               </GuestGuard>
             }
           />

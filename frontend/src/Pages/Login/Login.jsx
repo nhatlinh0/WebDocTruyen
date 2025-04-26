@@ -43,14 +43,14 @@ const Login = () => {
 
   return (
     <>
-      {isLoading && (
+      {/* {isLoading && (
         <div className="absolute inset-0 z-100 bg-[#151018]/80 rounded-3xl flex justify-center items-center">
           <div className="text-center text-white">
             <div className="w-10 h-10 border-4 border-t-[#C72F44] border-[#332B37] rounded-full animate-spin mx-auto mb-4"></div>
             <p className="text-xl">Đang tải...</p>
           </div>
         </div>
-      )}
+      )} */}
 
       <AuthLayout>
         <div className="flex w-full max-w-5xl mx-auto rounded-lg overflow-hidden shadow-2xl">
@@ -115,6 +115,7 @@ const Login = () => {
                   placeholder="Nhập mật khẩu"
                 />
               </div>
+
               {/* Remember me */}
               {/* <div className="flex items-center">
                 <input
@@ -140,6 +141,14 @@ const Login = () => {
                 </button>
               </div>
             </form>
+
+            <div>
+              <Link to={"/forgotpassword"}>
+                <p className="place-self-end cursor-pointer text-[#C42F44] text-sm italic mt-2">
+                  Quên mật khẩu?
+                </p>
+              </Link>
+            </div>
 
             {/* Social login
           <div className="mt-8">

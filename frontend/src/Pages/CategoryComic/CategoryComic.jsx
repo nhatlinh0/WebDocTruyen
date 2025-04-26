@@ -5,16 +5,20 @@ import { useParams } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 
 const CategoryComic = () => {
-  // const { allComics, allCategory } = useContext(ComicContext);
+  const { allCategory } = useContext(ComicContext);
   const [comics, setComics] = useState(null);
   const { categoryId } = useParams();
 
   useEffect(() => {
-    fetch(`https://newphim.online/api/categories/${categoryId}`)
+    fetch(`https://newphim.online/api/categories/${categoryId}/stories`)
       .then((res) => res.json())
-      .then((data) =>
-        setComics({ name: data.name, stories: data.stories.slice(0, 100) })
-      );
+      .then((data) => {
+        if (data) {
+          var category = allCategory.find((c) => (c.id = categoryId));
+          setComics({ name: category.name, stories: data.slice(0, 200) });
+          // setComics({ name: data.name, stories: data.stories.slice(0, 200) });
+        }
+      });
   }, [categoryId]);
 
   // PHAN TRANG
